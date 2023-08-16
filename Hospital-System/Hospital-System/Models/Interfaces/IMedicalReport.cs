@@ -5,17 +5,17 @@ namespace Hospital_System.Models.Interfaces
     public interface IMedicalReport
     {
 
-        Task<MedicalReportDTO> CreateMedicalReport(MedicalReportDTO MedicalReportDto);
+        Task<OutMedicalReportDTO> CreateMedicalReport(InMedicalReportDTO MedicalReportDto);
 
         // GET All
-        Task<List<MedicalReportDTO>> GetMedicalReports();
+        Task<List<OutMedicalReportDTO>> GetMedicalReports();
 
         // GET Hotel By Id
 
         Task<MedicalReportDTO> GetMedicalReport(int MedicalReportID);
 
         // Update
-        Task<MedicalReportDTO> UpdateMedicalReport(int id, MedicalReportDTO MedicalReportID);
+        Task<OutMedicalReportDTO> UpdateMedicalReport(int id, InMedicalReportDTO MedicalReportID);
 
         // Delete 
 

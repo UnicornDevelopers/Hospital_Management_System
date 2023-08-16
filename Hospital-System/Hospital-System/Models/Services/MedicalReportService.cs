@@ -1,6 +1,8 @@
 ﻿using Hospital_System.Data;
 using Hospital_System.Models;
 using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.MedicalReport;
+using Hospital_System.Models.DTOs.Medicine;
 using Hospital_System.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,9 +17,8 @@ namespace Hospital_System.Models.Services
             _context = context;
         }
         // CREATE Department........................................................................
-        public async Task<MedicalReportDTO> CreateMedicalReport(MedicalReportDTO newMedicalReportDTO)
+        public async Task<OutMedicalReportDTO> CreateMedicalReport(InMedicalReportDTO newMedicalReportDTO)
         {
-            // Validate DoctorId and PatientId
             var doctor = await _context.Doctors.FindAsync(newMedicalReportDTO.DoctorId);
             if (doctor == null)
             {
@@ -28,6 +29,7 @@ namespace Hospital_System.Models.Services
             {
                 throw new ArgumentException("Invalid PatientId");
             }
+
             MedicalReport medicalReport = new MedicalReport
             {
                 Id = newMedicalReportDTO.Id,
@@ -36,30 +38,51 @@ namespace Hospital_System.Models.Services
                 PatientId = newMedicalReportDTO.PatientId,
                 DoctorId = newMedicalReportDTO.DoctorId,
             };
-            _context.Entry(medicalReport).State = EntityState.Added;
-            newMedicalReportDTO.Id = medicalReport.Id;
+
+            _context.MedicalReports.Add(medicalReport);
             await _context.SaveChangesAsync();
-            return newMedicalReportDTO;
-        }
-        // Get Department........................................................................
-        public async Task<List<MedicalReportDTO>> GetMedicalReports()
-        {
-            var medicalReport = await _context.MedicalReports.Select(x => new MedicalReportDTO()
+
+
+            OutMedicalReportDTO outMedicalReportDTO = new OutMedicalReportDTO
             {
-                Id = x.Id,
-                ReportDate = x.ReportDate,
-                Description = x.Description,
-                PatientId = x.PatientId,
-                DoctorId = x.DoctorId,
-                Medicines = x.Medicines.Select(x => new MedicineDTO()
+                Id = medicalReport.Id,
+                ReportDate = medicalReport.ReportDate,
+                Description = medicalReport.Description,
+                PatientId = medicalReport.PatientId,
+                PatientName = $"{patient.FirstName} {patient.LastName}",
+                DoctorId = medicalReport.DoctorId,
+                DoctorName = $"{doctor.FirstName} {doctor.LastName}",
+                DepartmentName = doctor.department.DepartmentName 
+            };
+
+            return outMedicalReportDTO;
+        }
+
+        // Get Department........................................................................
+        public async Task<List<OutMedicalReportDTO>> GetMedicalReports()
+        {
+            var medicalReports = await _context.MedicalReports
+                .Include(m => m.patient)
+                .Include(m => m.doctor.department)
+                .Select(x => new OutMedicalReportDTO()
                 {
                     Id = x.Id,
-                    MedicineName = x.MedicineName,
-                    Portion = x.Portion,
-                }).ToList(),
-            }).ToListAsync();
-            return medicalReport;
+                    ReportDate = x.ReportDate,
+                    Description = x.Description,
+                    PatientId = x.PatientId,
+                    PatientName = $"{x.patient.FirstName} {x.patient.LastName}",
+                    DoctorId = x.DoctorId,
+                    DoctorName = $"{x.doctor.FirstName} {x.doctor.LastName}",
+                    DepartmentName = x.doctor.department.DepartmentName,
+                }).ToListAsync();
+
+            return medicalReports;
         }
+
+
+
+
+
         // Get Department by ID........................................................................
         public async Task<MedicalReportDTO> GetMedicalReport(int id)
         {
@@ -70,7 +93,7 @@ namespace Hospital_System.Models.Services
                 Description = x.Description,
                 PatientId = x.PatientId,
                 DoctorId = x.DoctorId,
-                Medicines = x.Medicines.Select(x => new MedicineDTO()
+                Medicines = x.Medicines.Select(x => new OutMedicineDTO()
                 {
                     Id = x.Id,
                     MedicineName = x.MedicineName,
@@ -80,18 +103,39 @@ namespace Hospital_System.Models.Services
             return medicalReport;
         }
         // Update Department by ID........................................................................
-        public async Task<MedicalReportDTO> UpdateMedicalReport(int id, MedicalReportDTO updateMedicalReportDTO)
+       
+        public async Task<OutMedicalReportDTO> UpdateMedicalReport(int id, InMedicalReportDTO updateMedicalReportDTO)
         {
-            MedicalReport report = await _context.MedicalReports.FindAsync(id);
+            MedicalReport report = await _context.MedicalReports
+                .Include(m => m.patient)
+                .Include(m => m.doctor.department)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
             if (report == null)
-                return null;
-            report.Id = updateMedicalReportDTO.Id;
+            {
+                throw new ArgumentException($"Medical report with ID {id} not found.");
+            }
+
             report.ReportDate = updateMedicalReportDTO.ReportDate;
             report.Description = updateMedicalReportDTO.Description;
-            _context.Entry(report).State = EntityState.Modified;
+
             await _context.SaveChangesAsync();
-            return updateMedicalReportDTO;
+
+            var outMedicalReportDTO = new OutMedicalReportDTO
+            {
+                Id = report.Id,
+                ReportDate = report.ReportDate,
+                Description = report.Description,
+                PatientId = report.PatientId,
+                PatientName = $"{report.patient.FirstName} {report.patient.LastName}",
+                DoctorId = report.DoctorId,
+                DoctorName = $"{report.doctor.FirstName} {report.doctor.LastName}",
+                DepartmentName = report.doctor.department.DepartmentName
+            };
+
+            return outMedicalReportDTO;
         }
+
         // Delete Appointment by ID........................................................................
         public async Task DeleteMedicalReport(int id)
         {

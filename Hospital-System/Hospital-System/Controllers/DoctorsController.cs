@@ -10,6 +10,7 @@ using Hospital_System.Models;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Hospital_System.Models.Interfaces;
 using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Doctor;
 
 namespace Hospital_System.Controllers
 {
@@ -48,7 +49,7 @@ namespace Hospital_System.Controllers
         // PUT: api/Doctors/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult<DoctorDTO>> PutDoctor(int id, DoctorDTO doctor)
+        public async Task<ActionResult<InDoctorDTO>> PutDoctor(int id, InDoctorDTO doctor)
         {
             if (id != doctor.Id)
             {
@@ -67,7 +68,7 @@ namespace Hospital_System.Controllers
         // POST: api/Doctors
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<OutDocDTO>> PostDoctor(DoctorDTO doctor)
+        public async Task<ActionResult<OutDocDTO>> PostDoctor(InDoctorDTO doctor)
         {
             try
             {

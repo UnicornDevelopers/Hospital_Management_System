@@ -1,5 +1,6 @@
 ﻿using Hospital_System.Data;
 using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Hospital;
 using Hospital_System.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,14 +16,22 @@ namespace Hospital_System.Models.Services
         }
 
 
-        public async Task<Hospital> Create(Hospital hospital)
+        public async Task<OutHospitalDTO> Create(OutHospitalDTO hospital)
         {
 
+            Hospital hospitalEntity = new Hospital()
+            {
+                Id = hospital.Id,
+                HospitalName = hospital.HospitalName,
+                Address = hospital.Address,
+                ContactNumber = hospital.ContactNumber
+            };
 
+    
 
-            _context.Hospitals.Add(hospital);
+            _context.Hospitals.Add(hospitalEntity);
             await _context.SaveChangesAsync();
-
+            hospital.Id = hospitalEntity.Id;
             return hospital;
 
 

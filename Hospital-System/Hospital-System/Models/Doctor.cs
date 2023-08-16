@@ -13,7 +13,7 @@ namespace Hospital_System.Models
         public string ContactNumber { get; set; }
         public string Speciality { get; set; }
 
-        public int? DepartmentId { get; set; }
+        public int DepartmentId { get; set; }
         
 
 
