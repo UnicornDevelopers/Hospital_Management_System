@@ -17,10 +17,10 @@ namespace Hospital_System.Controllers
             _medicine = medicine;
         }
 
-
+    
         // GET: api/Medicines
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MedicineDTO>>> GetMedicines()
+        public async Task<ActionResult<IEnumerable<OutMedicineDTO>>> GetMedicines()
         {
             var TheMedicine = await _medicine.GetMedicines();
             return Ok(TheMedicine);
@@ -28,9 +28,9 @@ namespace Hospital_System.Controllers
 
         // GET: api/Medicine/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<MedicineDTO>> GetMedicine(int id)
+        public async Task<ActionResult<OutMedicineDTO>> GetMedicine(int id)
         {
-            MedicineDTO TheMedicine = await _medicine.GetMedicine(id);
+            OutMedicineDTO TheMedicine = await _medicine.GetMedicine(id);
 
             if (TheMedicine == null)
             {
@@ -43,7 +43,7 @@ namespace Hospital_System.Controllers
         // PUT: api/Medicine/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMedicine(int id, MedicineDTO medicine)
+        public async Task<IActionResult> PutMedicine(int id, OutMedicineDTO medicine)
         {
             if (id != medicine.Id)
             {
@@ -56,7 +56,7 @@ namespace Hospital_System.Controllers
         // POST: api/Medicine
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<MedicineDTO>> PostMedicine(MedicineDTO medicine)
+        public async Task<ActionResult<OutMedicineDTO>> PostMedicine(OutMedicineDTO medicine)
         {
             if (medicine == null)
             {

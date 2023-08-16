@@ -5,6 +5,8 @@ using Hospital_System.Models.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Hospital_System.Models.DTOs.AppointmentDTO;
+using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Appointment;
 
 namespace Hospital_System.Controllers
 {
@@ -45,7 +47,7 @@ namespace Hospital_System.Controllers
         // PUT: api/Appointment/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAppointment(int id, AppointmentDTO appointment)
+        public async Task<IActionResult> PutAppointment(int id, InAppoinmentDTO appointment)
         {
             if (id != appointment.Id)
             {
@@ -58,7 +60,7 @@ namespace Hospital_System.Controllers
         // POST: api/Appointment
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<OutAppointmentDTO>> PostAppointment(AppointmentDTO appointment)
+        public async Task<ActionResult<OutAppointmentDTO>> PostAppointment(InAppoinmentDTO appointment)
         {
            
             try

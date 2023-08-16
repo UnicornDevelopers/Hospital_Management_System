@@ -5,7 +5,7 @@ namespace Hospital_System.Models.Interfaces
     public interface INurse
     {
 
-        Task<NurseDTO> Create(NurseDTO Nurse);
+        Task<NurseDTO> Create(InNurseDTO Nurse);
 
         // GET All
         Task<List<NurseDTO>> GetNurses();

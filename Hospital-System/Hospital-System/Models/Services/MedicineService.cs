@@ -2,6 +2,7 @@
 using Hospital_System.Data;
 using Hospital_System.Models;
 using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Medicine;
 using Hospital_System.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,35 +19,33 @@ namespace Hospital_System.Models.Services
             _context = context;
         }
         // CREATE Medicine........................................................................
-        public async Task<MedicineDTO> CreateMedicine(MedicineDTO newMedicineDTO)
+        public async Task<OutMedicineDTO> CreateMedicine(OutMedicineDTO newMedicineDTO)
         {
             Medicine medicine = new Medicine
             {
-                Id = newMedicineDTO.Id,
                 MedicineName = newMedicineDTO.MedicineName,
-                Portion = newMedicineDTO.Portion,
-                MedicalReportId = newMedicineDTO.MedicalReportId
+                Portion = newMedicineDTO.Portion
             };
             _context.Entry(medicine).State = EntityState.Added;
             await _context.SaveChangesAsync();
-            medicine.Id = newMedicineDTO.Id;
+            newMedicineDTO.Id = medicine.Id;
             return newMedicineDTO;
         }
         // Get Medicine........................................................................
-        public async Task<List<MedicineDTO>> GetMedicines()
+        public async Task<List<OutMedicineDTO>> GetMedicines()
         {
-            var medicine = await _context.Medicines.Select(x => new MedicineDTO()
+            var medicines = await _context.Medicines.Select(x => new OutMedicineDTO()
             {
                 Id = x.Id,
                 MedicineName = x.MedicineName,
                 Portion = x.Portion,
             }).ToListAsync();
-            return medicine;
+            return medicines;
         }
         // Get Medicine by ID........................................................................
-        public async Task<MedicineDTO> GetMedicine(int id)
+        public async Task<OutMedicineDTO> GetMedicine(int id)
         {
-            var medicine = await _context.Medicines.Select(x => new MedicineDTO()
+            var medicine = await _context.Medicines.Select(x => new OutMedicineDTO()
             {
                 Id = x.Id,
                 MedicineName = x.MedicineName,
@@ -55,18 +54,20 @@ namespace Hospital_System.Models.Services
             return medicine;
         }
         // Update Medicine by ID........................................................................
-        public async Task<MedicineDTO> UpdateMedicine(int id, MedicineDTO updateMedicineDTO)
+        public async Task<OutMedicineDTO> UpdateMedicine(int id, OutMedicineDTO updateMedicineDTO)
         {
-            Medicine medicine = new Medicine
+            var medicine = await _context.Medicines.FindAsync(id);
+            if (medicine == null)
             {
-                Id = updateMedicineDTO.Id,
-                MedicineName = updateMedicineDTO.MedicineName,
-                Portion = updateMedicineDTO.Portion,
-            };
+                return null;
+            }
+            medicine.MedicineName = updateMedicineDTO.MedicineName;
+            medicine.Portion = updateMedicineDTO.Portion;
             _context.Entry(medicine).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return updateMedicineDTO;
         }
+
         // Delete Medicine by ID........................................................................
         public async Task DeleteMedicine(int id)
         {

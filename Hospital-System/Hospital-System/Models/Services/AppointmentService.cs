@@ -1,6 +1,7 @@
 ﻿using Hospital_System.Data;
 using Hospital_System.Models;
 using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Appointment;
 using Hospital_System.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,7 +16,7 @@ namespace Hospital_System.Models.Services
             _context = context;
         }
         // CREATE Appointment........................................................................
-        public async Task<OutAppointmentDTO> CreateAppointment(AppointmentDTO newAppointmentDTO)
+        public async Task<OutAppointmentDTO> CreateAppointment(InAppoinmentDTO newAppointmentDTO)
         {
             // Fetch additional information and check it's existing
             var patientEntity = await _context.Patients.FindAsync(newAppointmentDTO.PatientId);
@@ -74,19 +75,26 @@ namespace Hospital_System.Models.Services
         // Get Appointment by ID........................................................................
         public async Task<OutAppointmentDTO> GetAppointment(int id)
         {
-            var appointment = await _context.Appointments.Select(x => new AppointmentDTO()
-            {
-                Id = x.Id,
-                DateOfAppointment = x.DateOfAppointment,
-                PatientId = x.PatientId,
-                DoctorId = x.DoctorId,
+            var appointment = await _context.Appointments
+                .Include(a => a.doctor.department)
+                .Select(x => new OutAppointmentDTO()
+                {
+                    Id = x.Id,
+                    DateOfAppointment = x.DateOfAppointment,
+                    PatientId = x.PatientId,
+                    DoctorId = x.DoctorId,
+                    PatientName = $"{x.patient.FirstName} {x.patient.LastName}",
+                    DoctorName = $"{x.doctor.FirstName} {x.doctor.LastName}",
+                    DepartmentName = x.doctor.department.DepartmentName,
+                })
+                .FirstOrDefaultAsync(x => x.Id == id);
 
-            }).FirstOrDefaultAsync(x => x.Id == id);
             return appointment;
         }
 
+
         // Update Appointment by ID........................................................................
-        public async Task<AppointmentDTO> UpdateAppointment(int id, AppointmentDTO updateAppointmentDTO)
+        public async Task<InAppoinmentDTO> UpdateAppointment(int id, InAppoinmentDTO updateAppointmentDTO)
         {
             Appointment appointment = new Appointment
             {
@@ -103,8 +111,16 @@ namespace Hospital_System.Models.Services
         public async Task DeleteAppointment(int id)
         {
             Appointment appointment = await _context.Appointments.FindAsync(id);
-            _context.Entry(appointment).State = EntityState.Deleted;
-            await _context.SaveChangesAsync();
+            if (appointment != null)
+            {
+                _context.Entry(appointment).State = EntityState.Deleted;
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new InvalidOperationException($"The Appointment Id {id} does not exist.");
+            }
         }
+
     }
 }
