@@ -1,12 +1,10 @@
-﻿
-using Hospital_System.Data;
+﻿using Hospital_System.Data;
 using Hospital_System.Models;
 using Hospital_System.Models.DTOs;
 using Hospital_System.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Numerics;
-
 namespace Hospital_System.Models.Services
 {
     public class AppointmentService : IAppointment
@@ -32,10 +30,8 @@ namespace Hospital_System.Models.Services
                     PatientId = newAppointmentDTO.PatientId,
                     DoctorId = newAppointmentDTO.DoctorId
                 };
-
                 _context.Entry(appointment).State = EntityState.Added;
                 await _context.SaveChangesAsync();
-
                 var outAppointmentDTO = new OutAppointmentDTO
                 {
                     Id = appointment.Id,
@@ -46,7 +42,6 @@ namespace Hospital_System.Models.Services
                     DoctorName = $"{doctorEntity.FirstName} {doctorEntity.LastName}",
                     DepartmentName = doctorEntity.department.DepartmentName // Access DepartmentName property
                 };
-
                 return outAppointmentDTO;
             }
             else
@@ -73,31 +68,21 @@ namespace Hospital_System.Models.Services
                     DoctorName = $"{x.doctor.FirstName} {x.doctor.LastName}",
                     DepartmentName = x.doctor.department.DepartmentName
                 }).ToListAsync();
-
             return appointments;
         }
-
 
         // Get Appointment by ID........................................................................
         public async Task<OutAppointmentDTO> GetAppointment(int id)
         {
-            var appointmentDTO = await _context.Appointments
-                .Include(a => a.patient)
-                .Include(a => a.doctor.department)
-                .Where(x => x.Id == id)
-                .Select(x => new OutAppointmentDTO()
-                {
-                    Id = x.Id,
-                    DateOfAppointment = x.DateOfAppointment,
-                    PatientId = x.PatientId,
-                    PatientName = $"{x.patient.FirstName} {x.patient.LastName}",
-                    DoctorId = x.DoctorId,
-                    DoctorName = $"{x.doctor.FirstName} {x.doctor.LastName}",
-                    DepartmentName = x.doctor.department.DepartmentName
-                })
-                .FirstOrDefaultAsync();
+            var appointment = await _context.Appointments.Select(x => new AppointmentDTO()
+            {
+                Id = x.Id,
+                DateOfAppointment = x.DateOfAppointment,
+                PatientId = x.PatientId,
+                DoctorId = x.DoctorId,
 
-            return appointmentDTO;
+            }).FirstOrDefaultAsync(x => x.Id == id);
+            return appointment;
         }
 
         // Update Appointment by ID........................................................................

@@ -1,4 +1,4 @@
-﻿using Hospital_System.Models.DTOs;
+﻿using Hospital_System.Models.DTOs.Room;
 
 namespace Hospital_System.Models.Interfaces
 {

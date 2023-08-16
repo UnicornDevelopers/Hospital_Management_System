@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Hospital_System.Models.DTOs
+namespace Hospital_System.Models.DTOs.AppointmentDTO
 {
     public class AppointmentDTO
     {
@@ -14,7 +14,7 @@ namespace Hospital_System.Models.DTOs
 
 
         // Nav
-        public DoctorDTO? doctor { get; set; }
+        public OutDocDTO? doctor { get; set; }
         public PatientDTO? patient { get; set; }
 
 

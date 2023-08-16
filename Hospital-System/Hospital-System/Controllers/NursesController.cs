@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Hospital_System.Data;
 using Hospital_System.Models;
 using Hospital_System.Models.Interfaces;
-using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Nurse;
 
 namespace Hospital_System.Controllers
 {
