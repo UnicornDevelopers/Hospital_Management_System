@@ -17,46 +17,49 @@ namespace Hospital_System.Models.Services
             _context = context;
         }
         // CREATE Department........................................................................
+   
+
         public async Task<OutMedicalReportDTO> CreateMedicalReport(InMedicalReportDTO newMedicalReportDTO)
         {
-            var doctor = await _context.Doctors.FindAsync(newMedicalReportDTO.DoctorId);
-            if (doctor == null)
-            {
-                throw new ArgumentException("Invalid DoctorId");
-            }
+            var doctor = await _context.Doctors
+                .Include(d => d.department)
+                .FirstOrDefaultAsync(d => d.Id == newMedicalReportDTO.DoctorId);
+
             var patient = await _context.Patients.FindAsync(newMedicalReportDTO.PatientId);
-            if (patient == null)
+            if (patient != null && doctor != null)
             {
-                throw new ArgumentException("Invalid PatientId");
+                MedicalReport medicalReport = new MedicalReport
+                {
+                    ReportDate = newMedicalReportDTO.ReportDate,
+                    Description = newMedicalReportDTO.Description,
+                    PatientId = newMedicalReportDTO.PatientId,
+                    DoctorId = newMedicalReportDTO.DoctorId,
+                };
+
+                _context.MedicalReports.Add(medicalReport);
+                await _context.SaveChangesAsync();
+
+                OutMedicalReportDTO outMedicalReportDTO = new OutMedicalReportDTO
+                {
+                    Id = medicalReport.Id,
+                    ReportDate = medicalReport.ReportDate,
+                    Description = medicalReport.Description,
+                    PatientId = medicalReport.PatientId,
+                    PatientName = $"{patient.FirstName} {patient.LastName}",
+                    DoctorId = medicalReport.DoctorId,
+                    DoctorName = $"{doctor.FirstName} {doctor.LastName}",
+                    DepartmentName = doctor.department != null ? doctor.department.DepartmentName : string.Empty
+                };
+
+                return outMedicalReportDTO;
             }
-
-            MedicalReport medicalReport = new MedicalReport
+            else
             {
-                Id = newMedicalReportDTO.Id,
-                ReportDate = newMedicalReportDTO.ReportDate,
-                Description = newMedicalReportDTO.Description,
-                PatientId = newMedicalReportDTO.PatientId,
-                DoctorId = newMedicalReportDTO.DoctorId,
-            };
-
-            _context.MedicalReports.Add(medicalReport);
-            await _context.SaveChangesAsync();
-
-
-            OutMedicalReportDTO outMedicalReportDTO = new OutMedicalReportDTO
-            {
-                Id = medicalReport.Id,
-                ReportDate = medicalReport.ReportDate,
-                Description = medicalReport.Description,
-                PatientId = medicalReport.PatientId,
-                PatientName = $"{patient.FirstName} {patient.LastName}",
-                DoctorId = medicalReport.DoctorId,
-                DoctorName = $"{doctor.FirstName} {doctor.LastName}",
-                DepartmentName = doctor.department.DepartmentName 
-            };
-
-            return outMedicalReportDTO;
+                throw new ArgumentException("Invalid PatientId or Doctor Id");
+            }
         }
+
+
 
         // Get Department........................................................................
         public async Task<List<OutMedicalReportDTO>> GetMedicalReports()

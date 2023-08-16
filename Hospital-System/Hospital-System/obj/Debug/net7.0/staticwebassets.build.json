@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WHTZwD3UsgzalGYyYSe3H0/xCO/oJWf+FrHE3odIg6c=",
+  "Hash": "e4piWxYeaRdSOPk/iqLRQ+NN3pBMyEZrrIT++qIH7yQ=",
   "Source": "Hospital-System",
   "BasePath": "_content/Hospital-System",
   "Mode": "Default",
@@ -8,19 +8,19 @@
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [
     {
-      "Name": "Hospital-System\\wwwroot",
+      "Name": "Hospital-System/wwwroot",
       "Source": "Hospital-System",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
+      "ContentRoot": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/wwwroot/",
       "BasePath": "_content/Hospital-System",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\Debug\\net7.0\\scopedcss\\bundle\\Hospital-System.styles.css",
+      "Identity": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/obj/Debug/net7.0/scopedcss/bundle/Hospital-System.styles.css",
       "SourceId": "Hospital-System",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
+      "ContentRoot": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/obj/Debug/net7.0/scopedcss/bundle/",
       "BasePath": "_content/Hospital-System",
       "RelativePath": "Hospital-System.styles.css",
       "AssetKind": "All",
@@ -31,13 +31,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\Debug\\net7.0\\scopedcss\\bundle\\Hospital-System.styles.css"
+      "OriginalItemSpec": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/obj/Debug/net7.0/scopedcss/bundle/Hospital-System.styles.css"
     },
     {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Hospital-System.bundle.scp.css",
+      "Identity": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/obj/Debug/net7.0/scopedcss/projectbundle/Hospital-System.bundle.scp.css",
       "SourceId": "Hospital-System",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/obj/Debug/net7.0/scopedcss/projectbundle/",
       "BasePath": "_content/Hospital-System",
       "RelativePath": "Hospital-System.bundle.scp.css",
       "AssetKind": "All",
@@ -48,13 +48,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Hospital-System.bundle.scp.css"
+      "OriginalItemSpec": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/obj/Debug/net7.0/scopedcss/projectbundle/Hospital-System.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\css\\site.css",
+      "Identity": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/wwwroot/css/site.css",
       "SourceId": "Hospital-System",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
+      "ContentRoot": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/wwwroot/",
       "BasePath": "_content/Hospital-System",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -65,13 +65,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\site.css"
+      "OriginalItemSpec": "wwwroot/css/site.css"
     },
     {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\favicon.ico",
+      "Identity": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/wwwroot/favicon.ico",
       "SourceId": "Hospital-System",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
+      "ContentRoot": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/wwwroot/",
       "BasePath": "_content/Hospital-System",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",
@@ -82,13 +82,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\favicon.ico"
+      "OriginalItemSpec": "wwwroot/favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\js\\site.js",
+      "Identity": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/wwwroot/js/site.js",
       "SourceId": "Hospital-System",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
+      "ContentRoot": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/wwwroot/",
       "BasePath": "_content/Hospital-System",
       "RelativePath": "js/site.js",
       "AssetKind": "All",
@@ -99,13 +99,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\site.js"
+      "OriginalItemSpec": "wwwroot/js/site.js"
     },
     {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Identity": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/wwwroot/lib/bootstrap/LICENSE",
       "SourceId": "Hospital-System",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
+      "ContentRoot": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/wwwroot/",
       "BasePath": "_content/Hospital-System",
       "RelativePath": "lib/bootstrap/LICENSE",
       "AssetKind": "All",
@@ -116,47 +116,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\LICENSE"
+      "OriginalItemSpec": "wwwroot/lib/bootstrap/LICENSE"
     },
     {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Identity": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
       "SourceId": "Hospital-System",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
-      "BasePath": "_content/Hospital-System",
-      "RelativePath": "lib/jquery/LICENSE.txt",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\jquery\\LICENSE.txt"
-    },
-    {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
-      "SourceId": "Hospital-System",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
-      "BasePath": "_content/Hospital-System",
-      "RelativePath": "lib/jquery-validation/LICENSE.md",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\LICENSE.md"
-    },
-    {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
-      "SourceId": "Hospital-System",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
+      "ContentRoot": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/wwwroot/",
       "BasePath": "_content/Hospital-System",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
       "AssetKind": "All",
@@ -167,13 +133,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+      "OriginalItemSpec": "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
     },
     {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Identity": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
       "SourceId": "Hospital-System",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
+      "ContentRoot": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/wwwroot/",
       "BasePath": "_content/Hospital-System",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
       "AssetKind": "All",
@@ -184,13 +150,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+      "OriginalItemSpec": "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
     },
     {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Identity": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt",
       "SourceId": "Hospital-System",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
+      "ContentRoot": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/wwwroot/",
       "BasePath": "_content/Hospital-System",
       "RelativePath": "lib/jquery-validation-unobtrusive/LICENSE.txt",
       "AssetKind": "All",
@@ -201,7 +167,41 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+      "OriginalItemSpec": "wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt"
+    },
+    {
+      "Identity": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/wwwroot/lib/jquery-validation/LICENSE.md",
+      "SourceId": "Hospital-System",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/wwwroot/",
+      "BasePath": "_content/Hospital-System",
+      "RelativePath": "lib/jquery-validation/LICENSE.md",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/lib/jquery-validation/LICENSE.md"
+    },
+    {
+      "Identity": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/wwwroot/lib/jquery/LICENSE.txt",
+      "SourceId": "Hospital-System",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/marwaalahdab/Desktop/Advanced/Hospital_Management_System/Hospital-System/Hospital-System/wwwroot/",
+      "BasePath": "_content/Hospital-System",
+      "RelativePath": "lib/jquery/LICENSE.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/lib/jquery/LICENSE.txt"
     }
   ]
 }
