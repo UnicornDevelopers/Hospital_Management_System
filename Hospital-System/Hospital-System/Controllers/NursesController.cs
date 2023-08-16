@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Hospital_System.Data;
 using Hospital_System.Models;
 using Hospital_System.Models.Interfaces;
-using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Nurse;
 
 namespace Hospital_System.Controllers
 {
@@ -84,7 +84,7 @@ namespace Hospital_System.Controllers
         // POST: api/Nurse
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<NurseDTO>> PostNurse(NurseDTO nurse)
+        public async Task<ActionResult<NurseDTO>> PostNurse(InNurseDTO nurse)
         {
             try
             {

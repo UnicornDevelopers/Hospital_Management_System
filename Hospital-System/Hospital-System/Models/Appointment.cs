@@ -9,8 +9,8 @@ namespace Hospital_System.Models
         
 
 
-        public int? PatientId { get; set; }
-        public int? DoctorId { get; set; }
+        public int PatientId { get; set; }
+        public int DoctorId { get; set; }
 
         // Nav
         [ForeignKey("DoctorId")]

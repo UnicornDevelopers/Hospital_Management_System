@@ -1,6 +1,10 @@
 ﻿
 using Hospital_System.Data;
 using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.AppointmentDTO;
+using Hospital_System.Models.DTOs.Department;
+using Hospital_System.Models.DTOs.Doctor;
+using Hospital_System.Models.DTOs.MedicalReport;
 using Hospital_System.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Numerics;
@@ -16,7 +20,7 @@ namespace Hospital_System.Models.Services
             _context = context;
         }
 
-        public async Task<OutDocDTO> Create(DoctorDTO doctor)
+        public async Task<OutDocDTO> Create(InDoctorDTO doctor)
         {
             var existingDep = await _context.Departments.FindAsync(doctor.DepartmentId);
 
@@ -90,21 +94,32 @@ namespace Hospital_System.Models.Services
                 Gender = doctor.Gender,
                 ContactNumber = doctor.ContactNumber,
                 Speciality = doctor.Speciality,
-                DepartmentId = doctor.DepartmentId.GetValueOrDefault(),
-                Appointments = doctor.Appointments?.Select(a => new AppointmentDTO
+                DepartmentId = doctor.DepartmentId,
+                Appointments = doctor.Appointments?.Select(a => new OutAppointmentDTO
                 {
-
+                    Id = a.Id,
+                    DateOfAppointment = a.DateOfAppointment,
+                    PatientId = a.PatientId,
+                    DoctorId = a.DoctorId,
                 }).ToList(),
-                medicalReports = doctor.medicalReports?.Select(r => new MedicalReportDTO
+                medicalReports = doctor.medicalReports?.Select(r => new OutMedicalReportDTO
                 {
+                    Id = r.Id,
+                    ReportDate = r.ReportDate,
+                    Description = r.Description,
+                    PatientId = r.PatientId,
+                    DoctorId = r.DoctorId,
                 }).ToList(),
-                department = new DepartmentDTO
+                department = new OutDepartmentDTO
                 {
+                    Id = doctor.department.Id,
+                    DepartmentName = doctor.department.DepartmentName,
                 }
             };
 
             return doctorDTO;
         }
+
 
 
         public async Task<List<OutDocDTO>> GetDoctors()
@@ -128,11 +143,9 @@ namespace Hospital_System.Models.Services
 
         }
 
-        public async Task<DoctorDTO> UpdateDoctor(int id, DoctorDTO doctorDTO)
+        public async Task<InDoctorDTO> UpdateDoctor(int id, InDoctorDTO doctorDTO)
         {
-
             var existingDoctor = await _context.Doctors.FindAsync(id);
-
 
             if (existingDoctor == null)
             {
@@ -146,11 +159,22 @@ namespace Hospital_System.Models.Services
             existingDoctor.Speciality = doctorDTO.Speciality;
             existingDoctor.DepartmentId = doctorDTO.DepartmentId;
 
-
             await _context.SaveChangesAsync();
 
-            return doctorDTO;
+            var updatedDoctorDTO = new InDoctorDTO
+            {
+                Id = existingDoctor.Id,
+                FirstName = existingDoctor.FirstName,
+                LastName = existingDoctor.LastName,
+                Gender = existingDoctor.Gender,
+                ContactNumber = existingDoctor.ContactNumber,
+                Speciality = existingDoctor.Speciality,
+                DepartmentId = existingDoctor.DepartmentId,
+            };
+
+            return updatedDoctorDTO;
         }
+
     }
 }
 

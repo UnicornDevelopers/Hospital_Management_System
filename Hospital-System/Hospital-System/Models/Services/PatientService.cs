@@ -1,7 +1,12 @@
 ﻿using Hospital_System.Data;
 using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.AppointmentDTO;
+using Hospital_System.Models.DTOs.MedicalReport;
+using Hospital_System.Models.DTOs.Patient;
 using Hospital_System.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
+using System.Linq;
 using System.Net;
 
 namespace Hospital_System.Models.Services
@@ -15,29 +20,81 @@ namespace Hospital_System.Models.Services
             _context = context;
         }
 
-        public async Task<PatientDTO> Create(PatientDTO Patient)
+        public async Task<OutPatientDTO> Create(InPatientDTO Patient)
         {
-            var room = await _context.Rooms.FindAsync(Patient.RoomId);
-            if (room == null)
+            if (Patient.RoomId != null)
             {
-                throw new Exception("Room is not exisit");
+                var room = await _context.Rooms.Include(p => p.Patients).FirstOrDefaultAsync(a => a.Id == Patient.RoomId);
+                if (room == null)
+                {
+                    throw new Exception("Room is not exisit");
+                }
+                if (room.NumberOfBeds == room.Patients.Count)
+                {
+                    room.RoomAvailability = false;
+                }
+                var dep = await _context.Departments.FindAsync(room.DepartmentId);
+                var patient = new Patient
+                {
+                    FirstName = Patient.FirstName,
+                    LastName = Patient.LastName,
+                    DoB = Patient.DoB,
+                    Gender = Patient.Gender,
+                    ContactNumber = Patient.ContactNumber,
+                    Address = Patient.Address,
+                    RoomId = Patient.RoomId
+                };
+                if (room.RoomAvailability)
+                {
+                    _context.Patients.Add(patient);
+                    await _context.SaveChangesAsync();
+                    Patient.Id = patient.Id;
+                    var patientDTO = new OutPatientDTO
+                    {
+                        FirstName = patient.FirstName,
+                        LastName = patient.LastName,
+                        DoB = patient.DoB,
+                        Gender = patient.Gender,
+                        ContactNumber = patient.ContactNumber,
+                        Address = patient.Address,
+                        RoomId = patient.RoomId,
+                        
+                    };
+                    return patientDTO;
+                }
             }
-            var patient = new Patient
+            else
             {
-                FirstName = Patient.FirstName,
-                LastName = Patient.LastName,
-                DoB = Patient.DoB,
-                Gender = Patient.Gender,
-                ContactNumber = Patient.ContactNumber,
-                Address = Patient.Address,
-                RoomId = Patient.RoomId
-            };
-            _context.Patients.Add(patient);
-            await _context.SaveChangesAsync();
-            Patient.Id = patient.Id;
+                var patient = new Patient
+                {
+                    FirstName = Patient.FirstName,
+                    LastName = Patient.LastName,
+                    DoB = Patient.DoB,
+                    Gender = Patient.Gender,
+                    ContactNumber = Patient.ContactNumber,
+                    Address = Patient.Address
+                };
+                _context.Patients.Add(patient);
+                await _context.SaveChangesAsync();
+                Patient.Id = patient.Id;
+                var patientDTO = new OutPatientDTO
+                {
+                    FirstName = patient.FirstName,
+                    LastName = patient.LastName,
+                    DoB = patient.DoB,
+                    Gender = patient.Gender,
+                    ContactNumber = patient.ContactNumber,
+                    Address = patient.Address
+                };
+                return patientDTO;
+            }
+            return null;
+        }        /* public async Task<OutPatientDTO> AddPatientToRoom(InPatientDTO Patient)
+        {
+            var patientEntity = await _context.Patients.FindAsync(Patient.Id);
 
-            return Patient;
-        }
+        }*/
+
 
         public async Task Delete(int id)
         {
@@ -51,100 +108,66 @@ namespace Hospital_System.Models.Services
 
         public async Task<PatientDTO> GetPatient(int PatientID)
         {
-            var patient = await _context.Patients.Select( x => new PatientDTO()
-            {
-                Id = x.Id,
-                FirstName = x.FirstName,
-                LastName = x.LastName,
-                DoB = x.DoB,
-                Gender = x.Gender,
-                ContactNumber = x.ContactNumber,
-                Address = x.Address,
-                RoomId = x.RoomId,
-                Appointments = x.Appointments.Select(x => new AppointmentDTO()
+            var patient = await _context.Patients
+                .Include(p => p.Appointments)
+                .Include(p => p.MedicalReports)
+                    .ThenInclude(mr => mr.doctor)
+                        .ThenInclude(d => d.department)
+                .Select(x => new PatientDTO()
                 {
                     Id = x.Id,
-                    DateOfAppointment = x.DateOfAppointment,
-                    PatientId = x.PatientId,
-                    DoctorId = x.DoctorId
-                }).ToList(),
-                MedicalReports = x.MedicalReports.Select(x => new MedicalReportDTO()
-                {
-                    Id = x.Id,
-                    ReportDate = x.ReportDate,
-                    Description = x.Description,
-                    PatientId = x.PatientId,
-                    DoctorId = x.DoctorId,
-                }).ToList()
-            }).FirstOrDefaultAsync(x => x.Id == PatientID);
-            return patient;
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    DoB = x.DoB,
+                    Gender = x.Gender,
+                    ContactNumber = x.ContactNumber,
+                    Address = x.Address,
+                    RoomId = x.RoomId,
+                    Appointments = x.Appointments.Select(a => new OutAppointmentDTO()
+                    {
+                        Id = a.Id,
+                        DateOfAppointment = a.DateOfAppointment,
+                        PatientId = a.PatientId,
+                        DoctorId = a.DoctorId,
+                        DoctorName = $"{a.doctor.FirstName} {a.doctor.LastName}",
+                        DepartmentName = a.doctor.department.DepartmentName
+                    }).ToList(),
+                    MedicalReports = null
+                })
+                .FirstOrDefaultAsync(x => x.Id == PatientID);
 
-            //var patient = await _context.Patients.FindAsync(PatientID);
-            //if (patient == null)
-            //{
-            //    return null;
-            //}
-            //var Patient = new PatientDTO
-            //{
-            //    Id = patient.Id,
-            //    FirstName =patient.FirstName,
-            //    LastName=patient.LastName,
-            //    DoB = patient.DoB,
-            //    Gender = patient.Gender,
-            //    ContactNumber = patient.ContactNumber,
-            //    Address = patient.Address,
-            //    RoomId = patient.RoomId
-            //};
-            //return Patient;
+            return patient;
         }
+
+
+
 
         public async Task<List<PatientDTO>> GetPatients()
         {
-            var patient = await _context.Patients.Select( x => new PatientDTO()
-            {
-                Id = x.Id,
-                FirstName = x.FirstName,
-                LastName = x.LastName,
-                DoB = x.DoB,
-                Gender = x.Gender,
-                ContactNumber = x.ContactNumber,
-                Address = x.Address,
-                RoomId = x.RoomId,
-                Appointments = x.Appointments.Select(x => new AppointmentDTO()
+            var patients = await _context.Patients
+                .Select(x => new PatientDTO()
                 {
                     Id = x.Id,
-                    DateOfAppointment = x.DateOfAppointment,
-                    PatientId = x.PatientId,
-                    DoctorId = x.DoctorId
-                }).ToList(),
-                MedicalReports = x.MedicalReports.Select(x => new MedicalReportDTO()
-                {
-                    Id = x.Id,
-                    ReportDate = x.ReportDate,
-                    Description = x.Description,
-                    PatientId = x.PatientId,
-                    DoctorId = x.DoctorId,
-                }).ToList()
-            }).ToListAsync();
-            return patient;
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    DoB = x.DoB,
+                    Gender = x.Gender,
+                    ContactNumber = x.ContactNumber,
+                    Address = x.Address,
+                    RoomId = x.RoomId,
+                    Appointments = null,
+                    
+                    MedicalReports = x.MedicalReports.Select(mr => new MedicalReportDTO()
+                    {
+                        Id = mr.Id,
+                        ReportDate = mr.ReportDate,
+                        Description = mr.Description,
+                        PatientId = mr.PatientId,
+                        DoctorId = mr.DoctorId,
+                    }).ToList()
+                }).ToListAsync();
 
-            //var patient = await _context.Patients.ToListAsync();
-            //if(patient.Count==0)
-            //{
-            //    return null;
-            //}
-            //var Patient = patient.Select(p => new PatientDTO
-            //{
-            //    Id = p.Id,
-            //    FirstName = p.FirstName,
-            //    LastName = p.LastName,
-            //    DoB = p.DoB,
-            //    Gender = p.Gender,
-            //    ContactNumber = p.ContactNumber,
-            //    Address = p.Address,
-            //    RoomId = p.RoomId
-            //}).ToList();
-            //return Patient;
+            return patients;
         }
 
         public async Task<PatientDTO> UpdatePatient(int id, PatientDTO patientDTO)

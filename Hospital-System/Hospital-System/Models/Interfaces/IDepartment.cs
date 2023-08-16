@@ -1,26 +1,29 @@
 ﻿using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Department;
 
 namespace Hospital_System.Models.Interfaces
 {
     public interface IDepartment
     {
 
-        Task<DepartmentDTO> CreateDepartment(DepartmentDTO Department);
+        Task<InDepartmentDTO> CreateDepartment(InDepartmentDTO Department);
 
         // GET All
-        Task<List<DepartmentDTO>> GetDepartments();
+        Task<List<OutDepartmentDTO>> GetDepartments();
 
         // GET Hotel By Id
 
         Task<DepartmentDTO> GetDepartment(int DepartmentID);
 
         // Update
-        Task<DepartmentDTO> UpdateDepartment(int id, DepartmentDTO DoctorDTO);
+        Task<OutDepartmentDTO> UpdateDepartment(int id, OutDepartmentDTO DoctorDTO);
 
         // Delete 
 
         Task DeleteDepartment(int id);
 
+
+        Task<List<OutDocDTO>> GetDoctorsInDepartment(int departmentId);
 
     }
 }

@@ -1,7 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Hospital_System.Models.DTOs.Department;
+using System.ComponentModel.DataAnnotations.Schema;
 using static Hospital_System.Models.Nurse;
 
-namespace Hospital_System.Models.DTOs
+namespace Hospital_System.Models.DTOs.Nurse
 {
     public class NurseDTO
     {
@@ -12,10 +13,10 @@ namespace Hospital_System.Models.DTOs
         public string ContactNumber { get; set; }
         public Shift Shift { get; set; }
 
-        public int? DepartmentId { get; set; }
+        public int DepartmentId { get; set; }
 
         //Nav
-        public Department? department { get; set; }
+        public OutDepartmentDTO? department { get; set; }
 
 
         //public enum Shift

@@ -1,21 +1,22 @@
 ﻿using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Appointment;
 
 namespace Hospital_System.Models.Interfaces
 {
     public interface IAppointment
     {
 
-        Task<AppointmentDTO> CreateAppointment(AppointmentDTO Appointment);
+        Task<OutAppointmentDTO> CreateAppointment(InAppoinmentDTO Appointment);
 
         // GET All
-        Task<List<AppointmentDTO>> GetAppointments();
+        Task<List<OutAppointmentDTO>> GetAppointments();
 
         // GET Hotel By Id
 
-        Task<AppointmentDTO> GetAppointment(int AppointmentID);
+        Task<OutAppointmentDTO> GetAppointment(int AppointmentID);
 
         // Update
-        Task<AppointmentDTO> UpdateAppointment(int id, AppointmentDTO DoctorDTO);
+        Task<InAppoinmentDTO> UpdateAppointment(int id, InAppoinmentDTO DoctorDTO);
 
         // Delete 
 

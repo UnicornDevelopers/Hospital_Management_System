@@ -1,4 +1,4 @@
-﻿using Hospital_System.Models.DTOs;
+﻿using Hospital_System.Models.DTOs.Patient;
 using Hospital_System.Models.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -54,18 +54,17 @@ namespace Hospital_System.Controllers
         // POST: api/Appointment
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<PatientDTO>> PostPatient(PatientDTO Patient)
+        public async Task<ActionResult<OutPatientDTO>> PostPatient(InPatientDTO Patient)
         {
             if (Patient == null)
             {
-                return Problem("Entity set 'Appointment'  is null.");
-            }
-            if (Patient.Id == null)
-            {
-                return NotFound();
+                return Problem("Entity set 'Patient'  is null.");
             }
             var newPatient = await _patient.Create(Patient);
-
+            if (newPatient == null)
+            {
+                return Ok("this room is unavilable");
+            }
             return Ok(newPatient);
         }
 

@@ -1,6 +1,6 @@
 ﻿
 using Hospital_System.Models;
-using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.MedicalReport;
 using Hospital_System.Models.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -45,7 +45,7 @@ namespace Hospital_System.Controllers
         // PUT: api/MedicalReport/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMedicalReport(int id, MedicalReportDTO medicalReport)
+        public async Task<IActionResult> PutMedicalReport(int id, InMedicalReportDTO medicalReport)
         {
             if (id != medicalReport.Id)
             {
@@ -58,7 +58,7 @@ namespace Hospital_System.Controllers
         // POST: api/MedicalReport
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<MedicalReportDTO>> PostMedicalReport(MedicalReportDTO medicalReport)
+        public async Task<ActionResult<OutMedicalReportDTO>> PostMedicalReport(InMedicalReportDTO medicalReport)
         {
             if (medicalReport == null)
             {

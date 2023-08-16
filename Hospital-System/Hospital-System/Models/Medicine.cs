@@ -13,7 +13,7 @@ namespace Hospital_System.Models
 
         //Nav
         [ForeignKey("MedicalReportId")]
-        public MedicalReport medicalReport { get; set; }
+        public MedicalReport? medicalReport { get; set; }
 
 
     }

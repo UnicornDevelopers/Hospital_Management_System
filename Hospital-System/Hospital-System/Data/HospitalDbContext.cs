@@ -17,6 +17,19 @@ namespace Hospital_System.Data
             base.OnModelCreating(modelBuilder);
 
 
+            modelBuilder.Entity<Hospital>()
+     .HasMany(a => a.Departments)
+      .WithOne(b => b.Hospital)
+        .OnDelete(DeleteBehavior.ClientSetNull);
+
+
+            modelBuilder.Entity<Department>()
+           .HasOne(a => a.Hospital)
+           .WithMany(d => d.Departments)
+           .HasForeignKey(a => a.HospitalID)
+           .OnDelete(DeleteBehavior.ClientSetNull);
+
+         
 
             modelBuilder.Entity<Doctor>()
           .HasMany(a => a.Appointments)
@@ -79,7 +92,7 @@ namespace Hospital_System.Data
 
 
         }
-
+        public DbSet<Hospital> Hospitals { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Nurse> Nurses { get; set; }
         public DbSet<Patient> Patients { get; set; }

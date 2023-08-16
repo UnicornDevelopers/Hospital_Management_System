@@ -1,7 +1,7 @@
 ﻿
 using System;
 using Hospital_System.Data;
-using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Nurse;
 using Hospital_System.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using static Hospital_System.Models.Nurse;
@@ -22,8 +22,13 @@ namespace Hospital_System.Models.Services
 
 
 
-        public async Task<NurseDTO> Create(NurseDTO nurseDTO)
+        public async Task<NurseDTO> Create(InNurseDTO nurseDTO)
         {
+            var departmentExists = await _context.Departments.AnyAsync(d => d.Id == nurseDTO.DepartmentId);
+            if (!departmentExists)
+            {
+                throw new InvalidOperationException($"Department with ID {nurseDTO.DepartmentId} does not exist.");
+            }
             // Create a new Nurse entity
 
             var nurse = new Nurse
@@ -35,7 +40,6 @@ namespace Hospital_System.Models.Services
                 ContactNumber = nurseDTO.ContactNumber,
                 shift = nurseDTO.Shift,
                 DepartmentId = nurseDTO.DepartmentId
-
 
             };
 
@@ -126,7 +130,7 @@ namespace Hospital_System.Models.Services
             nurse.shift = nurseDto.Shift;
             nurse.DepartmentId = nurseDto.DepartmentId;
 
-            if (nurseDto.DepartmentId.HasValue)
+            if (nurseDto.DepartmentId>0)
             {
                 nurse.department = await _context.Departments.FindAsync(nurseDto.DepartmentId);
             }

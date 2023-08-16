@@ -55,7 +55,7 @@ namespace Hospital_System
 
             });
 
-
+            builder.Services.AddTransient<IHospital, HospitalService>();
             builder.Services.AddTransient<IDepartment, DepartmentService>();
             builder.Services.AddTransient<IRoom, RoomService>();
             builder.Services.AddTransient<IAppointment, AppointmentService>();
@@ -64,6 +64,7 @@ namespace Hospital_System
             builder.Services.AddTransient<INurse, NurseService>();
             builder.Services.AddTransient<IDoctor, DoctorService>();
             builder.Services.AddTransient<IPatient, PatientService>();
+
 
 
             var app = builder.Build();

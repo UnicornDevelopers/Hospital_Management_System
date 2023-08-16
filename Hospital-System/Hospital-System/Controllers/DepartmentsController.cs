@@ -1,4 +1,5 @@
 ﻿using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Department;
 using Hospital_System.Models.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace Hospital_System.Controllers
 
         // GET: api/Departments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DepartmentDTO>>> GetDepartments()
+        public async Task<ActionResult<IEnumerable<OutDepartmentDTO>>> GetDepartments()
         {
             var departments = await _department.GetDepartments();
             return Ok(departments);
@@ -43,7 +44,7 @@ namespace Hospital_System.Controllers
         // PUT: api/Departments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDepartment(int id, DepartmentDTO department)
+        public async Task<IActionResult> PutDepartment(int id, OutDepartmentDTO department)
         {
             if (id != department.Id)
             {
@@ -56,7 +57,7 @@ namespace Hospital_System.Controllers
         // POST: api/Departments
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<DepartmentDTO>> PostDepartment(DepartmentDTO department)
+        public async Task<ActionResult<InDepartmentDTO>> PostDepartment(InDepartmentDTO department)
         {
             if (department == null)
             {
@@ -78,5 +79,21 @@ namespace Hospital_System.Controllers
             await _department.DeleteDepartment(id);
             return NoContent();
         }
+
+
+
+
+        // GET: api/Department/{departmentId}/Doctors
+        [HttpGet("{departmentId}/Doctors")]
+        public async Task<ActionResult<List<OutDocDTO>>> GetDoctorsInDepartment(int departmentId)
+        {
+            var doctors = await _department.GetDoctorsInDepartment(departmentId);
+            return Ok(doctors);
+        }
+
+
+
+
+
     }
 }
