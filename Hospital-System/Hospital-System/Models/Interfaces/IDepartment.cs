@@ -1,4 +1,4 @@
-﻿using Hospital_System.Models.DTOs;
+﻿using Hospital_System.Models.DTOs.Department;
 
 namespace Hospital_System.Models.Interfaces
 {
@@ -8,7 +8,7 @@ namespace Hospital_System.Models.Interfaces
         Task<DepartmentDTO> CreateDepartment(DepartmentDTO Department);
 
         // GET All
-        Task<List<DepartmentDTO>> GetDepartments();
+        Task<List<OutDepartmentDTO>> GetDepartments();
 
         // GET Hotel By Id
 

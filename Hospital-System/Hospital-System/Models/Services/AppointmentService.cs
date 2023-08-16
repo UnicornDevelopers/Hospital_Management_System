@@ -1,12 +1,10 @@
-﻿
-using Hospital_System.Data;
+﻿using Hospital_System.Data;
 using Hospital_System.Models;
 using Hospital_System.Models.DTOs;
 using Hospital_System.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Numerics;
-
 namespace Hospital_System.Models.Services
 {
     public class AppointmentService : IAppointment
@@ -17,47 +15,77 @@ namespace Hospital_System.Models.Services
             _context = context;
         }
         // CREATE Appointment........................................................................
-        public async Task<AppointmentDTO> CreateAppointment(AppointmentDTO newAppointmentDTO)
+        public async Task<OutAppointmentDTO> CreateAppointment(AppointmentDTO newAppointmentDTO)
         {
-            Appointment appointment = new Appointment
+            // Fetch additional information and check it's existing
+            var patientEntity = await _context.Patients.FindAsync(newAppointmentDTO.PatientId);
+            var doctorEntity = await _context.Doctors
+                .Include(d => d.department)
+                .FirstOrDefaultAsync(d => d.Id == newAppointmentDTO.DoctorId);
+            if (doctorEntity != null && patientEntity != null)
             {
-                Id = newAppointmentDTO.Id,
-                DateOfAppointment = newAppointmentDTO.DateOfAppointment,
-                PatientId = newAppointmentDTO.PatientId,
-                DoctorId = newAppointmentDTO.DoctorId,
-
-            };
-            _context.Entry(appointment).State = EntityState.Added;
-
-             newAppointmentDTO.Id = appointment.Id;
-            await _context.SaveChangesAsync();
-            return newAppointmentDTO;
+                Appointment appointment = new Appointment
+                {
+                    DateOfAppointment = newAppointmentDTO.DateOfAppointment,
+                    PatientId = newAppointmentDTO.PatientId,
+                    DoctorId = newAppointmentDTO.DoctorId
+                };
+                _context.Entry(appointment).State = EntityState.Added;
+                await _context.SaveChangesAsync();
+                var outAppointmentDTO = new OutAppointmentDTO
+                {
+                    Id = appointment.Id,
+                    DateOfAppointment = appointment.DateOfAppointment,
+                    PatientId = appointment.PatientId,
+                    PatientName = $"{patientEntity.FirstName} {patientEntity.LastName}",
+                    DoctorId = appointment.DoctorId,
+                    DoctorName = $"{doctorEntity.FirstName} {doctorEntity.LastName}",
+                    DepartmentName = doctorEntity.department.DepartmentName // Access DepartmentName property
+                };
+                return outAppointmentDTO;
+            }
+            else
+            {
+                throw new InvalidOperationException("Patient id or Doctor Id is wrong");
+            }
         }
         // Get Appointments........................................................................
-        public async Task<List<AppointmentDTO>> GetAppointments()
+        public async Task<List<OutAppointmentDTO>> GetAppointments()
         {
-            var appointment = await _context.Appointments.Select(x => new AppointmentDTO()
-            {
-                Id = x.Id,
-                DateOfAppointment = x.DateOfAppointment,
-                PatientId = x.PatientId,
-                DoctorId = x.DoctorId,
-            }).ToListAsync();
-            return appointment;
+            var appointments = await _context.Appointments
+                .Include(a => a.patient)
+                .Include(a => a.doctor.department)
+                .Select(x => new OutAppointmentDTO()
+                {
+                    Id = x.Id,
+                    DateOfAppointment = x.DateOfAppointment,
+                    PatientId = x.PatientId,
+                    PatientName = $"{x.patient.FirstName} {x.patient.LastName}",
+                    DoctorId = x.DoctorId,
+                    DoctorName = $"{x.doctor.FirstName} {x.doctor.LastName}",
+                    DepartmentName = x.doctor.department.DepartmentName
+                }).ToListAsync();
+            return appointments;
         }
-
         // Get Appointment by ID........................................................................
-        public async Task<AppointmentDTO> GetAppointment(int id)
+        public async Task<OutAppointmentDTO> GetAppointment(int id)
         {
-            var appointment = await _context.Appointments.Select(x => new AppointmentDTO()
-            {
-                Id = x.Id,
-                DateOfAppointment = x.DateOfAppointment,
-                PatientId = x.PatientId,
-                DoctorId = x.DoctorId,
-
-            }).FirstOrDefaultAsync(x => x.Id == id);
-            return appointment;
+            var appointmentDTO = await _context.Appointments
+                .Include(a => a.patient)
+                .Include(a => a.doctor.department)
+                .Where(x => x.Id == id)
+                .Select(x => new OutAppointmentDTO()
+                {
+                    Id = x.Id,
+                    DateOfAppointment = x.DateOfAppointment,
+                    PatientId = x.PatientId,
+                    PatientName = $"{x.patient.FirstName} {x.patient.LastName}",
+                    DoctorId = x.DoctorId,
+                    DoctorName = $"{x.doctor.FirstName} {x.doctor.LastName}",
+                    DepartmentName = x.doctor.department.DepartmentName
+                })
+                .FirstOrDefaultAsync();
+            return appointmentDTO;
         }
         // Update Appointment by ID........................................................................
         public async Task<AppointmentDTO> UpdateAppointment(int id, AppointmentDTO updateAppointmentDTO)

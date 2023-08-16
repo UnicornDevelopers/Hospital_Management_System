@@ -1,7 +1,7 @@
 ﻿
 using System;
 using Hospital_System.Data;
-using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Nurse;
 using Hospital_System.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using static Hospital_System.Models.Nurse;

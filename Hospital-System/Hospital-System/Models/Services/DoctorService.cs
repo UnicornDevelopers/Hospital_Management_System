@@ -1,6 +1,8 @@
 ﻿
 using Hospital_System.Data;
 using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.AppointmentDTO;
+using Hospital_System.Models.DTOs.DoctorDTO;
 using Hospital_System.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Numerics;
@@ -91,7 +93,7 @@ namespace Hospital_System.Models.Services
                 ContactNumber = doctor.ContactNumber,
                 Speciality = doctor.Speciality,
                 DepartmentId = doctor.DepartmentId.GetValueOrDefault(),
-                Appointments = doctor.Appointments?.Select(a => new AppointmentDTO
+                Appointments = doctor.Appointments?.Select(a => new OutAppointmentDTO
                 {
 
                 }).ToList(),
@@ -138,7 +140,7 @@ namespace Hospital_System.Models.Services
             {
                 throw new InvalidOperationException($"Doctor with ID {id} not found.");
             }
-
+            
             existingDoctor.FirstName = doctorDTO.FirstName;
             existingDoctor.LastName = doctorDTO.LastName;
             existingDoctor.Gender = doctorDTO.Gender;

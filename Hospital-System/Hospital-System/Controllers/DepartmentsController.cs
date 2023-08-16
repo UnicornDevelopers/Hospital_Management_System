@@ -1,4 +1,4 @@
-﻿using Hospital_System.Models.DTOs;
+﻿using Hospital_System.Models.DTOs.Department;
 using Hospital_System.Models.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
