@@ -13,7 +13,7 @@ namespace Hospital_System.Models.DTOs.Nurse
         public string ContactNumber { get; set; }
         public Shift Shift { get; set; }
 
-        public int? DepartmentId { get; set; }
+        public int DepartmentId { get; set; }
 
         //Nav
         public OutDepartmentDTO? department { get; set; }

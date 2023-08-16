@@ -2,7 +2,7 @@
 
 namespace Hospital_System.Models.DTOs.Nurse
 {
-    public class OutNurseDTO
+    public class InNurseDTO
     {
 
         public int Id { get; set; }
@@ -12,6 +12,8 @@ namespace Hospital_System.Models.DTOs.Nurse
         public string ContactNumber { get; set; }
         public Shift Shift { get; set; }
 
-        public int? DepartmentId { get; set; }
+        public int DepartmentId { get; set; }
+
+
     }
 }

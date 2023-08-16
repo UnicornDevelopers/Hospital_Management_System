@@ -1,5 +1,6 @@
 ﻿using Hospital_System.Models;
 using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Hospital;
 using Hospital_System.Models.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -62,7 +63,7 @@ namespace Hospital_System.Controllers
         // POST: api/Doctors
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Hospital>> PostHospital(Hospital hospital)
+        public async Task<ActionResult<OutHospitalDTO>> PostHospital(OutHospitalDTO hospital)
         {
             try
             {

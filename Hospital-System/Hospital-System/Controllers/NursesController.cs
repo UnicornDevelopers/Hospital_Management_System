@@ -84,7 +84,7 @@ namespace Hospital_System.Controllers
         // POST: api/Nurse
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<NurseDTO>> PostNurse(NurseDTO nurse)
+        public async Task<ActionResult<NurseDTO>> PostNurse(InNurseDTO nurse)
         {
             try
             {

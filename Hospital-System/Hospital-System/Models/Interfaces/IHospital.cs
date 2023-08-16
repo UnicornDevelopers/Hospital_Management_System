@@ -1,4 +1,5 @@
 ﻿using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Hospital;
 
 namespace Hospital_System.Models.Interfaces
 {
@@ -6,7 +7,7 @@ namespace Hospital_System.Models.Interfaces
     {
 
 
-        Task<Hospital> Create(Hospital hospital);
+        Task<OutHospitalDTO> Create(OutHospitalDTO hospital);
 
         // GET All
         Task<List<HospitalDTO>> GetHospitals();

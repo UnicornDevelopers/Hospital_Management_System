@@ -1,20 +1,21 @@
-﻿using Hospital_System.Models.DTOs.Medicine;
+﻿using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Medicine;
 
 namespace Hospital_System.Models.Interfaces
 {
     public interface IMedicine
     {
-        Task<MedicineDTO> CreateMedicine(MedicineDTO Medicine);
+        Task<OutMedicineDTO> CreateMedicine(OutMedicineDTO Medicine);
 
         // GET All
-        Task<List<MedicineDTO>> GetMedicines();
+        Task<List<OutMedicineDTO>> GetMedicines();
 
         // GET Hotel By Id
 
-        Task<MedicineDTO> GetMedicine(int MedicineID);
+        Task<OutMedicineDTO> GetMedicine(int MedicineID);
 
         // Update
-        Task<MedicineDTO> UpdateMedicine(int id, MedicineDTO medicineDto);
+        Task<OutMedicineDTO> UpdateMedicine(int id, OutMedicineDTO medicineDto);
 
         // Delete 
 

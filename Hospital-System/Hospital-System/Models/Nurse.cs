@@ -11,7 +11,7 @@ namespace Hospital_System.Models
         public string ContactNumber { get; set; }
         public Shift shift { get; set; }
 
-        public int? DepartmentId { get; set; }
+        public int DepartmentId { get; set; }
 
         //Nav
         [ForeignKey("DepartmentId")]

@@ -7,7 +7,7 @@
         public string RoomNumber { get; set; }
         public bool RoomAvailability { get; set; }
         public int NumberOfBeds { get; set; }
-        public int? DepartmentId { get; set; }
+        public int DepartmentId { get; set; }
 
     }
 }
