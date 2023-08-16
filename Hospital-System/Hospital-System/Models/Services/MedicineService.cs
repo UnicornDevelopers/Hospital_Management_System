@@ -25,9 +25,11 @@ namespace Hospital_System.Models.Services
                 Id = newMedicineDTO.Id,
                 MedicineName = newMedicineDTO.MedicineName,
                 Portion = newMedicineDTO.Portion,
+                MedicalReportId = newMedicineDTO.MedicalReportId
             };
             _context.Entry(medicine).State = EntityState.Added;
             await _context.SaveChangesAsync();
+            medicine.Id = newMedicineDTO.Id;
             return newMedicineDTO;
         }
         // Get Medicine........................................................................

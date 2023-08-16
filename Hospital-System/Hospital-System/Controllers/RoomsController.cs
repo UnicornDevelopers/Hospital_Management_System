@@ -1,5 +1,5 @@
 ﻿using Hospital_System.Models;
-using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Room;
 using Hospital_System.Models.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

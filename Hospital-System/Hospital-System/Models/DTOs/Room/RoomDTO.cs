@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using Hospital_System.Models.DTOs.Department;
 
 namespace Hospital_System.Models.DTOs
 {

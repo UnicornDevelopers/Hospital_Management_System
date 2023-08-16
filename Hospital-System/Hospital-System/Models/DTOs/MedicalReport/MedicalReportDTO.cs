@@ -1,6 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using Hospital_System.Models.DTOs.Doctor;
+using Hospital_System.Models.DTOs.Medicine;
+using Hospital_System.Models.DTOs.Patient;
 
-namespace Hospital_System.Models.DTOs
+namespace Hospital_System.Models.DTOs.MedicalReport
 {
     public class MedicalReportDTO
     {
@@ -16,7 +19,7 @@ namespace Hospital_System.Models.DTOs
 
 
         public List<MedicineDTO>? Medicines { get; set; }
-        public DoctorDTO? doctor { get; set; }
+        public OutDocDTO? doctor { get; set; }
         public PatientDTO? patient { get; set; }
 
 

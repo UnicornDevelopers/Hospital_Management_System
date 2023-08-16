@@ -1,4 +1,5 @@
-﻿using Hospital_System.Models.DTOs;
+﻿using Hospital_System.Models.DTOs.Doctor;
+using Hospital_System.Models.DTOs.DoctorDTO;
 
 namespace Hospital_System.Models.Interfaces
 {

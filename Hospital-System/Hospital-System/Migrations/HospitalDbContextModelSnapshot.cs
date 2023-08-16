@@ -62,7 +62,12 @@ namespace Hospital_System.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("HospitalID")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("HospitalID");
 
                     b.ToTable("Departments");
                 });
@@ -104,6 +109,31 @@ namespace Hospital_System.Migrations
                     b.HasIndex("DepartmentId");
 
                     b.ToTable("Doctors");
+                });
+
+            modelBuilder.Entity("Hospital_System.Models.Hospital", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HospitalName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Hospitals");
                 });
 
             modelBuilder.Entity("Hospital_System.Models.MedicalReport", b =>
@@ -291,6 +321,15 @@ namespace Hospital_System.Migrations
                     b.Navigation("patient");
                 });
 
+            modelBuilder.Entity("Hospital_System.Models.Department", b =>
+                {
+                    b.HasOne("Hospital_System.Models.Hospital", "Hospital")
+                        .WithMany("Departments")
+                        .HasForeignKey("HospitalID");
+
+                    b.Navigation("Hospital");
+                });
+
             modelBuilder.Entity("Hospital_System.Models.Doctor", b =>
                 {
                     b.HasOne("Hospital_System.Models.Department", "department")
@@ -378,6 +417,11 @@ namespace Hospital_System.Migrations
                     b.Navigation("Appointments");
 
                     b.Navigation("medicalReports");
+                });
+
+            modelBuilder.Entity("Hospital_System.Models.Hospital", b =>
+                {
+                    b.Navigation("Departments");
                 });
 
             modelBuilder.Entity("Hospital_System.Models.MedicalReport", b =>

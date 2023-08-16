@@ -5,7 +5,6 @@ using Hospital_System.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Numerics;
-
 namespace Hospital_System.Models.Services
 {
     public class MedicalReportService : IMedicalReport
@@ -18,6 +17,17 @@ namespace Hospital_System.Models.Services
         // CREATE Department........................................................................
         public async Task<MedicalReportDTO> CreateMedicalReport(MedicalReportDTO newMedicalReportDTO)
         {
+            // Validate DoctorId and PatientId
+            var doctor = await _context.Doctors.FindAsync(newMedicalReportDTO.DoctorId);
+            if (doctor == null)
+            {
+                throw new ArgumentException("Invalid DoctorId");
+            }
+            var patient = await _context.Patients.FindAsync(newMedicalReportDTO.PatientId);
+            if (patient == null)
+            {
+                throw new ArgumentException("Invalid PatientId");
+            }
             MedicalReport medicalReport = new MedicalReport
             {
                 Id = newMedicalReportDTO.Id,
@@ -25,7 +35,6 @@ namespace Hospital_System.Models.Services
                 Description = newMedicalReportDTO.Description,
                 PatientId = newMedicalReportDTO.PatientId,
                 DoctorId = newMedicalReportDTO.DoctorId,
-
             };
             _context.Entry(medicalReport).State = EntityState.Added;
             newMedicalReportDTO.Id = medicalReport.Id;
@@ -42,20 +51,15 @@ namespace Hospital_System.Models.Services
                 Description = x.Description,
                 PatientId = x.PatientId,
                 DoctorId = x.DoctorId,
-
-
                 Medicines = x.Medicines.Select(x => new MedicineDTO()
                 {
                     Id = x.Id,
                     MedicineName = x.MedicineName,
                     Portion = x.Portion,
                 }).ToList(),
-
-
             }).ToListAsync();
             return medicalReport;
         }
-
         // Get Department by ID........................................................................
         public async Task<MedicalReportDTO> GetMedicalReport(int id)
         {
@@ -66,29 +70,25 @@ namespace Hospital_System.Models.Services
                 Description = x.Description,
                 PatientId = x.PatientId,
                 DoctorId = x.DoctorId,
-
-
                 Medicines = x.Medicines.Select(x => new MedicineDTO()
                 {
                     Id = x.Id,
                     MedicineName = x.MedicineName,
                     Portion = x.Portion,
                 }).ToList(),
-
-
             }).FirstOrDefaultAsync(x => x.Id == id);
             return medicalReport;
         }
         // Update Department by ID........................................................................
         public async Task<MedicalReportDTO> UpdateMedicalReport(int id, MedicalReportDTO updateMedicalReportDTO)
         {
-            MedicalReport medicalReport = new MedicalReport
-            {
-                Id = updateMedicalReportDTO.Id,
-                ReportDate = updateMedicalReportDTO.ReportDate,
-                Description = updateMedicalReportDTO.Description,
-            };
-            _context.Entry(medicalReport).State = EntityState.Modified;
+            MedicalReport report = await _context.MedicalReports.FindAsync(id);
+            if (report == null)
+                return null;
+            report.Id = updateMedicalReportDTO.Id;
+            report.ReportDate = updateMedicalReportDTO.ReportDate;
+            report.Description = updateMedicalReportDTO.Description;
+            _context.Entry(report).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return updateMedicalReportDTO;
         }
