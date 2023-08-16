@@ -4,8 +4,8 @@
     "\\Hospital-System",
     "\\Hospital-System\\Hospital-System",
     "\\Hospital-System\\Hospital-System\\Models",
-    "\\Hospital-System\\Hospital-System\\Models\\DTOs"
+    "\\Hospital-System\\Hospital-System\\Models\\Services"
   ],
-  "SelectedNode": "\\Hospital-System\\Hospital-System\\Models\\DTOs\\OutDocDTO.cs",
+  "SelectedNode": "\\Hospital-System\\Hospital-System\\Models\\Services\\DoctorService.cs",
   "PreviewInSolutionExplorer": false
 }
