@@ -55,86 +55,46 @@ namespace Hospital_System.Models.Services
         }
 
         // Get Department by ID........................................................................
+   
         public async Task<DepartmentDTO> GetDepartment(int id)
         {
-            var department = await _context.Departments.Select(x => new DepartmentDTO()
-            {
-                Id = x.Id,
-                DepartmentName = x.DepartmentName,
-                Rooms = null,
-
-                Doctors = x.Doctors.Select(x => new OutDocDTO()
+            var department = await _context.Departments
+                .Where(x => x.Id == id)
+                .Select(x => new DepartmentDTO()
                 {
                     Id = x.Id,
-                    FullName = $"{x.FirstName} {x.LastName}",
-                    Gender = x.Gender,
-                    ContactNumber = x.ContactNumber,
-                    Speciality = x.Speciality,
-                }).ToList(),
+                    DepartmentName = x.DepartmentName,
 
+                    Rooms = x.Rooms.Select(room => new OutRoomDTO
+                    {
+                        Id = room.Id,
+                        RoomNumber = room.RoomNumber,
+                        RoomAvailability = room.RoomAvailability,
+                        NumberOfBeds = room.NumberOfBeds
+                    }).ToList(),
 
+                    Doctors = x.Doctors.Select(x => new OutDocDTO()
+                    {
+                        Id = x.Id,
+                        FullName = $"{x.FirstName} {x.LastName}",
+                        Gender = x.Gender,
+                        ContactNumber = x.ContactNumber,
+                        Speciality = x.Speciality,
+                    }).ToList(),
 
+                    Nurses = x.Nurses.Select(x => new InNurseDTO()
+                    {
+                        Id = x.Id,
+                        FirstName = x.FirstName,
+                        LastName = x.LastName,
+                        Gender = x.Gender,
+                        ContactNumber = x.ContactNumber,
+                    }).ToList()
+                })
+                .FirstOrDefaultAsync();
 
-                Nurses = x.Nurses.Select(x => new InNurseDTO()
-                {
-                    Id = x.Id,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    Gender = x.Gender,
-                    ContactNumber = x.ContactNumber,
-                }).ToList()
-            }).FirstOrDefaultAsync(x => x.Id == id);
             return department;
         }
-        /*     public async Task<DepartmentDTO> GetDepartment(int id)
-         {
-             var department = await _context.Departments.Select(x => new DepartmentDTO()
-             {
-                 Id = x.Id,
-                 DepartmentName = x.DepartmentName,
-                 Rooms = x.Rooms.Select(x => new RoomDTO()
-                 {
-                     Id = x.Id,
-                     RoomNumber = x.RoomNumber,
-                     RoomAvailability = x.RoomAvailability,
-                     NumberOfBeds = x.NumberOfBeds,
-                     Patients = x.Patients.Select(y => new OutPatientDTO()
-                     {
-                         Id = y.Id,
-                         FirstName = y.FirstName,
-                         LastName = y.LastName,
-                         DoB = y.DoB,
-                         Gender = y.Gender,
-                         ContactNumber = y.ContactNumber,
-                         Address = y.Address
-                     }).ToList()
-
-                 }).ToList(),
-
-                 Doctors = x.Doctors.Select(x => new OutDocDTO()
-                 {
-                     Id = x.Id,
-                    FullName = $"{x.FirstName} {x.LastName}",
-                     Gender = x.Gender,
-                     ContactNumber = x.ContactNumber,
-                     Speciality = x.Speciality,
-                 }).ToList(),
-
-
-
-
-                 Nurses = x.Nurses.Select(x => new InNurseDTO()
-                 {
-                     Id = x.Id,
-                     FirstName = x.FirstName,
-                     LastName = x.LastName,
-                     Gender = x.Gender,
-                     ContactNumber = x.ContactNumber,
-                 }).ToList()
-             }).FirstOrDefaultAsync(x => x.Id == id);
-             return department;
-         }
-           */
 
 
         // Update Department by ID........................................................................
@@ -162,5 +122,31 @@ namespace Hospital_System.Models.Services
         _context.Entry(department).State = EntityState.Deleted;
         await _context.SaveChangesAsync();
     }
-}
+
+
+
+        public async Task<List<OutDocDTO>> GetDoctorsInDepartment(int departmentId)
+        {
+            var doctors = await _context.Doctors
+                .Where(d => d.DepartmentId == departmentId)
+                .Select(d => new OutDocDTO()
+                {
+                    Id = d.Id,
+                    FullName = $"{d.FirstName} {d.LastName}",
+                    Gender = d.Gender,
+                    ContactNumber = d.ContactNumber,
+                    Speciality = d.Speciality,
+                })
+                .ToListAsync();
+
+            return doctors;
+        }
+
+
+
+
+
+
+
+    }
 }

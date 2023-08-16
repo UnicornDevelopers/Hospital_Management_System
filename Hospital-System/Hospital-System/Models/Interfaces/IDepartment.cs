@@ -23,5 +23,7 @@ namespace Hospital_System.Models.Interfaces
         Task DeleteDepartment(int id);
 
 
+        Task<List<OutDocDTO>> GetDoctorsInDepartment(int departmentId);
+
     }
 }
