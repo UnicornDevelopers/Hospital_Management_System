@@ -5,14 +5,14 @@ namespace Hospital_System.Models.Interfaces
     public interface IAppointment
     {
 
-        Task<AppointmentDTO> CreateAppointment(AppointmentDTO Appointment);
+        Task<OutAppointmentDTO> CreateAppointment(AppointmentDTO Appointment);
 
         // GET All
-        Task<List<AppointmentDTO>> GetAppointments();
+        Task<List<OutAppointmentDTO>> GetAppointments();
 
         // GET Hotel By Id
 
-        Task<AppointmentDTO> GetAppointment(int AppointmentID);
+        Task<OutAppointmentDTO> GetAppointment(int AppointmentID);
 
         // Update
         Task<AppointmentDTO> UpdateAppointment(int id, AppointmentDTO DoctorDTO);
