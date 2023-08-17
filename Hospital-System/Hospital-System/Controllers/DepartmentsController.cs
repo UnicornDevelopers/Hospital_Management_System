@@ -79,5 +79,21 @@ namespace Hospital_System.Controllers
             await _department.DeleteDepartment(id);
             return NoContent();
         }
+
+
+
+
+        // GET: api/Department/{departmentId}/Doctors
+        [HttpGet("{departmentId}/Doctors")]
+        public async Task<ActionResult<List<OutDocDTO>>> GetDoctorsInDepartment(int departmentId)
+        {
+            var doctors = await _department.GetDoctorsInDepartment(departmentId);
+            return Ok(doctors);
+        }
+
+
+
+
+
     }
 }
