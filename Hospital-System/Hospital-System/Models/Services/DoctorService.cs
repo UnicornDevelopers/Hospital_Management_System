@@ -151,6 +151,12 @@ namespace Hospital_System.Models.Services
             {
                 throw new InvalidOperationException($"Doctor with ID {id} not found.");
             }
+            var existingDep = await _context.Departments.FindAsync(doctorDTO.DepartmentId);
+
+            if (existingDep == null)
+            {
+                throw new InvalidOperationException($"invaild Department with ID {doctorDTO.DepartmentId} not found.");
+            }
 
             existingDoctor.FirstName = doctorDTO.FirstName;
             existingDoctor.LastName = doctorDTO.LastName;
