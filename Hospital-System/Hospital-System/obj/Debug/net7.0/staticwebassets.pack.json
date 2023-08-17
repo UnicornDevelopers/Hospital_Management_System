@@ -1,43 +1,43 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Hospital-System.bundle.scp.css",
+      "Id": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Hospital-System.bundle.scp.css",
       "PackagePath": "staticwebassets\\Hospital-System.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\css\\site.css",
+      "Id": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\favicon.ico",
+      "Id": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\js\\site.js",
+      "Id": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
     {
-      "Id": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Id": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\bootstrap\\LICENSE",
       "PackagePath": "staticwebassets\\lib\\bootstrap"
     },
     {
-      "Id": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Id": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Id": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Id": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Id": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Id": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Id": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Id": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Id": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Id": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
     },
     {

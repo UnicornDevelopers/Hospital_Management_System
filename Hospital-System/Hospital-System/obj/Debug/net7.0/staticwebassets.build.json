@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WHTZwD3UsgzalGYyYSe3H0/xCO/oJWf+FrHE3odIg6c=",
+  "Hash": "L7P7Wb+6D1tJ6zEqHFrxM1YO39nZoCwbAls/FVxPijo=",
   "Source": "Hospital-System",
   "BasePath": "_content/Hospital-System",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "Hospital-System\\wwwroot",
       "Source": "Hospital-System",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
       "BasePath": "_content/Hospital-System",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\Debug\\net7.0\\scopedcss\\bundle\\Hospital-System.styles.css",
+      "Identity": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\Debug\\net7.0\\scopedcss\\bundle\\Hospital-System.styles.css",
       "SourceId": "Hospital-System",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
       "BasePath": "_content/Hospital-System",
       "RelativePath": "Hospital-System.styles.css",
       "AssetKind": "All",
@@ -31,13 +31,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\Debug\\net7.0\\scopedcss\\bundle\\Hospital-System.styles.css"
+      "OriginalItemSpec": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\Debug\\net7.0\\scopedcss\\bundle\\Hospital-System.styles.css"
     },
     {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Hospital-System.bundle.scp.css",
+      "Identity": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Hospital-System.bundle.scp.css",
       "SourceId": "Hospital-System",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/Hospital-System",
       "RelativePath": "Hospital-System.bundle.scp.css",
       "AssetKind": "All",
@@ -48,13 +48,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Hospital-System.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Hospital-System.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\css\\site.css",
+      "Identity": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\css\\site.css",
       "SourceId": "Hospital-System",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
       "BasePath": "_content/Hospital-System",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -68,10 +68,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\favicon.ico",
+      "Identity": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\favicon.ico",
       "SourceId": "Hospital-System",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
       "BasePath": "_content/Hospital-System",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",
@@ -85,10 +85,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\js\\site.js",
+      "Identity": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\js\\site.js",
       "SourceId": "Hospital-System",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
       "BasePath": "_content/Hospital-System",
       "RelativePath": "js/site.js",
       "AssetKind": "All",
@@ -102,10 +102,10 @@
       "OriginalItemSpec": "wwwroot\\js\\site.js"
     },
     {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Identity": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\bootstrap\\LICENSE",
       "SourceId": "Hospital-System",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
       "BasePath": "_content/Hospital-System",
       "RelativePath": "lib/bootstrap/LICENSE",
       "AssetKind": "All",
@@ -119,10 +119,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\LICENSE"
     },
     {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Identity": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "SourceId": "Hospital-System",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
       "BasePath": "_content/Hospital-System",
       "RelativePath": "lib/jquery/LICENSE.txt",
       "AssetKind": "All",
@@ -136,10 +136,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Identity": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "SourceId": "Hospital-System",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
       "BasePath": "_content/Hospital-System",
       "RelativePath": "lib/jquery-validation/LICENSE.md",
       "AssetKind": "All",
@@ -153,10 +153,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Identity": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "SourceId": "Hospital-System",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
       "BasePath": "_content/Hospital-System",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
       "AssetKind": "All",
@@ -170,10 +170,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Identity": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "SourceId": "Hospital-System",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
       "BasePath": "_content/Hospital-System",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
       "AssetKind": "All",
@@ -187,10 +187,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Identity": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Identity": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "SourceId": "Hospital-System",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\hadee\\source\\repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\",
       "BasePath": "_content/Hospital-System",
       "RelativePath": "lib/jquery-validation-unobtrusive/LICENSE.txt",
       "AssetKind": "All",

@@ -9,6 +9,7 @@ using Hospital_System.Data;
 using Hospital_System.Models;
 using Hospital_System.Models.Interfaces;
 using Hospital_System.Models.DTOs.Nurse;
+using System.Numerics;
 
 namespace Hospital_System.Controllers
 {
@@ -28,7 +29,7 @@ namespace Hospital_System.Controllers
 
         // GET: api/Nurse
         [HttpGet]
-        public async Task<ActionResult<NurseDTO>> GetAllNurses()
+        public async Task<ActionResult<InNurseDTO>> GetAllNurses()
         {
             var nurses = await _nurse.GetNurses();
             if (nurses == null)
@@ -62,19 +63,21 @@ namespace Hospital_System.Controllers
         // PUT: api/Nurse/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult<NurseDTO>> PutNurse(int id, NurseDTO nurse)
+        public async Task<ActionResult<InNurseDTO>> PutNurse(int id, InNurseDTO nurse)
         {
+
             if (id != nurse.Id)
             {
                 return BadRequest();
             }
-
-            var updatedNurse = _nurse.UpdateNurse(id, nurse);
-
-            if (updatedNurse == null)
-                return NotFound();
-
-            return Ok(updatedNurse);
+            try
+            {
+                return await _nurse.UpdateNurse(id, nurse);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
 
@@ -98,7 +101,7 @@ namespace Hospital_System.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Internal server error");
+                return StatusCode(500, ex.Message);
 
             }
 

@@ -8,14 +8,14 @@ namespace Hospital_System.Models.Interfaces
         Task<NurseDTO> Create(InNurseDTO Nurse);
 
         // GET All
-        Task<List<NurseDTO>> GetNurses();
+        Task<List<InNurseDTO>> GetNurses();
 
         // GET Hotel By Id
 
         Task<NurseDTO> GetNurse(int NurseID);
 
         // Update
-        Task<NurseDTO> UpdateNurse(int id, NurseDTO nurseDto);
+        Task<InNurseDTO> UpdateNurse(int id, InNurseDTO nurseDto);
 
         // Delete 
 
