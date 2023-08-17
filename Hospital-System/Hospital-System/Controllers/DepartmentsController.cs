@@ -1,12 +1,15 @@
 ﻿using Hospital_System.Models.DTOs;
 using Hospital_System.Models.DTOs.Department;
 using Hospital_System.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata;
+using System.Data;
 
 namespace Hospital_System.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class DepartmentsController : ControllerBase
@@ -20,6 +23,7 @@ namespace Hospital_System.Controllers
 
 
         // GET: api/Departments
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OutDepartmentDTO>>> GetDepartments()
         {
@@ -29,6 +33,7 @@ namespace Hospital_System.Controllers
 
         // GET: api/Departments/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "Doctor, Nurse")]
         public async Task<ActionResult<DepartmentDTO>> GetDepartment(int id)
         {
             DepartmentDTO TheDepartment = await _department.GetDepartment(id);
@@ -85,6 +90,7 @@ namespace Hospital_System.Controllers
 
         // GET: api/Department/{departmentId}/Doctors
         [HttpGet("{departmentId}/Doctors")]
+        [Authorize(Policy = "read")]
         public async Task<ActionResult<List<OutDocDTO>>> GetDoctorsInDepartment(int departmentId)
         {
             var doctors = await _department.GetDoctorsInDepartment(departmentId);

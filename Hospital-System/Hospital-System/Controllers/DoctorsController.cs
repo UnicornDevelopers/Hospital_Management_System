@@ -11,9 +11,12 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Hospital_System.Models.Interfaces;
 using Hospital_System.Models.DTOs;
 using Hospital_System.Models.DTOs.Doctor;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Hospital_System.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class DoctorsController : ControllerBase

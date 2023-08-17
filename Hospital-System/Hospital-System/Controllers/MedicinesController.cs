@@ -1,11 +1,14 @@
 ﻿using Hospital_System.Models;
 using Hospital_System.Models.DTOs.Medicine;
 using Hospital_System.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace Hospital_System.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class MedicinesController : ControllerBase
@@ -20,6 +23,7 @@ namespace Hospital_System.Controllers
     
         // GET: api/Medicines
         [HttpGet]
+        [Authorize(Roles = "Doctor")]
         public async Task<ActionResult<IEnumerable<OutMedicineDTO>>> GetMedicines()
         {
             var TheMedicine = await _medicine.GetMedicines();
@@ -28,6 +32,7 @@ namespace Hospital_System.Controllers
 
         // GET: api/Medicine/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "Doctor")]
         public async Task<ActionResult<OutMedicineDTO>> GetMedicine(int id)
         {
             OutMedicineDTO TheMedicine = await _medicine.GetMedicine(id);
@@ -43,6 +48,7 @@ namespace Hospital_System.Controllers
         // PUT: api/Medicine/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = "Doctor")]
         public async Task<IActionResult> PutMedicine(int id, OutMedicineDTO medicine)
         {
             if (id != medicine.Id)
@@ -56,6 +62,7 @@ namespace Hospital_System.Controllers
         // POST: api/Medicine
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = "Doctor")]
         public async Task<ActionResult<OutMedicineDTO>> PostMedicine(OutMedicineDTO medicine)
         {
             if (medicine == null)
@@ -73,6 +80,7 @@ namespace Hospital_System.Controllers
 
         // DELETE: api/Medicine/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Receptionist")]
         public async Task<IActionResult> DeleteMedicine(int id)
         {
             await _medicine.DeleteMedicine(id);

@@ -2,11 +2,14 @@
 using Hospital_System.Models.DTOs;
 using Hospital_System.Models.DTOs.Room;
 using Hospital_System.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace Hospital_System.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class RoomsController : ControllerBase
@@ -21,6 +24,7 @@ namespace Hospital_System.Controllers
 
         // GET: api/Room
         [HttpGet]
+        [Authorize(Roles = "Doctor, Nurse")]
         public async Task<ActionResult<IEnumerable<OutRoomDTO>>> GetRooms()
         {
             var room = await _room.GetRooms();
@@ -29,6 +33,7 @@ namespace Hospital_System.Controllers
 
         // GET: api/Rooms/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "Doctor, Nurse")]
         public async Task<ActionResult<RoomDTO>> GetRoom(int id)
         {
             RoomDTO TheRoom = await _room.GetRoom(id);

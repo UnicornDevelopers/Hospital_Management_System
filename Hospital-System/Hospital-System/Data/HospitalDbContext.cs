@@ -1,9 +1,11 @@
 ﻿using Hospital_System.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hospital_System.Data
 {
-    public class HospitalDbContext : DbContext
+    public class HospitalDbContext : IdentityDbContext<ApplicationUser>
     {
 
         public HospitalDbContext(DbContextOptions options) : base(options)
@@ -17,6 +19,17 @@ namespace Hospital_System.Data
             base.OnModelCreating(modelBuilder);
 
 
+            SeedRole(modelBuilder, "Admin", "create", "update", "delete");
+            SeedRole(modelBuilder, "Receptionist", "create", "update", "delete");
+            SeedRole(modelBuilder, "Doctor", "create", "update","delete");
+            SeedRole(modelBuilder, "Patient", "create", "update", "delete");
+            SeedRole(modelBuilder, "Nurse");
+
+
+
+
+
+            //---------------------------------------------------
             modelBuilder.Entity<Hospital>()
      .HasMany(a => a.Departments)
       .WithOne(b => b.Hospital)
@@ -90,8 +103,36 @@ namespace Hospital_System.Data
            .HasMany(a => a.Medicines)
          .WithOne(b => b.medicalReport);
 
+            //----------------------------------------------------------------------
 
         }
+
+        private int id = 1;
+        private void SeedRole(ModelBuilder modelBuilder, string roleName, params string[] permissions)
+        {
+            var role = new IdentityRole
+            {
+                Id = roleName.ToLower(),
+                Name = roleName,
+                NormalizedName = roleName.ToUpper(),
+                ConcurrencyStamp = Guid.Empty.ToString()
+            };
+            modelBuilder.Entity<IdentityRole>().HasData(role);
+
+            // Go through the permissions list and seed a new entry for each
+            var roleClaims = permissions.Select(permission =>
+             new IdentityRoleClaim<string>
+             {
+                 Id = id++,
+                 RoleId = role.Id,
+                 ClaimType = "permissions",
+                 ClaimValue = permission
+             }
+            );
+            modelBuilder.Entity<IdentityRoleClaim<string>>().HasData(roleClaims);
+        }
+
+
         public DbSet<Hospital> Hospitals { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Nurse> Nurses { get; set; }
