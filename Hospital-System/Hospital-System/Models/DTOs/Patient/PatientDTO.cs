@@ -2,7 +2,6 @@
 using Hospital_System.Models.DTOs.AppointmentDTO;
 using Hospital_System.Models.DTOs.MedicalReport;
 using Hospital_System.Models.DTOs.Room;
-
 namespace Hospital_System.Models.DTOs.Patient
 {
     public class PatientDTO
@@ -15,13 +14,9 @@ namespace Hospital_System.Models.DTOs.Patient
         public string ContactNumber { get; set; }
         public string Address { get; set; }
         public int? RoomId { get; set; }
-
-
         //Nav
-        public RoomDTO? Rooms { get; set; }
+        public RoomPatient? Rooms { get; set; }
         public List<OutAppointmentDTO>? Appointments { get; set; }
-        public List<MedicalReportDTO>? MedicalReports { get; set; }
-
-
+        public List<OutMedicalReportDTO>? MedicalReports { get; set; }
     }
 }

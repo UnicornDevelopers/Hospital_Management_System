@@ -9,9 +9,12 @@ using Hospital_System.Data;
 using Hospital_System.Models;
 using Hospital_System.Models.Interfaces;
 using Hospital_System.Models.DTOs.Nurse;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Hospital_System.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class NursesController : ControllerBase
@@ -62,19 +65,21 @@ namespace Hospital_System.Controllers
         // PUT: api/Nurse/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult<NurseDTO>> PutNurse(int id, NurseDTO nurse)
+        public async Task<ActionResult<InNurseDTO>> PutNurse(int id, InNurseDTO nurse)
         {
+
             if (id != nurse.Id)
             {
                 return BadRequest();
             }
-
-            var updatedNurse = _nurse.UpdateNurse(id, nurse);
-
-            if (updatedNurse == null)
-                return NotFound();
-
-            return Ok(updatedNurse);
+            try
+            {
+                return await _nurse.UpdateNurse(id, nurse);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
 

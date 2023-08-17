@@ -3,6 +3,8 @@ using Hospital_System.Models;
 using Hospital_System.Models.DTOs;
 using Hospital_System.Models.Interfaces;
 using Hospital_System.Models.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hospital_System
@@ -55,6 +57,14 @@ namespace Hospital_System
 
             });
 
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+
+            }).AddEntityFrameworkStores<HospitalDbContext>();
+
+            builder.Services.AddScoped<JwtTokenService>();
+
             builder.Services.AddTransient<IHospital, HospitalService>();
             builder.Services.AddTransient<IDepartment, DepartmentService>();
             builder.Services.AddTransient<IRoom, RoomService>();
@@ -64,7 +74,30 @@ namespace Hospital_System
             builder.Services.AddTransient<INurse, NurseService>();
             builder.Services.AddTransient<IDoctor, DoctorService>();
             builder.Services.AddTransient<IPatient, PatientService>();
+            builder.Services.AddTransient<IUser, IdentityUserService>();
 
+
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                // Tell the authenticaion scheme "how/where" to validate the token + secret
+                options.TokenValidationParameters = JwtTokenService.GetValidationPerameters(builder.Configuration);
+            });
+
+
+            builder.Services.AddAuthorization(options =>
+            {
+                // Add "Name of Policy", and the Lambda returns a definition
+                options.AddPolicy("create", policy => policy.RequireClaim("permissions", "create"));
+                options.AddPolicy("update", policy => policy.RequireClaim("permissions", "update"));
+                options.AddPolicy("delete", policy => policy.RequireClaim("permissions", "delete"));
+                options.AddPolicy("deposit", policy => policy.RequireClaim("permissions", "deposit"));
+            });
 
 
             var app = builder.Build();
