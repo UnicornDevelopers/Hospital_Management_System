@@ -128,3 +128,11 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+*.vsidx
+/.vs/slnx.sqlite
+/.gitignore
+/.gitignore
+/.gitignore
+/.gitignore
+/.gitignore
+/.vs/Hospital_Management_System/FileContentIndex/023813bb-0d7f-41c5-b24b-312601a90af5.vsidx

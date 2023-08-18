@@ -1,6 +1,16 @@
 {
   "ExpandedNodes": [
+<<<<<<< HEAD
     ""
   ],
+=======
+    "",
+    "\\Hospital-System",
+    "\\Hospital-System\\Hospital-System",
+    "\\Hospital-System\\Hospital-System\\Models",
+    "\\Hospital-System\\Hospital-System\\Models\\Services"
+  ],
+  "SelectedNode": "\\Hospital-System\\Hospital-System.sln",
+>>>>>>> e22ae6f917d084be202fb84171ef3f63834389ba
   "PreviewInSolutionExplorer": false
 }
