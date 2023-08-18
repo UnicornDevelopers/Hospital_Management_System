@@ -7,7 +7,9 @@ namespace Hospital_System.Models.DTOs.User
         public string Id { get; set; }
         public string UserName { get; set; }
         public string Token { get; set; }
-        //[NotMapped]
+        
+
+
         public IList<string> Roles { get; set; }
 
     }

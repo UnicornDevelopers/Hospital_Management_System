@@ -14,8 +14,8 @@ namespace Hospital_System.Models
         public string Address { get; set; }
         public int? RoomId { get; set; }
 
-        //public string UserId { get; set; }
-
+        public string UserId { get; set; }
+       
         //Nav
         [ForeignKey("RoomId")]
         public Room? Rooms { get; set; }

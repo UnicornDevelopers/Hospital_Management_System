@@ -9,14 +9,14 @@ namespace Hospital_System.Models
 {
     public class ApplicationUser : IdentityUser
     {
-
         //public string FirstName { get; set; }
         //public string LastName { get; set; }
         //public string Gender { get; set; }
         //public DateTime? YoB { get; set; }
+        //public string UserId { get; set; }
 
-        //[NotMapped]
-        //public IList<string> Roles { get; set; }
+        [NotMapped]
+        public IList<string> Roles { get; set; }
 
 
     }
