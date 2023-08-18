@@ -55,8 +55,14 @@ namespace Hospital_System.Controllers
             {
                 return BadRequest();
             }
-            var updateRoom = await _room.UpdateRoom(id, room);
-            return Ok(updateRoom);
+            try
+            {
+                return Ok(await _room.UpdateRoom(id, room));
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // POST: api/Rooms

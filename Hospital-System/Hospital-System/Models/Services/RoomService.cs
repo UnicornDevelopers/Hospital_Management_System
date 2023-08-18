@@ -81,19 +81,35 @@ namespace Hospital_System.Models.Services
             return room;
         }
         // Update Room by ID........................................................................
+
         public async Task<OutRoomDTO> UpdateRoom(int id, OutRoomDTO updateRoomDTO)
         {
-            Room room = new Room
+            var existingRoom = await _context.Rooms.FindAsync(id);
+
+            if (existingRoom == null)
             {
-                Id = updateRoomDTO.Id,
-                RoomNumber = updateRoomDTO.RoomNumber,
-                RoomAvailability = updateRoomDTO.RoomAvailability,
-                NumberOfBeds = updateRoomDTO.NumberOfBeds,
-            };
-            _context.Entry(room).State = EntityState.Modified;
+                throw new ArgumentException($"Room with ID {id} not found.");
+            }
+
+            var existingDepartment = await _context.Departments.FindAsync(updateRoomDTO.DepartmentId);
+            if (existingDepartment == null)
+            {
+                throw new ArgumentException($"Department with ID {updateRoomDTO.DepartmentId} not found.");
+            }
+
+            // Update the room properties
+            existingRoom.RoomNumber = updateRoomDTO.RoomNumber;
+            existingRoom.RoomAvailability = updateRoomDTO.RoomAvailability;
+            existingRoom.NumberOfBeds = updateRoomDTO.NumberOfBeds;
+            existingRoom.DepartmentId = updateRoomDTO.DepartmentId;
+
+            _context.Entry(existingRoom).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+
             return updateRoomDTO;
         }
+
+
         // Delete Room by ID........................................................................
         public async Task DeleteRoom(int id)
         {
