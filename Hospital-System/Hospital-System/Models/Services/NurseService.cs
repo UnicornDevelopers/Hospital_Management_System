@@ -1,6 +1,9 @@
 ﻿
 using System;
 using Hospital_System.Data;
+using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Department;
+using Hospital_System.Models.DTOs.Doctor;
 using Hospital_System.Models.DTOs.Nurse;
 using Hospital_System.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -56,15 +59,16 @@ namespace Hospital_System.Models.Services
 
 
 
+
         public async Task<NurseDTO> GetNurse(int nurseID)
         {
-            // Find the Nurse by ID
-            var nurse = await _context.Nurses.FindAsync(nurseID);
+            // Find the Nurse by ID and include the Department
+            var nurse = await _context.Nurses
+                .Include(n => n.department)
+                .FirstOrDefaultAsync(n => n.Id == nurseID);
 
             if (nurse == null)
                 return null;
-
-            // Convert the Nurse to an NurseDTO.
 
             var nurseDTO = new NurseDTO
             {
@@ -74,24 +78,27 @@ namespace Hospital_System.Models.Services
                 Gender = nurse.Gender,
                 ContactNumber = nurse.ContactNumber,
                 Shift = nurse.shift,
-                DepartmentId = nurse.DepartmentId
-
+                DepartmentId = nurse.DepartmentId,
+                department = new OutDepartmentDTO
+                {
+                    Id = nurse.department.Id,
+                    DepartmentName = nurse.department.DepartmentName
+                }
             };
 
             return nurseDTO;
-
-
         }
 
 
 
 
-        public async Task<List<NurseDTO>> GetNurses()
+
+        public async Task<List<InNurseDTO>> GetNurses()
         {
             var nurses = await _context.Nurses.Include(nurse => nurse.department).ToListAsync();
 
             // Map Nurses entities to NurseDTOs
-            var nursesDto = nurses.Select(n => new NurseDTO
+            var nursesDto = nurses.Select(n => new InNurseDTO
             {
                 Id = n.Id,
                 FirstName = n.FirstName,
@@ -112,15 +119,21 @@ namespace Hospital_System.Models.Services
 
 
 
-        public async Task<NurseDTO> UpdateNurse(int id, NurseDTO nurseDto)
+        public async Task<InNurseDTO> UpdateNurse(int id, InNurseDTO nurseDto)
         {
 
 
             var nurse = await _context.Nurses.FindAsync(id);
 
             if (nurse == null)
-                return null;
+                throw new InvalidOperationException($"invaild Department with ID {nurseDto.Id} not found.");
 
+            var departmentExists = await _context.Departments.FindAsync(nurseDto.DepartmentId);
+
+            if (departmentExists == null)
+            {
+                throw new InvalidOperationException($"invaild Department with ID {nurse.DepartmentId} not found.");
+            }
 
             // Update Nurse  properties from DTO
             nurse.FirstName = nurseDto.FirstName;
@@ -130,22 +143,14 @@ namespace Hospital_System.Models.Services
             nurse.shift = nurseDto.Shift;
             nurse.DepartmentId = nurseDto.DepartmentId;
 
-            if (nurseDto.DepartmentId>0)
-            {
-                nurse.department = await _context.Departments.FindAsync(nurseDto.DepartmentId);
-            }
-            else
-            {
-                nurse.department = null;
-            }
+
+
 
             _context.Entry(nurse).State = EntityState.Modified;
 
             await _context.SaveChangesAsync();
 
             return nurseDto;
-
-
 
         }
 

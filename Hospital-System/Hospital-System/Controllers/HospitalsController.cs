@@ -2,12 +2,14 @@
 using Hospital_System.Models.DTOs;
 using Hospital_System.Models.DTOs.Hospital;
 using Hospital_System.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hospital_System.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class HospitalsController : ControllerBase
