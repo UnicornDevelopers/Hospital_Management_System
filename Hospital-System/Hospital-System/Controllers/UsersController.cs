@@ -18,8 +18,13 @@ namespace Hospital_System.Controllers
         {
             userService = service;
         }
+
+
+
+
+
         [AllowAnonymous]
-        [Authorize(Roles = "Admin,Receptionist")]
+        //[Authorize(Roles = "Admin,Receptionist")]
         [HttpPost("Register")]
         public async Task<ActionResult<UserDTO>> Register(RegisterUserDTO data)
         {

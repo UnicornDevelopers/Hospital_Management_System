@@ -15,12 +15,14 @@ namespace Hospital_System.Models.Services
     {
         private readonly HospitalDbContext _context;
         private UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private JwtTokenService tokenService;
-        public IdentityUserService(HospitalDbContext context, UserManager<ApplicationUser> manager, JwtTokenService tokenService)
+        public IdentityUserService(HospitalDbContext context, UserManager<ApplicationUser> manager, JwtTokenService tokenService, SignInManager<ApplicationUser> signInManager)
         {
             _context = context;
             userManager = manager;
             this.tokenService = tokenService;
+            signInManager = _signInManager;
 
         }
 
@@ -271,6 +273,8 @@ namespace Hospital_System.Models.Services
                 
             };
         }
+
+      
 
     }
 }

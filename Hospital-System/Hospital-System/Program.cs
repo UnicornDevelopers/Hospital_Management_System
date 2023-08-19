@@ -1,129 +1,111 @@
 using Hospital_System.Data;
 using Hospital_System.Models;
-using Hospital_System.Models.DTOs;
 using Hospital_System.Models.Interfaces;
 using Hospital_System.Models.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace Hospital_System
 {
     public class Program
     {
+        public IConfiguration Configuration { get; }
 
-        //Required Packages : 
-        //a- Microsoft.EntityFrameworkCore.SqlServer(7.0.9)
-        //b- Microsoft.EntityFrameworkCore.Tools(7.0.9)
-        //c- Microsoft.VisualStudio.Web.CodeGeneration(7.0.8)
-        //d- Microsoft.VisualStudio.Web.CodeGeneration.Design(7.0.8)
-        //E- Microsoft.EntityFrameworkCore.Sqlite
-        //F- Microsoft.AspNetCore.Mvc.NewtonsoftJson
-        //G- Microsoft.AspNetCore.Identity.EntityFrameworkCore
-        //H- Microsoft.AspNetCore.Authentication.JwtBearer
-        //I- Swashbuckle.AspNetCore
-
+        public Program(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
 
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            ConfigureAppServices(builder.Services, builder.Configuration);
+            var app = builder.Build();
 
-            // Add services to the container.
-            builder.Services.AddRazorPages();
+            ConfigureApp(app);
 
-            builder.Services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            app.Run();
+        }
 
-            string connString = builder.Configuration.GetConnectionString("DefaultConnection");
+        private static void ConfigureAppServices(IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddRazorPages();
+            services.AddControllersWithViews();
+            services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            string connString = configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<HospitalDbContext>(options => options.UseSqlServer(connString));
 
-            builder.Services
-                .AddDbContext<HospitalDbContext>
-            (opions => opions.UseSqlServer(connString));
-
-            builder.Services.AddSwaggerGen(options =>
+            services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo()
-
+                options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "Hospital-System",
                     Version = "v1",
-
-
-                }
-
-
-                    );
-
-
-
+                });
             });
 
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.User.RequireUniqueEmail = true;
-
             }).AddEntityFrameworkStores<HospitalDbContext>();
 
-            builder.Services.AddScoped<JwtTokenService>();
+            services.AddScoped<JwtTokenService>();
 
-            builder.Services.AddTransient<IHospital, HospitalService>();
-            builder.Services.AddTransient<IDepartment, DepartmentService>();
-            builder.Services.AddTransient<IRoom, RoomService>();
-            builder.Services.AddTransient<IAppointment, AppointmentService>();
-            builder.Services.AddTransient<IMedicalReport, MedicalReportService>();
-            builder.Services.AddTransient<IMedicine, MedicineService>();
-            builder.Services.AddTransient<INurse, NurseService>();
-            builder.Services.AddTransient<IDoctor, DoctorService>();
-            builder.Services.AddTransient<IPatient, PatientService>();
-            builder.Services.AddTransient<IUser, IdentityUserService>();
+            // Add other services
+            services.AddTransient<IHospital, HospitalService>();
+            services.AddTransient<IDepartment, DepartmentService>();
+            services.AddTransient<IRoom, RoomService>();
+            services.AddTransient<IAppointment, AppointmentService>();
+            services.AddTransient<IMedicalReport, MedicalReportService>();
+            services.AddTransient<IMedicine, MedicineService>();
+            services.AddTransient<INurse, NurseService>();
+            services.AddTransient<IDoctor, DoctorService>();
+            services.AddTransient<IPatient, PatientService>();
+            services.AddTransient<IUser, IdentityUserService>();
 
 
-
-            builder.Services.AddAuthentication(options =>
+            services.AddAuthentication(options =>
             {
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
-                // Tell the authenticaion scheme "how/where" to validate the token + secret
-                options.TokenValidationParameters = JwtTokenService.GetValidationPerameters(builder.Configuration);
+                options.TokenValidationParameters = JwtTokenService.GetValidationPerameters(configuration);
             });
 
-
-            builder.Services.AddAuthorization(options =>
+            services.AddAuthorization(options =>
             {
-                // Add "Name of Policy", and the Lambda returns a definition
                 options.AddPolicy("create", policy => policy.RequireClaim("permissions", "create"));
                 options.AddPolicy("update", policy => policy.RequireClaim("permissions", "update"));
                 options.AddPolicy("delete", policy => policy.RequireClaim("permissions", "delete"));
                 options.AddPolicy("deposit", policy => policy.RequireClaim("permissions", "deposit"));
             });
+        }
 
-
-            var app = builder.Build();
-
-
-            app.UseSwagger(options => {
-
+        private static void ConfigureApp(WebApplication app)
+        {
+            app.UseSwagger(options =>
+            {
                 options.RouteTemplate = "/api/{documentName}/swagger.json";
-
-
             });
 
-
-            app.UseSwaggerUI(options => {
-
+            app.UseSwaggerUI(options =>
+            {
                 options.SwaggerEndpoint("/api/v1/swagger.json", "Hospital-System");
-                options.RoutePrefix = "docs";
-
-
+                options.RoutePrefix = "Docs";
             });
 
-            // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -133,10 +115,15 @@ namespace Hospital_System
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.MapControllers();
-            app.MapRazorPages();
 
-            app.Run();
+            app.MapControllers();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Main}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
+            });
         }
     }
 }
