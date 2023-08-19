@@ -9,11 +9,11 @@ namespace Hospital_System.Models.Interfaces
     {
         public Task<UserDTO> Register(RegisterUserDTO registerUserDTO, ModelStateDictionary modelState);
 
-        //public Task<UserDTO> RegisterDoctor(DoctorRegistrationDTO doctorRegistration, ModelStateDictionary modelState);
+        public Task<UserDTO> RegisterDoctor(DoctorRegistrationDTO doctorRegistration, ModelStateDictionary modelState);
 
-        //public Task<UserDTO> RegisterNurse(RegisterNurseDTO nurseRegistration, ModelStateDictionary modelState);
+        public Task<UserDTO> RegisterNurse(RegisterNurseDTO nurseRegistration, ModelStateDictionary modelState);
 
-        //public Task<UserDTO> RegisterPatient(RegisterPatientDTO patientRegistration, ModelStateDictionary modelState);
+        public Task<UserDTO> RegisterPatient(RegisterPatientDTO patientRegistration, ModelStateDictionary modelState);
 
         public Task<UserDTO> Authenticate(string username, string password);
 

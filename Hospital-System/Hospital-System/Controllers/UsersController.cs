@@ -35,53 +35,53 @@ namespace Hospital_System.Controllers
 
         }
 
-        //[AllowAnonymous]
-        //[Authorize(Roles = "Admin,Receptionist")]
-        //[HttpPost("DoctorRegister")]
-        //public async Task<ActionResult<UserDTO>> DoctorRegister(DoctorRegistrationDTO data)
-        //{
-        //    var user = await userService.RegisterDoctor(data, this.ModelState);
+        [AllowAnonymous]
+        [Authorize(Roles = "Admin,Receptionist")]
+        [HttpPost("DoctorRegister")]
+        public async Task<ActionResult<UserDTO>> DoctorRegister(DoctorRegistrationDTO data)
+        {
+            var user = await userService.RegisterDoctor(data, this.ModelState);
 
-        //    if (ModelState.IsValid)
-        //    {
+            if (ModelState.IsValid)
+            {
 
-        //        return user;
-        //    }
+                return user;
+            }
 
-        //    return BadRequest(new ValidationProblemDetails(ModelState));
-        //}
+            return BadRequest(new ValidationProblemDetails(ModelState));
+        }
 
-        //[AllowAnonymous]
-        //[Authorize(Roles = "Admin,Receptionist")]
-        //[HttpPost("NurseRegister")]
-        //public async Task<ActionResult<UserDTO>> NurseRegister(RegisterNurseDTO data)
-        //{
-        //    var user = await userService.RegisterNurse(data, this.ModelState);
+        [AllowAnonymous]
+        [Authorize(Roles = "Admin,Receptionist")]
+        [HttpPost("NurseRegister")]
+        public async Task<ActionResult<UserDTO>> NurseRegister(RegisterNurseDTO data)
+        {
+            var user = await userService.RegisterNurse(data, this.ModelState);
 
-        //    if (ModelState.IsValid)
-        //    {
+            if (ModelState.IsValid)
+            {
 
-        //        return user;
-        //    }
+                return user;
+            }
 
-        //    return BadRequest(new ValidationProblemDetails(ModelState));
-        //}
+            return BadRequest(new ValidationProblemDetails(ModelState));
+        }
 
-        //[AllowAnonymous]
-        //[Authorize(Roles = "Admin,Receptionist")]
-        //[HttpPost("PatientRegister")]
-        //public async Task<ActionResult<UserDTO>> PatientRegister(RegisterPatientDTO data)
-        //{
-        //    var user = await userService.RegisterPatient(data, this.ModelState);
+        [AllowAnonymous]
+        [Authorize(Roles = "Admin,Receptionist")]
+        [HttpPost("PatientRegister")]
+        public async Task<ActionResult<UserDTO>> PatientRegister(RegisterPatientDTO data)
+        {
+            var user = await userService.RegisterPatient(data, this.ModelState);
 
-        //    if (ModelState.IsValid)
-        //    {
+            if (ModelState.IsValid)
+            {
 
-        //        return user;
-        //    }
+                return user;
+            }
 
-        //    return BadRequest(new ValidationProblemDetails(ModelState));
-        //}
+            return BadRequest(new ValidationProblemDetails(ModelState));
+        }
 
         [HttpPost("Login")]
         public async Task<ActionResult<UserDTO>> Login(LoginDTO log)
@@ -98,7 +98,7 @@ namespace Hospital_System.Controllers
         }
 
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Doctor,Nurse,Patient")]
         [HttpGet("Profile")]
         public async Task<ActionResult<UserDTO>> Profile()
         {
