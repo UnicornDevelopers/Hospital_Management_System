@@ -24,7 +24,8 @@ namespace Hospital_System.Models.Services
             Medicine medicine = new Medicine
             {
                 MedicineName = newMedicineDTO.MedicineName,
-                Portion = newMedicineDTO.Portion
+                Portion = newMedicineDTO.Portion,
+                MedicalReportId= newMedicineDTO.Id
             };
             _context.Entry(medicine).State = EntityState.Added;
             await _context.SaveChangesAsync();
