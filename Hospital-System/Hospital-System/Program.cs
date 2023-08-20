@@ -28,7 +28,8 @@ namespace Hospital_System
             var builder = WebApplication.CreateBuilder(args);
             ConfigureAppServices(builder.Services, builder.Configuration);
             var app = builder.Build();
-
+            app.MapGet("/", () => Results.Redirect("/")
+);
             ConfigureApp(app);
 
             app.Run();
@@ -36,8 +37,9 @@ namespace Hospital_System
 
         private static void ConfigureAppServices(IServiceCollection services, IConfiguration configuration)
         {
+
             services.AddRazorPages();
-            services.AddControllersWithViews();
+            services.AddHttpClient();
             services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             string connString = configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<HospitalDbContext>(options => options.UseSqlServer(connString));
@@ -55,10 +57,12 @@ namespace Hospital_System
             {
                 options.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<HospitalDbContext>();
+            services.AddControllersWithViews();
 
             services.AddScoped<JwtTokenService>();
 
             // Add other services
+            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaimsPrincipalFactory>();
             services.AddTransient<IHospital, HospitalService>();
             services.AddTransient<IDepartment, DepartmentService>();
             services.AddTransient<IRoom, RoomService>();
@@ -73,6 +77,7 @@ namespace Hospital_System
 
             services.AddAuthentication(options =>
             {
+                
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -116,14 +121,13 @@ namespace Hospital_System
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapControllers();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Main}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
-            });
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Main}/{action=Login}/{id?}");
+            app.MapRazorPages();
+
+            app.Run();
+
         }
     }
 }

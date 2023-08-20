@@ -2,7 +2,6 @@
 using Hospital_System.Models.DTOs.User;
 using Hospital_System.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using System.Numerics;
@@ -15,7 +14,7 @@ namespace Hospital_System.Models.Services
     {
         private readonly HospitalDbContext _context;
         private UserManager<ApplicationUser> userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private  SignInManager<ApplicationUser> _signInManager;
         private JwtTokenService tokenService;
         public IdentityUserService(HospitalDbContext context, UserManager<ApplicationUser> manager, JwtTokenService tokenService, SignInManager<ApplicationUser> signInManager)
         {
@@ -26,6 +25,9 @@ namespace Hospital_System.Models.Services
 
         }
 
+
+
+
         public async Task<UserDTO> Register(RegisterUserDTO data, ModelStateDictionary modelState)
         {
             //throw new NotImplementedException();
@@ -34,6 +36,7 @@ namespace Hospital_System.Models.Services
                 UserName = data.UserName,
                 Email = data.Email,
                 PhoneNumber = data.PhoneNumber,
+
             };
             var result = await userManager.CreateAsync(user, data.Password);
             if (result.Succeeded)
@@ -62,7 +65,13 @@ namespace Hospital_System.Models.Services
         }
 
 
-      
+        //public async Task<SignInResult> PasswordSignInAsync(LoginDTO signInModel)
+        //{
+
+        //    var result = await _signInManager.PasswordSignInAsync(signInModel.UserName, signInModel.Password, signInModel.RememberMe, false);
+        //    return result;
+
+        //}
 
         public async Task<UserDTO> RegisterDoctor(DoctorRegistrationDTO doctorRegistration, ModelStateDictionary modelState)
         {
@@ -192,7 +201,7 @@ namespace Hospital_System.Models.Services
                 UserName = patientRegistration.UserName,
                 Email = patientRegistration.Email,
                 PhoneNumber = patientRegistration.PhoneNumber,
-                //Roles = patientRegistration.Roles
+                Roles = patientRegistration.Roles
 
             };
 
@@ -222,7 +231,7 @@ namespace Hospital_System.Models.Services
                     RoomId = patientRegistration.RoomId,
                     DoB = patientRegistration.DoB,
                     Address = patientRegistration.Address,
-
+                    
                     // Other doctor properties
                 };
                 _context.Patients.Add(newPatient);
@@ -245,6 +254,7 @@ namespace Hospital_System.Models.Services
         {
             var user = await userManager.FindByNameAsync(username);
 
+
             if (await userManager.CheckPasswordAsync(user, password))
             {
                 return new UserDTO
@@ -252,13 +262,16 @@ namespace Hospital_System.Models.Services
                     Id = user.Id,
                     UserName = user.UserName,
                     Token = await tokenService.GetToken(user, System.TimeSpan.FromMinutes(5)),
-                    Roles = await userManager.GetRolesAsync(user)
+                    Roles = await userManager.GetRolesAsync(user),
+
                 };
             }
 
             return null;
 
         }
+
+
 
         public async Task<UserDTO> GetUser(ClaimsPrincipal principal)
         {

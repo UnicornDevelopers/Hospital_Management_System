@@ -49,6 +49,27 @@ namespace Hospital_System.Controllers
                 return Redirect("/Main/Index");
             }
         }
+        //[HttpPost]
+        //[Route("Login")]
+        //public async Task<IActionResult> Login(LoginDTO signInModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var result = await _userService.PasswordSignInAsync(signInModel);
+        //        if (result.Succeeded)
+        //        {
+        //            return RedirectToAction("Index", "Main");
+        //        }
+
+        //        ModelState.AddModelError("", "Invalid information");
+
+        //    }
+
+
+
+
+        //    return View();
+        //}
 
         [HttpGet]
         public IActionResult Register()

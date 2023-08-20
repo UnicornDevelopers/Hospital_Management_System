@@ -1,7 +1,7 @@
 ﻿using Hospital_System.Models.DTOs.User;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace Hospital_System.Models.Interfaces
 {
@@ -16,6 +16,7 @@ namespace Hospital_System.Models.Interfaces
         public Task<UserDTO> RegisterPatient(RegisterPatientDTO patientRegistration, ModelStateDictionary modelState);
 
         public Task<UserDTO> Authenticate(string username, string password);
+        //Task<SignInResult> PasswordSignInAsync(LoginDTO signInModel);
 
 
         public Task<UserDTO> GetUser(ClaimsPrincipal principal);

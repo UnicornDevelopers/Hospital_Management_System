@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\Hospital-System.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\css\\AccIndex.css",
+      "PackagePath": "staticwebassets\\css\\AccIndex.css"
+    },
+    {
       "Id": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\css\\LayoutStyle1.css",
       "PackagePath": "staticwebassets\\css\\LayoutStyle1.css"
     },

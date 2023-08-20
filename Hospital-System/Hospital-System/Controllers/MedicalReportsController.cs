@@ -25,7 +25,7 @@ namespace Hospital_System.Controllers
 
         // GET: api/MedicalReports
         [HttpGet]
-        [Authorize(Roles = "Doctor")]
+        //[Authorize(Roles = "Doctor")]
         public async Task<ActionResult<IEnumerable<OutMedicalReportDTO>>> GetMedicalReports()
         {
             var medicalReport = await _medicalReport.GetMedicalReports();
@@ -34,7 +34,7 @@ namespace Hospital_System.Controllers
 
         // GET: api/MedicalReport/5
         [HttpGet("{id}")]
-        [Authorize(Roles = "Doctor, Patient")]
+        //[Authorize(Roles = "Doctor, Patient")]
         public async Task<ActionResult<MedicalReportDTO>> GetMedicalReport(int id)
         {
             MedicalReportDTO TheMedicalReport = await _medicalReport.GetMedicalReport(id);
@@ -64,7 +64,7 @@ namespace Hospital_System.Controllers
         // POST: api/MedicalReport
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Authorize(Roles = "Doctor")]
+        //[Authorize(Roles = "Doctor")]
         public async Task<ActionResult<OutMedicalReportDTO>> PostMedicalReport(InMedicalReportDTO medicalReport)
         {
             if (medicalReport == null)
