@@ -14,23 +14,34 @@ using System.Data;
 
 namespace Hospital_System.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    /// <summary>
+    /// Controller responsible for managing nurse-related operations.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class NursesController : ControllerBase
     {
         private readonly INurse _nurse;
-
+        /// <summary>
+        /// Initializes a new instance of the NursesController class.
+        /// </summary>
+        /// <param name="nurse">The nurse service.</param>
         public NursesController(INurse nurse)
         {
             _nurse = nurse;
         }
 
 
+        //----------------------------------------------------------------------------------------------
 
 
+        /// <summary>
+        /// Retrieves a list of all nurses.
+        /// </summary>
+        /// <returns>A list of nurses.</returns>
         // GET: api/Nurse
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<NurseDTO>> GetAllNurses()
         {
             var nurses = await _nurse.GetNurses();
@@ -43,11 +54,16 @@ namespace Hospital_System.Controllers
 
 
 
+        //----------------------------------------------------------------------------------------------
 
-
-
+        /// <summary>
+        /// Retrieves a nurse by their ID.
+        /// </summary>
+        /// <param name="id">The ID of the nurse to retrieve.</param>
+        /// <returns>The retrieved nurse.</returns>
         // GET: api/Nurse/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<NurseDTO>> GetNurse(int id)
         {
             var nurse = await _nurse.GetNurse(id);
@@ -59,12 +75,18 @@ namespace Hospital_System.Controllers
             return Ok(nurse);
         }
 
+        //----------------------------------------------------------------------------------------------
 
-
-
+        /// <summary>
+        /// Updates a nurse by their ID.
+        /// </summary>
+        /// <param name="id">The ID of the nurse to update.</param>
+        /// <param name="nurse">The updated nurse data.</param>
+        /// <returns>The updated nurse.</returns>
         // PUT: api/Nurse/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<InNurseDTO>> PutNurse(int id, InNurseDTO nurse)
         {
 
@@ -83,12 +105,17 @@ namespace Hospital_System.Controllers
         }
 
 
+        //----------------------------------------------------------------------------------------------
 
-
-
+        /// <summary>
+        /// Creates a new nurse.
+        /// </summary>
+        /// <param name="nurse">The nurse data to create.</param>
+        /// <returns>The created nurse.</returns>
         // POST: api/Nurse
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<NurseDTO>> PostNurse(InNurseDTO nurse)
         {
             try
@@ -112,10 +139,16 @@ namespace Hospital_System.Controllers
 
 
 
+        //----------------------------------------------------------------------------------------------
 
-
+        /// <summary>
+        /// Deletes a nurse by their ID.
+        /// </summary>
+        /// <param name="id">The ID of the nurse to delete.</param>
+        /// <returns>A success message.</returns>
         // DELETE: api/Nurse/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteNurse(int id)
         {
             try

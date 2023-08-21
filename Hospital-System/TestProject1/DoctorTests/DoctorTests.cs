@@ -6,7 +6,6 @@ using Hospital_System.Models.DTOs.Doctor;
 using Hospital_System.Models.Services;
 using Hospital_System.Tests.Mocks;
 using Xunit;
-
 namespace TestProject1.DoctorTests
 {
     public class DoctorTests : Mock
@@ -18,7 +17,6 @@ namespace TestProject1.DoctorTests
             var department = await CreateAndSaveTestDepartment(hospital.Id);
             var doctor = await CreateAndSaveTestDoctor(department.Id);
             var doctorService = new DoctorService(_db);
-
             var newDoctor = new InDoctorDTO
             {
                 FirstName = doctor.FirstName,
@@ -28,17 +26,13 @@ namespace TestProject1.DoctorTests
                 Speciality = doctor.Speciality,
                 DepartmentId = department.Id
             };
-
             var createdDoctor = await doctorService.Create(newDoctor);
-
             Assert.NotNull(createdDoctor);
             Assert.Equal("Doctor Doctor", createdDoctor.FullName);
             Assert.Equal("Male", createdDoctor.Gender);
             Assert.Equal("123456789", createdDoctor.ContactNumber);
             Assert.Equal("test", createdDoctor.Speciality);
         }
-
-
         [Fact]
         public async Task GetDoctors_ReturnListOfDoctorDTOs()
         {
@@ -48,20 +42,12 @@ namespace TestProject1.DoctorTests
             var doctor1 = await CreateAndSaveTestDoctor(dep1.Id);
             var doctor2 = await CreateAndSaveTestDoctor(dep2.Id);
             var doctorService = new DoctorService(_db);
-
             var retrievedDoctorsDto = await doctorService.GetDoctors();
-
             Assert.NotNull(retrievedDoctorsDto);
             Assert.Equal(2, retrievedDoctorsDto.Count);
             Assert.Contains(retrievedDoctorsDto, dto => dto.Id == doctor1.Id);
             Assert.Contains(retrievedDoctorsDto, dto => dto.Id == doctor2.Id);
         }
-
-
-
-
-
-
         [Fact]
         public async Task GetDoctor_ReturnDoctorDTO()
         {
@@ -69,9 +55,7 @@ namespace TestProject1.DoctorTests
             var department = await CreateAndSaveTestDepartment(hospital.Id);
             var doctor = await CreateAndSaveTestDoctor(department.Id);
             var doctorService = new DoctorService(_db);
-
             var retrievedDoctor = await doctorService.GetDoctor(doctor.Id);
-
             Assert.NotNull(retrievedDoctor);
             Assert.Equal(doctor.Id, retrievedDoctor.Id);
             Assert.Equal("Doctor", retrievedDoctor.FirstName);
@@ -81,11 +65,6 @@ namespace TestProject1.DoctorTests
             Assert.Equal("test", retrievedDoctor.Speciality);
             Assert.Equal(department.Id, retrievedDoctor.DepartmentId);
         }
-
-
-
-
-
         [Fact]
         public async Task UpdateDoctor_ReturnUpdatedDoctorDTO()
         {
@@ -93,7 +72,6 @@ namespace TestProject1.DoctorTests
             var department = await CreateAndSaveTestDepartment(hospital.Id);
             var doctor = await CreateAndSaveTestDoctor(department.Id);
             var doctorService = new DoctorService(_db);
-
             var updatedDoctor = new InDoctorDTO
             {
                 FirstName = "update",
@@ -103,9 +81,7 @@ namespace TestProject1.DoctorTests
                 Speciality = "test",
                 DepartmentId = department.Id
             };
-
             var updatedDoctorDto = await doctorService.UpdateDoctor(doctor.Id, updatedDoctor);
-
             Assert.NotNull(updatedDoctorDto);
             Assert.Equal("update", updatedDoctorDto.FirstName);
             Assert.Equal("update", updatedDoctorDto.LastName);
@@ -114,9 +90,6 @@ namespace TestProject1.DoctorTests
             Assert.Equal("test", updatedDoctorDto.Speciality);
             Assert.Equal(department.Id, updatedDoctorDto.DepartmentId);
         }
-
-
-
         [Fact]
         public async Task DeleteDoctor_ReturnDeletedDoctor()
         {
@@ -124,16 +97,9 @@ namespace TestProject1.DoctorTests
             var department = await CreateAndSaveTestDepartment(hospital.Id);
             var doctor = await CreateAndSaveTestDoctor(department.Id);
             var doctorService = new DoctorService(_db);
-
             await doctorService.Delete(doctor.Id);
-
             var deletedDoctor = await _db.Doctors.FindAsync(doctor.Id);
-
             Assert.Null(deletedDoctor);
         }
-
-
-
-
     }
 }

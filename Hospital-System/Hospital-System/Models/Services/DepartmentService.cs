@@ -13,15 +13,28 @@ using System.Numerics;
 
 namespace Hospital_System.Models.Services
 {
+    /// <summary>
+    /// Service class for managing departments within the hospital.
+    /// </summary>
     public class DepartmentService : IDepartment
     {
     private readonly HospitalDbContext _context;
-    public DepartmentService(HospitalDbContext context)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DepartmentService"/> class.
+        /// </summary>
+        /// <param name="context">The database context.</param>
+        public DepartmentService(HospitalDbContext context)
     {
         _context = context;
     }
-    // CREATE Department........................................................................
-    public async Task<InDepartmentDTO> CreateDepartment(InDepartmentDTO newDepartmentDTO)
+        // CREATE Department........................................................................
+
+        /// <summary>
+        /// Creates a new department in the system.
+        /// </summary>
+        /// <param name="newDepartmentDTO">The department information to create.</param>
+        /// <returns>The created department information.</returns>
+        public async Task<InDepartmentDTO> CreateDepartment(InDepartmentDTO newDepartmentDTO)
     {
         Department department = new Department
         {
@@ -35,6 +48,11 @@ namespace Hospital_System.Models.Services
             return newDepartmentDTO;
     }
         // Get Department........................................................................
+
+        /// <summary>
+        /// Retrieves information for all departments 
+        /// </summary>
+       
         public async Task<List<OutDepartmentDTO>> GetDepartments()
         {
             var department = await _context.Departments.Select(x => new OutDepartmentDTO()
@@ -55,7 +73,11 @@ namespace Hospital_System.Models.Services
         }
 
         // Get Department by ID........................................................................
-   
+        /// <summary>
+        /// Retrieves information about a specific department.
+        /// </summary>
+        /// <param name="id">The ID of the department to retrieve.</param>
+        /// <returns>The department information.</returns>
         public async Task<DepartmentDTO> GetDepartment(int id)
         {
             var department = await _context.Departments
@@ -98,6 +120,12 @@ namespace Hospital_System.Models.Services
 
 
         // Update Department by ID........................................................................
+        /// <summary>
+        /// Updates the information of a specific department.
+        /// </summary>
+        /// <param name="id">The ID of the department to update.</param>
+        /// <param name="updateDepartmentDTO">The updated department information.</param>
+        /// <returns>The updated department information.</returns>
         public async Task<OutDepartmentDTO> UpdateDepartment(int id, OutDepartmentDTO updateDepartmentDTO)
         {
             var existingDepartment = await _context.Departments.FindAsync(id);
@@ -116,37 +144,123 @@ namespace Hospital_System.Models.Services
         }
 
         // Delete Appointment by ID........................................................................
+
+        /// <summary>
+        /// Deletes a department from the system.
+        /// </summary>
+        /// <param name="id">The ID of the department to delete.</param>
         public async Task DeleteDepartment(int id)
-    {
+        {
             Department department = await _context.Departments.FindAsync(id);
-        _context.Entry(department).State = EntityState.Deleted;
-        await _context.SaveChangesAsync();
-    }
+            if (department != null)
+            {
+                _context.Entry(department).State = EntityState.Deleted;
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new InvalidOperationException($"Department with ID {id} not found.");
+            }
+        }
 
-
-
-        public async Task<List<OutDocDTO>> GetDoctorsInDepartment(int departmentId)
+        /// <summary>
+        /// Retrieves the list of doctors in a specific department.
+        /// </summary>
+        /// <param name="departmentId">The ID of the department.</param>
+        /// <returns>The list of doctors in the department.</returns>
+        public async Task<List<InDoctorDTO>> GetDoctorsInDepartment(int departmentId)
         {
             var doctors = await _context.Doctors
                 .Where(d => d.DepartmentId == departmentId)
-                .Select(d => new OutDocDTO()
+                .Select(d => new InDoctorDTO()
                 {
                     Id = d.Id,
                     FullName = $"{d.FirstName} {d.LastName}",
                     Gender = d.Gender,
                     ContactNumber = d.ContactNumber,
                     Speciality = d.Speciality,
+                    DepartmentId = d.DepartmentId
                 })
                 .ToListAsync();
 
             return doctors;
         }
+        /// <summary>
+        /// Retrieves the list of Nurses in a specific department.
+        /// </summary>
+        /// <param name="departmentId">The ID of the department.</param>
+        /// <returns>The list of doctors in the department.</returns>
+        public async Task<List<InNurseDTO>> GetNursesInDepartment(int departmentId)
+        {
+            var Nurses = await _context.Nurses
+                .Where(d => d.DepartmentId == departmentId)
+                .Select(d => new InNurseDTO()
+                {
+                    Id = d.Id,
+                    FullName = $"{d.FirstName} {d.LastName}",
+                    Gender = d.Gender,
+                    ContactNumber = d.ContactNumber,
+                    
+                })
+                .ToListAsync();
+
+            return Nurses;
+        }
 
 
+        /// <summary>
+        /// Retrieves the list of Rooms in a specific department.
+        /// </summary>
+        /// <param name="departmentId">The ID of the department.</param>
+        /// <returns>The list of doctors in the department.</returns>
+        public async Task<List<RoomDTO>> GetRoomsAndPatientsInDepartment(int departmentId)
+        {
+            var rooms = await _context.Rooms
+                .Where(d => d.DepartmentId == departmentId)
+                .Select(x => new RoomDTO()
+            {
+                Id = x.Id,
+                RoomNumber = x.RoomNumber,
+                RoomAvailability = x.RoomAvailability,
+                NumberOfBeds = x.NumberOfBeds,
+                Patients = x.Patients.Select(x => new OutPatientDTO()
+                {
+                    Id = x.Id,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    DoB = x.DoB,
+                    Gender = x.Gender,
+                    ContactNumber = x.ContactNumber,
+                    Address = x.Address,
+
+                }).ToList()
+            }).ToListAsync();
+            return rooms;
+        }
 
 
+        /// <summary>
+        /// Retrieves the list of Nurses in a specific department.
+        /// </summary>
+        /// <param name="departmentId">The ID of the department.</param>
+        /// <returns>The list of doctors in the department.</returns>
+        public async Task<List<RoomDTO>> GetRoomsInDepartment(int departmentId)
+        {
+            var Nurses = await _context.Rooms
+                .Where(d => d.DepartmentId == departmentId)
+                .Select(d => new RoomDTO()
+                {
+                    Id = d.Id,
+                    RoomNumber=d.RoomNumber,
+                  NumberOfBeds = d.NumberOfBeds,
+                  RoomAvailability = d.RoomAvailability,
+                  
+                  
 
+                })
+                .ToListAsync();
 
-
+            return Nurses;
+        }
     }
 }

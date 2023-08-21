@@ -5,12 +5,44 @@
       "PackagePath": "staticwebassets\\Hospital-System.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\css\\AccIndex.css",
+      "PackagePath": "staticwebassets\\css\\AccIndex.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\css\\LayoutStyle1.css",
+      "PackagePath": "staticwebassets\\css\\LayoutStyle1.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\css\\LogForm.css",
+      "PackagePath": "staticwebassets\\css\\LogForm.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\css\\LogIn.css",
+      "PackagePath": "staticwebassets\\css\\LogIn.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\css\\RegForm.css",
+      "PackagePath": "staticwebassets\\css\\RegForm.css"
+    },
+    {
       "Id": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
       "Id": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\images\\OP Logo.gif",
+      "PackagePath": "staticwebassets\\images\\OP Logo.gif"
+    },
+    {
+      "Id": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\images\\Tokyo.mp4",
+      "PackagePath": "staticwebassets\\images\\Tokyo.mp4"
+    },
+    {
+      "Id": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\images\\Tokyo1.jpg",
+      "PackagePath": "staticwebassets\\images\\Tokyo1.jpg"
     },
     {
       "Id": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\js\\site.js",
@@ -83,6 +115,22 @@
     {
       "Id": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-theme.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-theme.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-theme.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-theme.css.map"
+    },
+    {
+      "Id": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-theme.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-theme.min.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-theme.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-theme.min.css.map"
     },
     {
       "Id": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",

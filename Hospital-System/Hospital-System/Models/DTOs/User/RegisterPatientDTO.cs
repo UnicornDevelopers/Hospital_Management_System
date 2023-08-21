@@ -9,7 +9,7 @@
         public string PhoneNumber { get; set; }
         public IList<string> Roles { get; set; }
 
-        public string UserId { get; set; }
+        //public string? UserId { get; set; }
 
 
         public string FirstName { get; set; }

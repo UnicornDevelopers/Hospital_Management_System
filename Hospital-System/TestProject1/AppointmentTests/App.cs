@@ -1,138 +1,104 @@
 ﻿using Hospital_System.Models;
-using Hospital_System.Models.DTOs;
 using Hospital_System.Models.DTOs.Appointment;
-using Hospital_System.Models.DTOs.AppointmentDTO;
-using Hospital_System.Models.Interfaces;
 using Hospital_System.Models.Services;
 using Hospital_System.Tests.Mocks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TestProject1.DepartmentTests;
-namespace TestProject1.AppointmentTests
+using Xunit;
+namespace TestProject1.App
 {
     public class App : Mock
     {
-        private IAppointment BuildRepository()
+        [Fact]
+        public async Task CreateAppointmentReturnAppointmentDTO()
         {
-            return new AppointmentService(_db);
+            var hospital = await CreateAndSaveTestHospital();
+            var department = await CreateAndSaveTestDepartment(hospital.Id);
+            var room = await CreateAndSaveTestRoom(department.Id);
+            var doctor = await CreateAndSaveTestDoctor(department.Id);
+            var patient = await CreateAndSaveTestPatient(room.Id);
+            var appointment = await CreateAndSaveTestAppointment(doctor.Id, patient.Id);
+            var appointmentService = new AppointmentService(_db);
+            var newAppointment = new InAppoinmentDTO
+            {
+                DateOfAppointment = appointment.DateOfAppointment,
+                PatientId = appointment.PatientId,
+                DoctorId = appointment.DoctorId
+            };
+            var createAppointment = await appointmentService.CreateAppointment(newAppointment);
+            Assert.NotNull(createAppointment);
+            Assert.Equal(new DateTime(2020, 5, 11), createAppointment.DateOfAppointment);
+            Assert.Equal(patient.Id, createAppointment.PatientId);
+            Assert.Equal(doctor.Id, createAppointment.DoctorId);
         }
         [Fact]
-        public async Task CanSaveAndGetAppointment()
+        public async Task GetAppointmentsReturnListOfAppointmentDTOs()
         {
-            // arrange
-            var appointment = new InAppoinmentDTO
-            {
-                Id = 1,
-                DateOfAppointment = DateTime.Now,
-                PatientId = 1,
-                DoctorId = 1
-            };
-            var service = BuildRepository();
-            // act
-            var saved = await service.CreateAppointment(appointment);
-            // assert
-            Assert.NotNull(saved);
-            Assert.NotEqual(0, appointment.Id);
-            Assert.Equal(saved.Id, appointment.Id);
-            Assert.Equal(saved.DateOfAppointment, appointment.DateOfAppointment);
-            Assert.Equal(saved.PatientId, appointment.PatientId);
-            Assert.Equal(saved.DoctorId, appointment.DoctorId);
+            var hospital = await CreateAndSaveTestHospital();
+            var department = await CreateAndSaveTestDepartment(hospital.Id);
+            var department2 = await CreateAndSaveTestDepartment(hospital.Id);
+            var room = await CreateAndSaveTestRoom(department.Id);
+            var room2 = await CreateAndSaveTestRoom(department2.Id);
+            var doctor = await CreateAndSaveTestDoctor(department.Id);
+            var doctor2 = await CreateAndSaveTestDoctor(department2.Id);
+            var patient = await CreateAndSaveTestPatient(room.Id);
+            var patient2 = await CreateAndSaveTestPatient(room2.Id);
+            var appointment = await CreateAndSaveTestAppointment(doctor.Id, patient.Id);
+            var appointment2 = await CreateAndSaveTestAppointment(doctor2.Id, patient2.Id);
+            var appointmentService = new AppointmentService(_db);
+            var retrievedAppointmentsDto = await appointmentService.GetAppointments();
+            Assert.NotNull(retrievedAppointmentsDto);
+            Assert.Equal(2, retrievedAppointmentsDto.Count);
+            Assert.Contains(retrievedAppointmentsDto, dto => dto.Id == appointment.Id);
+            Assert.Contains(retrievedAppointmentsDto, dto => dto.Id == appointment2.Id);
         }
         [Fact]
-        public async Task EmptyTest() // Can Check If There Are No Appointment
+        public async Task GetAppointmentReturnAppointmentDTO()
         {
-            // arrange
-            var service = BuildRepository();
-            await service.DeleteAppointment(1);
-            // act
-            List<OutAppointmentDTO> result = await service.GetAppointments();
-            // assert
-            Assert.Empty(result);
+            var hospital = await CreateAndSaveTestHospital();
+            var department = await CreateAndSaveTestDepartment(hospital.Id);
+            var room = await CreateAndSaveTestRoom(department.Id);
+            var doctor = await CreateAndSaveTestDoctor(department.Id);
+            var patient = await CreateAndSaveTestPatient(room.Id);
+            var appointment = await CreateAndSaveTestAppointment(doctor.Id, patient.Id);
+            var appointmentService = new AppointmentService(_db);
+            var retrievedAppointment = await appointmentService.GetAppointment(appointment.Id);
+            Assert.NotNull(retrievedAppointment);
+            Assert.Equal(new DateTime(2020, 5, 11), retrievedAppointment.DateOfAppointment);
+            Assert.Equal(patient.Id, retrievedAppointment.PatientId);
+            Assert.Equal(doctor.Id, retrievedAppointment.DoctorId);
         }
         [Fact]
-        public async Task GetAppointment()
+        public async Task UpdateAppointmentReturnUpdatedAppointmentDTO()
         {
-            // arrange
-            var appointment = new InAppoinmentDTO
+            var hospital = await CreateAndSaveTestHospital();
+            var department = await CreateAndSaveTestDepartment(hospital.Id);
+            var room = await CreateAndSaveTestRoom(department.Id);
+            var doctor = await CreateAndSaveTestDoctor(department.Id);
+            var patient = await CreateAndSaveTestPatient(room.Id);
+            var appointment = await CreateAndSaveTestAppointment(doctor.Id, patient.Id);
+            var appointmentService = new AppointmentService(_db);
+            var updatedAppointment = new InAppoinmentDTO
             {
-                Id = 1,
-                DateOfAppointment = DateTime.Now,
-                PatientId = 1,
-                DoctorId = 1
+                DateOfAppointment = new DateTime(2023, 3, 3),
+                PatientId = patient.Id,
+                DoctorId = doctor.Id
             };
-            var appointment2 = new InAppoinmentDTO
-            {
-                Id = 2,
-                DateOfAppointment = DateTime.Now,
-                PatientId = 2,
-                DoctorId = 2
-            };
-            var service = BuildRepository();
-            var saved = await service.CreateAppointment(appointment);
-            var saved2 = await service.CreateAppointment(appointment2);
-            // act
-            var result4 = await service.GetAppointment(1);
-            var result5 = await service.GetAppointment(2);
-            // assert
-            Assert.Equal(1, result4.PatientId);
-            Assert.Equal(2, result5.PatientId);
+            var updatedAppoinmentDto = await appointmentService.UpdateAppointment(appointment.Id, updatedAppointment);
+            Assert.NotNull(updatedAppoinmentDto);
+            Assert.Equal(new DateTime(2023, 3, 3), updatedAppoinmentDto.DateOfAppointment);
         }
         [Fact]
-        public async Task GetAllAppointment()
+        public async Task DeleteDoctorReturnDeletedDoctor()
         {
-            // arrange
-            var appointment = new InAppoinmentDTO
-            {
-                Id = 1,
-                DateOfAppointment = DateTime.Now,
-                PatientId = 1,
-                DoctorId = 1
-            };
-            var appointment2 = new InAppoinmentDTO
-            {
-                Id = 2,
-                DateOfAppointment = DateTime.Now,
-                PatientId = 2,
-                DoctorId = 2
-            };
-            var service = BuildRepository();
-            var saved = await service.CreateAppointment(appointment);
-            var saved2 = await service.CreateAppointment(appointment2);
-            // act
-            List<OutAppointmentDTO> result = await service.GetAppointments();
-            // assert
-            Assert.Equal(2, result.Count);
-        }
-        [Fact]
-        public async Task UpdateAppoinment()
-        {
-            var updateAppoinmentInDB = new InAppoinmentDTO
-            {
-                Id = 2,
-                DateOfAppointment = DateTime.Now,
-                PatientId = 3,
-                DoctorId = 2
-            };
-            var service = BuildRepository();
-            // act
-            var result = await service.UpdateAppointment(2, updateAppoinmentInDB);
-            // assert
-            Assert.Equal(1, result.PatientId);
-            Assert.NotEqual(2, result.DoctorId);
-        }
-        [Fact]
-        public async Task DeleteAppointment()
-        {
-            var service = BuildRepository();
-            // act & assert
-            List<OutAppointmentDTO> result = await service.GetAppointments();
-            Assert.Equal(2, result.Count);
-            await service.DeleteAppointment(1);
-            List<OutAppointmentDTO> result2 = await service.GetAppointments();
-            Assert.Equal(1, result2.Count);
+            var hospital = await CreateAndSaveTestHospital();
+            var department = await CreateAndSaveTestDepartment(hospital.Id);
+            var room = await CreateAndSaveTestRoom(department.Id);
+            var doctor = await CreateAndSaveTestDoctor(department.Id);
+            var patient = await CreateAndSaveTestPatient(room.Id);
+            var appointment = await CreateAndSaveTestAppointment(doctor.Id, patient.Id);
+            var appointmentService = new AppointmentService(_db);
+            await appointmentService.DeleteAppointment(appointment.Id);
+            var deletedAppointment = await _db.Appointments.FindAsync(appointment.Id);
+            Assert.Null(deletedAppointment);
         }
     }
 }

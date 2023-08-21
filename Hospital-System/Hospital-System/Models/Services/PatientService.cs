@@ -1,4 +1,7 @@
-﻿using Hospital_System.Data;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Hospital_System.Data;
 using Hospital_System.Models.DTOs;
 using Hospital_System.Models.DTOs.AppointmentDTO;
 using Hospital_System.Models.DTOs.Department;
@@ -7,19 +10,30 @@ using Hospital_System.Models.DTOs.Patient;
 using Hospital_System.Models.DTOs.Room;
 using Hospital_System.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
-using System.Linq;
-using System.Net;
-using System.Runtime.Intrinsics.Arm;
+
 namespace Hospital_System.Models.Services
 {
+    /// <summary>
+    /// Service class for managing patients within the hospital system.
+    /// </summary>
     public class PatientService : IPatient
     {
         private readonly HospitalDbContext _context;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PatientService"/> class.
+        /// </summary>
+        /// <param name="context">The database context.</param>
         public PatientService(HospitalDbContext context)
         {
             _context = context;
         }
+
+        /// <summary>
+        /// Creates a new patient in the system.
+        /// </summary>
+        /// <param name="Patient">The data transfer object containing patient information.</param>
+        /// <returns>The created patient information.</returns>
         public async Task<OutPatientDTO> Create(InPatientDTO Patient)
         {
             if (Patient.RoomId != null)
@@ -27,9 +41,9 @@ namespace Hospital_System.Models.Services
                 var room = await _context.Rooms.Include(p => p.Patients).FirstOrDefaultAsync(a => a.Id == Patient.RoomId);
                 if (room == null)
                 {
-                    throw new Exception("Room is not exisit");
+                    throw new Exception("Room does not exist.");
                 }
-                if (room.NumberOfBeds == room.Patients!.Count)
+                if (room.NumberOfBeds <= room.Patients.Count)
                 {
                     room.RoomAvailability = false;
                 }
@@ -94,10 +108,12 @@ namespace Hospital_System.Models.Services
                 return patientDTO;
             }
             return null;
-        }        /* public async Task<OutPatientDTO> AddPatientToRoom(InPatientDTO Patient)
-        {
-            var patientEntity = await _context.Patients.FindAsync(Patient.Id);
-        }*/
+        }
+
+        /// <summary>
+        /// Deletes a patient from the system.
+        /// </summary>
+        /// <param name="id">The ID of the patient to delete.</param>
         public async Task Delete(int id)
         {
             var patient = await _context.Patients.FindAsync(id);
@@ -107,24 +123,33 @@ namespace Hospital_System.Models.Services
                 await _context.SaveChangesAsync();
             }
         }
+
+        /// <summary>
+        /// Retrieves detailed information about a specific patient.
+        /// </summary>
+        /// <param name="PatientID">The ID of the patient to retrieve.</param>
+        /// <returns>Detailed patient information.</returns>
         public async Task<PatientDTO> GetPatient(int PatientID)
         {
             var Patient = await _context.Patients
                 .Include(r => r.Rooms)
                 .Include(p => p.Appointments)
                 .Include(p => p.MedicalReports)
-                    .ThenInclude(mr => mr.doctor)
-                        .ThenInclude(d => d.department)
-                        .FirstOrDefaultAsync(f => f.Id == PatientID);
+                .ThenInclude(mr => mr.doctor)
+                .ThenInclude(d => d.department)
+                .FirstOrDefaultAsync(f => f.Id == PatientID);
+
             if (Patient == null)
             {
                 return null;
             }
+
             var Department = new OutDepartmentDTO
             {
                 Id = Patient.Rooms!.department!.Id,
                 DepartmentName = Patient.Rooms.department.DepartmentName
             };
+
             var Room = new RoomPatient
             {
                 Id = Patient.Rooms.Id,
@@ -134,6 +159,7 @@ namespace Hospital_System.Models.Services
                 DepartmentId = Patient.Rooms.DepartmentId,
                 department = Department
             };
+
             var patient = new PatientDTO
             {
                 Id = Patient.Id,
@@ -169,6 +195,11 @@ namespace Hospital_System.Models.Services
             };
             return patient;
         }
+
+        /// <summary>
+        /// Retrieves a list of all patients in the system.
+        /// </summary>
+        /// <returns>A list of patient information.</returns>
         public async Task<List<OutPatientDTO>> GetPatients()
         {
             var patients = await _context.Patients.Include(r => r.Rooms).ThenInclude(d => d.department)
@@ -187,6 +218,13 @@ namespace Hospital_System.Models.Services
                 }).ToListAsync();
             return patients;
         }
+
+        /// <summary>
+        /// Updates the information of a specific patient.
+        /// </summary>
+        /// <param name="id">The ID of the patient to update.</param>
+        /// <param name="patientDTO">The updated patient information.</param>
+        /// <returns>The updated patient information.</returns>
         public async Task<OutPatientDTO> UpdatePatient(int id, InPatientDTO patientDTO)
         {
             var Patient = await _context.Patients.FindAsync(id);
@@ -199,12 +237,13 @@ namespace Hospital_System.Models.Services
                 Patient.ContactNumber = patientDTO.ContactNumber;
                 Patient.Address = patientDTO.Address;
                 Patient.RoomId = patientDTO.RoomId;
+
                 if (patientDTO.RoomId != null)
                 {
                     var room = await _context.Rooms.Include(p => p.Patients).FirstOrDefaultAsync(a => a.Id == patientDTO.RoomId);
                     if (room == null)
                     {
-                        throw new Exception("Room is not exisit");
+                        throw new Exception("Room does not exist.");
                     }
                     if (room.NumberOfBeds + 1 == room.Patients!.Count)
                     {
