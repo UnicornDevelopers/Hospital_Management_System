@@ -17,10 +17,12 @@ namespace Hospital_System.Models.Services
             _context = context;
         }
         // CREATE Department........................................................................
+   
+
         public async Task<OutMedicalReportDTO> CreateMedicalReport(InMedicalReportDTO newMedicalReportDTO)
         {
             var doctor = await _context.Doctors
-                .Include(d => d.department)  
+                .Include(d => d.department)
                 .FirstOrDefaultAsync(d => d.Id == newMedicalReportDTO.DoctorId);
 
             var patient = await _context.Patients.FindAsync(newMedicalReportDTO.PatientId);
@@ -56,6 +58,7 @@ namespace Hospital_System.Models.Services
                 throw new ArgumentException("Invalid PatientId or Doctor Id");
             }
         }
+
 
 
         // Get Department........................................................................

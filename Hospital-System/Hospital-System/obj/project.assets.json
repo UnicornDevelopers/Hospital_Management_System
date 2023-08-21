@@ -4573,19 +4573,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hadee\\.nuget\\packages\\": {}
+    "C:\\Users\\user\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\Hospital-System.csproj",
+      "projectUniqueName": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\Hospital-System.csproj",
       "projectName": "Hospital-System",
-      "projectPath": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\Hospital-System.csproj",
-      "packagesPath": "C:\\Users\\hadee\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hadee\\Source\\Repos\\UnicornDevelopers\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\",
+      "projectPath": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\Hospital-System.csproj",
+      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\user\\Source\\Repos\\Hospital_Management_System\\Hospital-System\\Hospital-System\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\hadee\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
