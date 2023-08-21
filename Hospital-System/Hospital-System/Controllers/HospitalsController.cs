@@ -1,6 +1,8 @@
 ﻿using Hospital_System.Models;
 using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Department;
 using Hospital_System.Models.DTOs.Hospital;
+using Hospital_System.Models.DTOs.Nurse;
 using Hospital_System.Models.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -136,5 +138,19 @@ namespace Hospital_System.Controllers
 
         }
 
+        //----------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Retrieves a list of Departments  in a specific Hospital.
+        /// </summary>
+        /// <param name="departmentId">The ID of the department.</param>
+        /// <returns>A list of doctors in the department.</returns>
+        // GET: api/Department/{departmentId}/Doctors
+        [HttpGet("{HospitalID}/Departments")]
+        public async Task<ActionResult<List<OutDepartmentDTO>>> GetDepartmentsInHospital(int HospitalID)
+        {
+            var rooms = await _context.GetDepartmentsInHospital(HospitalID);
+            return Ok(rooms);
+        }
     }
 }

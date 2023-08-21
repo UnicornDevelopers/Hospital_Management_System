@@ -1,5 +1,7 @@
 ﻿using Hospital_System.Data;
 using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Department;
+using Hospital_System.Models.DTOs.Doctor;
 using Hospital_System.Models.DTOs.Hospital;
 using Hospital_System.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -121,6 +123,27 @@ namespace Hospital_System.Models.Services
             _context.Entry(hospital).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return hospitalDTO;
+        }
+
+
+        /// <summary>
+        /// Retrieves the list of Departments in a specific Hospital.
+        /// </summary>
+        /// <param name="HospitalId">The ID of the department.</param>
+        /// <returns>The list of doctors in the department.</returns>
+        public async Task<List<OutDepartmentDTO>> GetDepartmentsInHospital(int HospitalId)
+        {
+            var depts = await _context.Departments
+                .Where(d => d.HospitalID == HospitalId)
+                .Select(d => new OutDepartmentDTO()
+                {
+                    Id = d.Id,
+                   DepartmentName=d.DepartmentName,
+                   
+                })
+                .ToListAsync();
+
+            return depts;
         }
     }
 }
