@@ -9,11 +9,11 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Hospital_System
 build_property.RootNamespace = Hospital_System
-build_property.ProjectDir = C:\Users\user\Source\Repos\Hospital_Management_System\Hospital-System\Hospital-System\
+build_property.ProjectDir = C:\Users\user\source\repos\Hospital_Management_System\Hospital-System\Hospital-System\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\user\Source\Repos\Hospital_Management_System\Hospital-System\Hospital-System
+build_property.MSBuildProjectDirectory = C:\Users\user\source\repos\Hospital_Management_System\Hospital-System\Hospital-System
 build_property._RazorSourceGeneratorDebug = 
 
 [C:/Users/user/source/repos/Hospital_Management_System/Hospital-System/Hospital-System/Pages/Error.cshtml]

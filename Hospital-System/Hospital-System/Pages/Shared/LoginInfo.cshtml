@@ -3,7 +3,7 @@
 @inject Microsoft.AspNetCore.Identity.SignInManager<ApplicationUser> _signinManager
 @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> UserManager
 
-@if (_signinManager.IsSignedIn(User))
+@if (User.Identity.IsAuthenticated)
     {
 <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

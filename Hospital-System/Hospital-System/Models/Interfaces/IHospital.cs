@@ -1,4 +1,5 @@
 ﻿using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Department;
 using Hospital_System.Models.DTOs.Hospital;
 
 namespace Hospital_System.Models.Interfaces
@@ -42,6 +43,8 @@ namespace Hospital_System.Models.Interfaces
         /// <param name="id">The ID of the hospital to delete.</param>
         /// <returns>A task representing the completion of the deletion operation.</returns>
         Task Delete(int id);
+
+        Task<List<OutDepartmentDTO>> GetDepartmentsInHospital(int HospitalId);
     }
 
 }
