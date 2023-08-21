@@ -29,7 +29,7 @@ namespace Hospital_System.Controllers
 
         // GET: api/Nurse
         [HttpGet]
-        public async Task<ActionResult<InNurseDTO>> GetAllNurses()
+        public async Task<ActionResult<NurseDTO>> GetAllNurses()
         {
             var nurses = await _nurse.GetNurses();
             if (nurses == null)
@@ -101,7 +101,7 @@ namespace Hospital_System.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                return StatusCode(500, "Internal server error");
 
             }
 
@@ -140,6 +140,3 @@ namespace Hospital_System.Controllers
 
     }
 }
-
-
-

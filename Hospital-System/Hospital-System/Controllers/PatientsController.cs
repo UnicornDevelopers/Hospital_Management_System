@@ -11,9 +11,10 @@ namespace Hospital_System.Controllers
     {
         private readonly IPatient _patient;
 
-        public PatientsController(IPatient patient) {
-        
-        _patient = patient;
+        public PatientsController(IPatient patient)
+        {
+
+            _patient = patient;
         }
 
 

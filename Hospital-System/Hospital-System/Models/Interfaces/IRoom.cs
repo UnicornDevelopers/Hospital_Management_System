@@ -1,26 +1,25 @@
 ﻿using Hospital_System.Models.DTOs;
 using Hospital_System.Models.DTOs.Room;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hospital_System.Models.Interfaces
 {
     public interface IRoom
     {
-
+        // Create a new room
         Task<OutRoomDTO> CreateRoom(OutRoomDTO room);
 
-        // GET All
+        // Get all rooms
         Task<List<OutRoomDTO>> GetRooms();
 
-        // GET Hotel By Id
-
+        // Get a room by its ID
         Task<RoomDTO> GetRoom(int RoomID);
 
-        // Update
+        // Update a room
         Task<OutRoomDTO> UpdateRoom(int id, OutRoomDTO roomDto);
 
-        // Delete 
-
+        // Delete a room
         Task DeleteRoom(int id);
-
     }
 }

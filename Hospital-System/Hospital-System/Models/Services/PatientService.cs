@@ -58,7 +58,7 @@ namespace Hospital_System.Models.Services
                         ContactNumber = patient.ContactNumber,
                         Address = patient.Address,
                         RoomId = patient.RoomId,
-                        
+
                     };
                     return patientDTO;
                 }
@@ -89,12 +89,7 @@ namespace Hospital_System.Models.Services
                 return patientDTO;
             }
             return null;
-        }        /* public async Task<OutPatientDTO> AddPatientToRoom(InPatientDTO Patient)
-        {
-            var patientEntity = await _context.Patients.FindAsync(Patient.Id);
-
-        }*/
-
+        }       
 
         public async Task Delete(int id)
         {
@@ -132,7 +127,14 @@ namespace Hospital_System.Models.Services
                         DoctorName = $"{a.doctor.FirstName} {a.doctor.LastName}",
                         DepartmentName = a.doctor.department.DepartmentName
                     }).ToList(),
-                    MedicalReports = null
+                    MedicalReports = x.MedicalReports.Select(mr => new MedicalReportDTO()
+                    {
+                        Id = mr.Id,
+                        ReportDate = mr.ReportDate,
+                        Description = mr.Description,
+                        PatientId = mr.PatientId,
+                        DoctorId = mr.DoctorId,
+                    }).ToList()
                 })
                 .FirstOrDefaultAsync(x => x.Id == PatientID);
 
@@ -156,7 +158,7 @@ namespace Hospital_System.Models.Services
                     Address = x.Address,
                     RoomId = x.RoomId,
                     Appointments = null,
-                    
+
                     MedicalReports = x.MedicalReports.Select(mr => new MedicalReportDTO()
                     {
                         Id = mr.Id,

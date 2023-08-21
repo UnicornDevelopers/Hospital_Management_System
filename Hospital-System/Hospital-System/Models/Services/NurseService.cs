@@ -126,7 +126,7 @@ namespace Hospital_System.Models.Services
             var nurse = await _context.Nurses.FindAsync(id);
 
             if (nurse == null)
-                throw new InvalidOperationException($"invaild Department with ID {nurseDto.Id} not found.");
+                throw new InvalidOperationException($"invaild nurse with ID {nurseDto.Id} not found.");
 
             var departmentExists = await _context.Departments.FindAsync(nurseDto.DepartmentId);
 

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Hospital_System.Models.DTOs.AppointmentDTO;
 using Hospital_System.Models.DTOs;
 using Hospital_System.Models.DTOs.Appointment;
+using Hospital_System.Models.DTOs.Doctor;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hospital_System.Controllers
 {
@@ -46,16 +48,23 @@ namespace Hospital_System.Controllers
 
         // PUT: api/Appointment/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAppointment(int id, InAppoinmentDTO appointment)
-        {
-            if (id != appointment.Id)
-            {
-                return BadRequest();
-            }
-            var updateAppointment = await _appointment.UpdateAppointment(id, appointment);
-            return Ok(updateAppointment);
-        }
+      
+         [HttpPut("{id}")]
+         public async Task<ActionResult<InAppoinmentDTO>> PutAppointment(int id, InAppoinmentDTO appointment)
+         {
+             if (id != appointment.Id)
+             {
+                 return BadRequest();
+             }
+             try
+             {
+                 return  Ok(await _appointment.UpdateAppointment(id, appointment));
+             }
+             catch (ArgumentException ex)
+             {
+                 return BadRequest(ex.Message);
+             }
+         }
 
         // POST: api/Appointment
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
