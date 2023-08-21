@@ -1,125 +1,114 @@
-﻿using Hospital_System.Models.DTOs.Appointment;
-using Hospital_System.Models.DTOs;
-using Hospital_System.Models.Interfaces;
-using Hospital_System.Models.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Hospital_System.Models.DTOs.Department;
 using Hospital_System.Models;
+using Hospital_System.Models.DTOs.Doctor;
+using Hospital_System.Models.DTOs.MedicalReport;
+using Hospital_System.Models.Services;
 using Hospital_System.Tests.Mocks;
-
-namespace TestProject1.DepartmentTests
+using Xunit;
+namespace TestProject1.MedRep
 {
-    public class Dep : Mock
+    public class MedRepTest : Mock
     {
-        private IDepartment BuildRepository()
-        {
-            return new DepartmentService(_db);
-        }
         [Fact]
-        public async Task CreateDepartment_Should_Add_Department()
+        public async Task CreateMedicalReport_ReturnMedicalReportDTO()
         {
-            // Arrange
-            var service = new DepartmentService(_db);
-            var newDepartment = new InDepartmentDTO { DepartmentName = "NewDept", HospitalID = 1 };
-
-            // Act
-            var createdDepartment = await service.CreateDepartment(newDepartment);
-
-            // Assert
-            var retrievedDepartment = await service.GetDepartment(createdDepartment.Id);
-            Assert.NotNull(retrievedDepartment);
-            Assert.Equal(newDepartment.DepartmentName, retrievedDepartment.DepartmentName);
-            Assert.Equal(newDepartment.HospitalID, retrievedDepartment.HospitalID);
-        }
-        [Fact]
-        public async Task EmptyTest() // Can Check If There Are No Department
-        {
-            // arrange
-            var service = BuildRepository();
-            await service.DeleteDepartment(1);
-            // act
-            List<OutDepartmentDTO> result = await service.GetDepartments();
-            // assert
-            Assert.Empty(result);
-        }
-        [Fact]
-        public async Task GetDepartment()
-        {
-            // arrange
-            var department = new InDepartmentDTO
+            var hospital = await CreateAndSaveTestHospital();
+            var department = await CreateAndSaveTestDepartment(hospital.Id);
+            var doctor = await CreateAndSaveTestDoctor(department.Id);
+            var room = await CreateAndSaveTestRoom(department.Id);
+            var patient = await CreateAndSaveTestPatient(room.Id);
+            var MedicalReport = await CreateAndSaveTestMedicalReport(doctor.Id, patient.Id);
+            var medicalReportService = new MedicalReportService(_db);
+            var newMedicalReport = new InMedicalReportDTO
             {
-                Id = 1,
-                DepartmentName = "OdaiDepartment",
-                HospitalID = 1,
+                ReportDate = MedicalReport.ReportDate,
+                Description = MedicalReport.Description,
+                DoctorId = doctor.Id,
+                PatientId = patient.Id,
             };
-            var department2 = new InDepartmentDTO
-            {
-                Id = 2,
-                DepartmentName = "OdaiDepartment222",
-                HospitalID = 1,
-            };
-            var service = BuildRepository();
-            var saved = await service.CreateDepartment(department);
-            var saved2 = await service.CreateDepartment(department2);
-            // act
-            var result4 = await service.GetDepartment(1);
-            var result5 = await service.GetDepartment(2);
-            // assert
-            Assert.Equal("OdaiDepartment", result4.DepartmentName);
-            Assert.Equal("OdaiDepartment222", result5.DepartmentName);
+            var createdMedicalReport = await medicalReportService.CreateMedicalReport(newMedicalReport);
+            Assert.NotNull(createdMedicalReport);
+            Assert.Equal("Test Description", createdMedicalReport.Description);
+            Assert.Equal(doctor.Id, createdMedicalReport.DoctorId);
+            Assert.Equal(patient.Id, createdMedicalReport.PatientId);
         }
         [Fact]
-        public async Task GetAllDepartment()
+        public async Task GetMedicalReport_ReturnListOfMedicalReportDTOs()
         {
-            // arrange
-            var department = new InDepartmentDTO
-            {
-                Id = 1,
-                DepartmentName = "OdaiDepartment",
-                HospitalID = 1,
-            };
-            var department2 = new InDepartmentDTO
-            {
-                Id = 2,
-                DepartmentName = "OdaiDepartment222",
-                HospitalID = 1,
-            };
-            var service = BuildRepository();
-            var saved = await service.CreateDepartment(department);
-            var saved2 = await service.CreateDepartment(department2);
-            // act
-            List<OutDepartmentDTO> result = await service.GetDepartments();
-            // assert
-            Assert.Equal(2, result.Count);
+            var hospital = await CreateAndSaveTestHospital();
+            var department = await CreateAndSaveTestDepartment(hospital.Id);
+            var doctor = await CreateAndSaveTestDoctor(department.Id);
+            var room = await CreateAndSaveTestRoom(department.Id);
+            var patient = await CreateAndSaveTestPatient(room.Id);
+            var MedicalReport = await CreateAndSaveTestMedicalReport(doctor.Id, patient.Id);
+            var department2 = await CreateAndSaveTestDepartment(hospital.Id);
+            var doctor2 = await CreateAndSaveTestDoctor(department2.Id);
+            var room2 = await CreateAndSaveTestRoom(department2.Id);
+            var patient2 = await CreateAndSaveTestPatient(room2.Id);
+            var MedicalReport2 = await CreateAndSaveTestMedicalReport(doctor2.Id, patient2.Id);
+            var medicalReportService = new MedicalReportService(_db);
+            var medicalReportDto = await medicalReportService.GetMedicalReports();
+            Assert.NotNull(medicalReportDto);
+            Assert.Equal(2, medicalReportDto.Count);
+            Assert.Contains(medicalReportDto, dto => dto.Id == MedicalReport.Id);
+            Assert.Contains(medicalReportDto, dto => dto.Id == MedicalReport2.Id);
         }
         [Fact]
-        public async Task UpdateDepartment()
+        public async Task GetMedicalReport_ReturnMedicalReportDTO()
         {
-            var updateDepartmentInDB = new OutDepartmentDTO
-            {
-                Id = 1,
-                DepartmentName = "OdaiDepartment202020",
-            };
-            var service = BuildRepository();
-            // act
-            var result = await service.UpdateDepartment(1, updateDepartmentInDB);
-            // assert
-            Assert.Equal("OdaiDepartment202020", result.DepartmentName);
+            var hospital = await CreateAndSaveTestHospital();
+            var department = await CreateAndSaveTestDepartment(hospital.Id);
+            var doctor = await CreateAndSaveTestDoctor(department.Id);
+            var room = await CreateAndSaveTestRoom(department.Id);
+            var patient = await CreateAndSaveTestPatient(room.Id);
+            var MedicalReport = await CreateAndSaveTestMedicalReport(doctor.Id, patient.Id);
+            var medicalReportService = new MedicalReportService(_db);
+            var retrievedMedicalReport = await medicalReportService.GetMedicalReport(MedicalReport.Id);
+            Assert.NotNull(retrievedMedicalReport);
+            Assert.Equal("Test Description", retrievedMedicalReport.Description);
+            Assert.Equal(doctor.Id, retrievedMedicalReport.DoctorId);
+            Assert.Equal(patient.Id, retrievedMedicalReport.PatientId);
         }
         [Fact]
-        public async Task DeleteDepartment()
+        public async Task UpdateMedicalReport_ReturnUpdatedMedicalReportDTO()
         {
-            var service = BuildRepository();
-            // act & assert
-            List<OutDepartmentDTO> result = await service.GetDepartments();
-            Assert.Equal(2, result.Count);
-            await service.DeleteDepartment(1);
-            List<OutDepartmentDTO> result2 = await service.GetDepartments();
-            Assert.Equal(1, result2.Count);
+            var hospital = await CreateAndSaveTestHospital();
+            var department = await CreateAndSaveTestDepartment(hospital.Id);
+            var doctor = await CreateAndSaveTestDoctor(department.Id);
+            var room = await CreateAndSaveTestRoom(department.Id);
+            var patient = await CreateAndSaveTestPatient(room.Id);
+            var MedicalReport = await CreateAndSaveTestMedicalReport(doctor.Id, patient.Id);
+            var medicalReportService = new MedicalReportService(_db);
+            var updatedMedicalReport = new InMedicalReportDTO
+            {
+                ReportDate = new DateTime(2000, 4, 11),
+                Description = "New Description",
+                DoctorId = doctor.Id,
+                PatientId = patient.Id,
+            };
+            var updatedMedicalReportDto = await medicalReportService.UpdateMedicalReport(MedicalReport.Id, updatedMedicalReport);
+            Assert.NotNull(updatedMedicalReportDto);
+            Assert.Equal("New Description", updatedMedicalReportDto.Description);
+            Assert.Equal(new DateTime(2000, 4, 11), updatedMedicalReportDto.ReportDate);
+            Assert.Equal(doctor.Id, updatedMedicalReportDto.DoctorId);
+            Assert.Equal(patient.Id, updatedMedicalReportDto.PatientId);
+        }
+        [Fact]
+        public async Task DeleteMedicalReport_ReturnDeletedMedicalReport()
+        {
+            var hospital = await CreateAndSaveTestHospital();
+            var department = await CreateAndSaveTestDepartment(hospital.Id);
+            var doctor = await CreateAndSaveTestDoctor(department.Id);
+            var room = await CreateAndSaveTestRoom(department.Id);
+            var patient = await CreateAndSaveTestPatient(room.Id);
+            var medicalReport = await CreateAndSaveTestMedicalReport(doctor.Id, patient.Id);
+            var medicalReportService = new MedicalReportService(_db);
+            await medicalReportService.DeleteMedicalReport(medicalReport.Id);
+            var deletedMedicalReport = await _db.MedicalReports.FindAsync(medicalReport.Id);
+            Assert.Null(deletedMedicalReport);
         }
     }
 }

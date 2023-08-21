@@ -49,28 +49,8 @@ namespace Hospital_System.Controllers
                 return Redirect("/Main/Index");
             }
         }
-        //[HttpPost]
-        //[Route("Login")]
-        //public async Task<IActionResult> Login(LoginDTO signInModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var result = await _userService.PasswordSignInAsync(signInModel);
-        //        if (result.Succeeded)
-        //        {
-        //            return RedirectToAction("Index", "Main");
-        //        }
 
-        //        ModelState.AddModelError("", "Invalid information");
-
-        //    }
-
-
-
-
-        //    return View();
-        //}
-
+       
         [HttpGet]
         public IActionResult Register()
         {
@@ -85,10 +65,9 @@ namespace Hospital_System.Controllers
 
 
 
-            var user = await _userService.Register(register, this.ModelState);
+            var user = await _userService.Register(register, this.ModelState, User);
             if (ModelState.IsValid)
             {
-                //await _pharmacist.Authenticate(register.Username, register.Password);
                 return Redirect("/Main/Index");
 
             }
@@ -115,7 +94,7 @@ namespace Hospital_System.Controllers
 
 
 
-            var user = await _userService.RegisterDoctor(register, this.ModelState);
+            var user = await _userService.RegisterDoctor(register, this.ModelState, User);
             if (ModelState.IsValid)
             {
                 //await _pharmacist.Authenticate(register.Username, register.Password);

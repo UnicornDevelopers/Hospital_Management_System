@@ -7,25 +7,37 @@ using Hospital_System.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Numerics;
+
 namespace Hospital_System.Models.Services
 {
+    /// <summary>
+    /// Service class for managing medical reports within the hospital system.
+    /// </summary>
     public class MedicalReportService : IMedicalReport
     {
         private readonly HospitalDbContext _context;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MedicalReportService"/> class.
+        /// </summary>
+        /// <param name="context">The database context.</param>
         public MedicalReportService(HospitalDbContext context)
         {
             _context = context;
         }
-        // CREATE Department........................................................................
-   
 
+        /// <summary>
+        /// Creates a new medical report in the system.
+        /// </summary>
+        /// <param name="newMedicalReportDTO">The data transfer object containing medical report information.</param>
+        /// <returns>The created medical report information.</returns>
         public async Task<OutMedicalReportDTO> CreateMedicalReport(InMedicalReportDTO newMedicalReportDTO)
         {
             var doctor = await _context.Doctors
                 .Include(d => d.department)
                 .FirstOrDefaultAsync(d => d.Id == newMedicalReportDTO.DoctorId);
-
             var patient = await _context.Patients.FindAsync(newMedicalReportDTO.PatientId);
+
             if (patient != null && doctor != null)
             {
                 MedicalReport medicalReport = new MedicalReport
@@ -59,9 +71,10 @@ namespace Hospital_System.Models.Services
             }
         }
 
-
-
-        // Get Department........................................................................
+        /// <summary>
+        /// Retrieves a list of all medical reports in the system.
+        /// </summary>
+        /// <returns>A list of medical report information.</returns>
         public async Task<List<OutMedicalReportDTO>> GetMedicalReports()
         {
             var medicalReports = await _context.MedicalReports
@@ -82,11 +95,11 @@ namespace Hospital_System.Models.Services
             return medicalReports;
         }
 
-
-
-
-
-        // Get Department by ID........................................................................
+        /// <summary>
+        /// Retrieves detailed information about a specific medical report.
+        /// </summary>
+        /// <param name="id">The ID of the medical report to retrieve.</param>
+        /// <returns>Detailed medical report information.</returns>
         public async Task<MedicalReportDTO> GetMedicalReport(int id)
         {
             var medicalReport = await _context.MedicalReports.Select(x => new MedicalReportDTO()
@@ -103,10 +116,16 @@ namespace Hospital_System.Models.Services
                     Portion = x.Portion,
                 }).ToList(),
             }).FirstOrDefaultAsync(x => x.Id == id);
+
             return medicalReport;
         }
-        // Update Department by ID........................................................................
-       
+
+        /// <summary>
+        /// Updates the information of a specific medical report.
+        /// </summary>
+        /// <param name="id">The ID of the medical report to update.</param>
+        /// <param name="updateMedicalReportDTO">The updated medical report information.</param>
+        /// <returns>The updated medical report information.</returns>
         public async Task<OutMedicalReportDTO> UpdateMedicalReport(int id, InMedicalReportDTO updateMedicalReportDTO)
         {
             MedicalReport report = await _context.MedicalReports
@@ -121,7 +140,6 @@ namespace Hospital_System.Models.Services
 
             report.ReportDate = updateMedicalReportDTO.ReportDate;
             report.Description = updateMedicalReportDTO.Description;
-
             await _context.SaveChangesAsync();
 
             var outMedicalReportDTO = new OutMedicalReportDTO
@@ -139,12 +157,18 @@ namespace Hospital_System.Models.Services
             return outMedicalReportDTO;
         }
 
-        // Delete Appointment by ID........................................................................
+        /// <summary>
+        /// Deletes a medical report from the system.
+        /// </summary>
+        /// <param name="id">The ID of the medical report to delete.</param>
         public async Task DeleteMedicalReport(int id)
         {
             MedicalReport medicalReport = await _context.MedicalReports.FindAsync(id);
-            _context.Entry(medicalReport).State = EntityState.Deleted;
-            await _context.SaveChangesAsync();
+            if (medicalReport != null)
+            {
+                _context.Entry(medicalReport).State = EntityState.Deleted;
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

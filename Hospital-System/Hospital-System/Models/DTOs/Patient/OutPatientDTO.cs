@@ -12,5 +12,6 @@
         public int? RoomId { get; set; }
         public string? RoomNumber { get; set; }
         public string? DepartmentName { get; set; }
+        public string FullName { get; internal set; }
     }
 }

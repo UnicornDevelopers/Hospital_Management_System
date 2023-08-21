@@ -16,18 +16,30 @@ using System.Data;
 
 namespace Hospital_System.Controllers
 {
+    /// <summary>
+    /// Controller responsible for managing doctor-related operations.
+    /// </summary>
     [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class DoctorsController : ControllerBase
     {
         private readonly IDoctor _context;
-
+        /// <summary>
+        /// Initializes a new instance of the DoctorsController class.
+        /// </summary>
+        /// <param name="context">The doctor service.</param>
         public DoctorsController(IDoctor context)
         {
             _context = context;
         }
 
+        //----------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Retrieves a list of all doctors.
+        /// </summary>
+        /// <returns>A list of doctors.</returns>
         // GET: api/Doctors
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OutDocDTO>>> GetDoctors()
@@ -35,6 +47,13 @@ namespace Hospital_System.Controllers
             return await _context.GetDoctors();
         }
 
+        //----------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Retrieves a doctor by their ID.
+        /// </summary>
+        /// <param name="id">The ID of the doctor to retrieve.</param>
+        /// <returns>The retrieved doctor.</returns>
         // GET: api/Doctors/5
         [HttpGet("{id}")]
         public async Task<ActionResult<DoctorDTO>> GetDoctor(int id)
@@ -49,6 +68,14 @@ namespace Hospital_System.Controllers
             }
         }
 
+        //----------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Updates a doctor by their ID.
+        /// </summary>
+        /// <param name="id">The ID of the doctor to update.</param>
+        /// <param name="doctor">The updated doctor data.</param>
+        /// <returns>The updated doctor.</returns>
         // PUT: api/Doctors/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -68,6 +95,13 @@ namespace Hospital_System.Controllers
             }
         }
 
+        //----------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Creates a new doctor.
+        /// </summary>
+        /// <param name="doctor">The doctor data to create.</param>
+        /// <returns>The created doctor.</returns>
         // POST: api/Doctors
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -84,6 +118,13 @@ namespace Hospital_System.Controllers
 
         }
 
+        //----------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Deletes a doctor by their ID.
+        /// </summary>
+        /// <param name="id">The ID of the doctor to delete.</param>
+        /// <returns>A success message.</returns>
         // DELETE: api/Doctors/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDoctor(int id)
@@ -100,10 +141,7 @@ namespace Hospital_System.Controllers
 
         }
 
-        /* private bool DoctorExists(int id)
-         {
-             return (_context.Doctors?.Any(e => e.Id == id)).GetValueOrDefault();
-         }*/
+       
 
     }
 }

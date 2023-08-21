@@ -28,7 +28,7 @@ namespace Hospital_System
             var builder = WebApplication.CreateBuilder(args);
             ConfigureAppServices(builder.Services, builder.Configuration);
             var app = builder.Build();
-            app.MapGet("/", () => Results.Redirect("/")
+            app.MapGet("/", () => Results.Redirect("/Main/index")
 );
             ConfigureApp(app);
 
@@ -105,7 +105,7 @@ namespace Hospital_System
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/api/v1/swagger.json", "Hospital-System");
-                options.RoutePrefix = "Docs";
+                options.RoutePrefix = "";
             });
 
             if (!app.Environment.IsDevelopment())
@@ -121,10 +121,13 @@ namespace Hospital_System
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Main}/{action=Login}/{id?}");
-            app.MapRazorPages();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Main}/{action=Login}/{id?}");
+                endpoints.MapRazorPages();
+            });
 
             app.Run();
 

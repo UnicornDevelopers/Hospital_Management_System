@@ -167,7 +167,6 @@ namespace Hospital_System.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -286,7 +285,6 @@ namespace Hospital_System.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("shift")
@@ -312,7 +310,6 @@ namespace Hospital_System.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContactNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DoB")
@@ -334,7 +331,6 @@ namespace Hospital_System.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
