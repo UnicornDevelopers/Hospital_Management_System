@@ -25,7 +25,7 @@ namespace Hospital_System.Models.Interfaces
         /// </summary>
         /// <param name="MedicalReportID">The ID of the medical report to retrieve.</param>
         /// <returns>The medical report details.</returns>
-        Task<MedicalReportDTO> GetMedicalReport(int MedicalReportID);
+        Task<NewMedicalReportDTO> GetMedicalReport(int MedicalReportID);
 
         /// <summary>
         /// Updates an existing medical report based on the provided medical report data.

@@ -100,9 +100,9 @@ namespace Hospital_System.Models.Services
         /// </summary>
         /// <param name="id">The ID of the medical report to retrieve.</param>
         /// <returns>Detailed medical report information.</returns>
-        public async Task<MedicalReportDTO> GetMedicalReport(int id)
+        public async Task<NewMedicalReportDTO> GetMedicalReport(int id)
         {
-            var medicalReport = await _context.MedicalReports.Select(x => new MedicalReportDTO()
+            var medicalReport = await _context.MedicalReports.Select(x => new NewMedicalReportDTO()
             {
                 Id = x.Id,
                 ReportDate = x.ReportDate,

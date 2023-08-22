@@ -116,14 +116,15 @@ namespace Hospital_System.Models.Services
                 ContactNumber = doctor.ContactNumber,
                 Speciality = doctor.Speciality,
                 DepartmentId = doctor.DepartmentId,
-                Appointments = doctor.Appointments?.Select(a => new OutAppointmentDTO
+                Appointments = doctor.Appointments?.Select(a => new GetAppointmentDTO
                 {
                     Id = a.Id,
                     DateOfAppointment = a.DateOfAppointment,
                     PatientId = a.PatientId,
                     DoctorId = a.DoctorId,
+                    
                 }).ToList(),
-                medicalReports = doctor.medicalReports?.Select(r => new OutMedicalReportDTO
+                medicalReports = doctor.medicalReports?.Select(r => new InMedicalReportDTO
                 {
                     Id = r.Id,
                     ReportDate = r.ReportDate,

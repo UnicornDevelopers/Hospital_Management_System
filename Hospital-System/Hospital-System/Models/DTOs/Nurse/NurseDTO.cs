@@ -19,13 +19,7 @@ namespace Hospital_System.Models.DTOs.Nurse
         public OutDepartmentDTO? department { get; set; }
 
 
-        //public enum Shift
-        //{
-        //    Morning,
-        //    Night,
-        //    Afternoon,
-
-        //}
+       
 
     }
 }

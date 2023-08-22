@@ -61,19 +61,20 @@ namespace Hospital_System.Models.Services
         /// </summary>
         /// <param name="HospitalID">The ID of the hospital to retrieve.</param>
         /// <returns>Detailed hospital information.</returns>
-        public async Task<HospitalDTO> GetHospital(int HospitalID)
+        public async Task<InHospitalDTO> GetHospital(int HospitalID)
         {
             var hospital = await _context.Hospitals.Select(
-                hospital => new HospitalDTO
+                hospital => new InHospitalDTO
                 {
                     Id = hospital.Id,
                     HospitalName = hospital.HospitalName,
                     Address = hospital.Address,
                     ContactNumber = hospital.ContactNumber,
-                    departments = hospital.Departments.Select(x => new DepartmentDTO
+                    departments = hospital.Departments.Select(x => new InDepartmentDTO
                     {
                         Id = x.Id,
                         DepartmentName = x.DepartmentName,
+                        HospitalID = x.HospitalID
                     }).ToList(),
                 }
             ).FirstOrDefaultAsync(x => x.Id == HospitalID);
@@ -85,20 +86,16 @@ namespace Hospital_System.Models.Services
         /// Retrieves a list of all hospitals in the system.
         /// </summary>
         /// <returns>A list of hospital information.</returns>
-        public async Task<List<HospitalDTO>> GetHospitals()
+        public async Task<List<OutHospitalDTO>> GetHospitals()
         {
             return await _context.Hospitals.Select(
-                hospital => new HospitalDTO
+                hospital => new OutHospitalDTO
                 {
                     Id = hospital.Id,
                     HospitalName = hospital.HospitalName,
                     Address = hospital.Address,
                     ContactNumber = hospital.ContactNumber,
-                    departments = hospital.Departments.Select(x => new DepartmentDTO
-                    {
-                        Id = x.Id,
-                        DepartmentName = x.DepartmentName,
-                    }).ToList(),
+                  
                 }
             ).ToListAsync();
         }

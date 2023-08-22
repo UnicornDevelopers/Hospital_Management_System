@@ -29,7 +29,7 @@ namespace Hospital_System.Models.Interfaces
         /// </summary>
         /// <param name="DepartmentID">The ID of the department to retrieve.</param>
         /// <returns>The department details.</returns>
-        Task<DepartmentDTO> GetDepartment(int DepartmentID);
+        Task<GetDeptmartmentDTO> GetDepartment(int DepartmentID);
 
         /// <summary>
         /// Updates an existing department based on the provided department data.

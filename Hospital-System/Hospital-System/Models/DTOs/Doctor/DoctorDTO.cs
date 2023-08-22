@@ -1,4 +1,5 @@
-﻿using Hospital_System.Models.DTOs.Department;
+﻿using Hospital_System.Models.DTOs.Appointment;
+using Hospital_System.Models.DTOs.Department;
 using Hospital_System.Models.DTOs.MedicalReport;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,8 +20,8 @@ namespace Hospital_System.Models.DTOs
 
 
         //Nav
-        public List<OutAppointmentDTO>? Appointments { get; set; }
-        public List<OutMedicalReportDTO>? medicalReports { get; set; }
+        public List<GetAppointmentDTO>? Appointments { get; set; }
+        public List<InMedicalReportDTO>? medicalReports { get; set; }
         public OutDepartmentDTO? department { get; set; }
 
 

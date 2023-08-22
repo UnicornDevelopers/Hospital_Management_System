@@ -14,8 +14,7 @@ namespace Hospital_System.Models.DTOs
         public int DepartmentId { get; set; }
 
         //Nav
-        public List<OutPatientDTO>? Patients { get; set; }
-        public OutDepartmentDTO? department { get; set; }
+        public List<NewPatientDTO>? Patients { get; set; }
 
     }
 }
