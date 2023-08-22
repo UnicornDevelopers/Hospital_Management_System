@@ -42,7 +42,7 @@ namespace Hospital_System.Controllers
         // GET: api/Nurse
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<NurseDTO>> GetAllNurses()
+        public async Task<ActionResult<InNurseDTO>> GetAllNurses()
         {
             var nurses = await _nurse.GetNurses();
             if (nurses == null)

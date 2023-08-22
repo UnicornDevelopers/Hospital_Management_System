@@ -56,9 +56,9 @@ namespace Hospital_System.Models.Interfaces
 
         Task<List<InNurseDTO>> GetNursesInDepartment(int departmentId);
 
-        Task<List<RoomDTO>> GetRoomsAndPatientsInDepartment(int departmentId);
+        Task<List<RoomPatientDTO>> GetRoomsAndPatientsInDepartment(int departmentId);
 
-        Task<List<RoomDTO>> GetRoomsInDepartment(int departmentId);
+        Task<List<OutRoomDTO>> GetRoomsInDepartment(int departmentId);
     }
 
 }

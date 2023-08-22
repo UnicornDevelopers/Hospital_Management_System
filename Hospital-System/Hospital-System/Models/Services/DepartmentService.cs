@@ -197,10 +197,11 @@ namespace Hospital_System.Models.Services
                 .Select(d => new InNurseDTO()
                 {
                     Id = d.Id,
-                    FullName = $"{d.FirstName} {d.LastName}",
+                   FirstName=d.FirstName,
+                   LastName = d.LastName,
                     Gender = d.Gender,
                     ContactNumber = d.ContactNumber,
-                    
+                    DepartmentId = d.DepartmentId
                 })
                 .ToListAsync();
 
@@ -213,17 +214,18 @@ namespace Hospital_System.Models.Services
         /// </summary>
         /// <param name="departmentId">The ID of the department.</param>
         /// <returns>The list of doctors in the department.</returns>
-        public async Task<List<RoomDTO>> GetRoomsAndPatientsInDepartment(int departmentId)
+        public async Task<List<RoomPatientDTO>> GetRoomsAndPatientsInDepartment(int departmentId)
         {
             var rooms = await _context.Rooms
                 .Where(d => d.DepartmentId == departmentId)
-                .Select(x => new RoomDTO()
+                .Select(x => new RoomPatientDTO()
             {
                 Id = x.Id,
                 RoomNumber = x.RoomNumber,
                 RoomAvailability = x.RoomAvailability,
                 NumberOfBeds = x.NumberOfBeds,
-                Patients = x.Patients.Select(x => new OutPatientDTO()
+                DepartmentId = x.DepartmentId,
+                Patients = x.Patients.Select(x => new InPatientDTO()
                 {
                     Id = x.Id,
                     FirstName = x.FirstName,
@@ -232,6 +234,9 @@ namespace Hospital_System.Models.Services
                     Gender = x.Gender,
                     ContactNumber = x.ContactNumber,
                     Address = x.Address,
+                    RoomId = x.RoomId,
+                    
+                  
 
                 }).ToList()
             }).ToListAsync();
@@ -244,18 +249,18 @@ namespace Hospital_System.Models.Services
         /// </summary>
         /// <param name="departmentId">The ID of the department.</param>
         /// <returns>The list of doctors in the department.</returns>
-        public async Task<List<RoomDTO>> GetRoomsInDepartment(int departmentId)
+        public async Task<List<OutRoomDTO>> GetRoomsInDepartment(int departmentId)
         {
             var Nurses = await _context.Rooms
                 .Where(d => d.DepartmentId == departmentId)
-                .Select(d => new RoomDTO()
+                .Select(d => new OutRoomDTO()
                 {
                     Id = d.Id,
-                    RoomNumber=d.RoomNumber,
-                  NumberOfBeds = d.NumberOfBeds,
-                  RoomAvailability = d.RoomAvailability,
-                  
-                  
+                    RoomNumber = d.RoomNumber,
+                    NumberOfBeds = d.NumberOfBeds,
+                    RoomAvailability = d.RoomAvailability,
+                    DepartmentId = d.DepartmentId
+
 
                 })
                 .ToListAsync();

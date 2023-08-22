@@ -1,4 +1,5 @@
 ﻿using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Appointment;
 using Hospital_System.Models.DTOs.Doctor;
 
 namespace Hospital_System.Models.Interfaces
@@ -49,6 +50,8 @@ namespace Hospital_System.Models.Interfaces
         // <param name="DoctorID">The ID of the doctor to retrieve appointments for.</param>
         // <returns>A list of appointment details.</returns>
         // Task<DoctorDTO> GetAppointments(int DoctorID);
+
+        Task<List<DoctorAppointmentsDTO>> GetAppointmentsForDoctor(int doctorId);
     }
 
 }
