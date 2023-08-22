@@ -13,6 +13,7 @@ using Hospital_System.Models.DTOs;
 using Hospital_System.Models.DTOs.Doctor;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using Hospital_System.Models.DTOs.Nurse;
 
 namespace Hospital_System.Controllers
 {
@@ -141,7 +142,25 @@ namespace Hospital_System.Controllers
 
         }
 
-       
+
+
+        //----------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Retrieves a list of Appointments for a specific doctor.
+        /// </summary>
+        /// <param name="doctorId">The ID of the department.</param>
+        /// <returns>A list of doctors in the department.</returns>
+        // GET: api/Department/{departmentId}/Doctors
+        [HttpGet("{doctorId}/Appointments")]
+        public async Task<ActionResult<List<InNurseDTO>>> GetRoomsAndPatientsInDepartment(int doctorId)
+        {
+            var appointments = await _context.GetAppointmentsForDoctor(doctorId);
+            return Ok(appointments);
+        }
+
+
+
 
     }
 }

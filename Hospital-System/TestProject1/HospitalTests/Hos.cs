@@ -115,5 +115,24 @@ namespace TestProject1.HospitalTests
             Assert.NotNull(result);
             Assert.Equal(result.Count, 3);
         }
+
+
+        [Fact]
+        public async Task Get_All_Departments_In_Hopsital()
+        {
+            var hospitalService = BuildRepository();
+
+            var hopsital = CreateAndSaveTestHospital();
+            var dep1 = CreateAndSaveTestDepartment(hopsital.Id);
+            var dep2 = CreateAndSaveTestDepartment(hopsital.Id);
+            var dep3 = CreateAndSaveTestDepartment(hopsital.Id);
+            var dep4 = CreateAndSaveTestDepartment(hopsital.Id);
+
+            var result = await hospitalService.GetDepartmentsInHospital(hopsital.Id);
+
+            Assert.NotNull(result);
+            Assert.Equal(result.Count, 4);
+        }
+
     }
 }

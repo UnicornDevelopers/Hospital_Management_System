@@ -13,6 +13,6 @@ namespace Hospital_System.Models.DTOs.Nurse
         public Shift Shift { get; set; }
 
         public int DepartmentId { get; set; }
-        public string FullName { get;  set; }
+        //public string FullName { get;  set; }
     }
 }

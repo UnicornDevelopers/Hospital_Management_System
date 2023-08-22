@@ -2,6 +2,7 @@
 using Hospital_System.Models.DTOs.Department;
 using Hospital_System.Models.DTOs.Doctor;
 using Hospital_System.Models.DTOs.Nurse;
+using Hospital_System.Models.DTOs.Room;
 using Hospital_System.Models.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -186,7 +187,7 @@ namespace Hospital_System.Controllers
         /// <returns>A list of doctors in the department.</returns>
         // GET: api/Department/{departmentId}/Doctors
         [HttpGet("{departmentId}/Rooms")]
-        public async Task<ActionResult<List<InNurseDTO>>> GetRoomsInDepartment(int departmentId)
+        public async Task<ActionResult<List<RoomPatientDTO>>> GetRoomsInDepartment(int departmentId)
         {
             var rooms = await _department.GetRoomsInDepartment(departmentId);
             return Ok(rooms);

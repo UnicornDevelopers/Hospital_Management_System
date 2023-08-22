@@ -1,10 +1,12 @@
 ﻿
 using Hospital_System.Data;
 using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Appointment;
 using Hospital_System.Models.DTOs.AppointmentDTO;
 using Hospital_System.Models.DTOs.Department;
 using Hospital_System.Models.DTOs.Doctor;
 using Hospital_System.Models.DTOs.MedicalReport;
+using Hospital_System.Models.DTOs.Nurse;
 using Hospital_System.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Numerics;
@@ -207,6 +209,29 @@ namespace Hospital_System.Models.Services
 
             return updatedDoctorDTO;
         }
+
+
+        /// <summary>
+        /// Retrieves the list of Appointments for a specific Doctor.
+        /// </summary>
+        /// <param name="doctorId">The ID of the department.</param>
+        /// <returns>The list of doctors in the department.</returns>
+        public async Task<List<DoctorAppointmentsDTO>> GetAppointmentsForDoctor(int doctorId)
+        {
+            var Appointments = await _context.Appointments
+                .Where(d => d.DoctorId == doctorId)
+                .Select(d => new DoctorAppointmentsDTO()
+                {
+                    Id = d.Id,
+                   DateOfAppointment = d.DateOfAppointment,
+                   PatientId = d.PatientId,
+                  
+                })
+                .ToListAsync();
+
+            return Appointments;
+        }
+
 
     }
 }
