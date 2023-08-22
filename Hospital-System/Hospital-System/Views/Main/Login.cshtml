@@ -1,11 +1,11 @@
-﻿@model Hospital_System.Models.DTOs.User.LoginDTO
+﻿@*@model Hospital_System.Models.DTOs.User.LoginDTO
 
 @{
     ViewData["Title"] = "Login";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<link rel="stylesheet" href="~/css/LogForm.css" />
+<link rel="stylesheet" href="~/css/LogForm.css"/>
 
 <form asp-controller="Main" asp-action="Login" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -23,4 +23,4 @@
         <input type="submit" value="Log in" class="btn btn-outline-success float-right" />
         <a class="btn btn-outline-secondary" asp-controller="Users" asp-action="Index">Cancel</a>
     </div>
-</form>
+</form>*@

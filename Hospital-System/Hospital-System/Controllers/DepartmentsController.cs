@@ -55,9 +55,9 @@ namespace Hospital_System.Controllers
         // GET: api/Departments/5
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin,Doctor, Nurse")]
-        public async Task<ActionResult<DepartmentDTO>> GetDepartment(int id)
+        public async Task<ActionResult<GetDeptmartmentDTO>> GetDepartment(int id)
         {
-            DepartmentDTO TheDepartment = await _department.GetDepartment(id);
+            GetDeptmartmentDTO TheDepartment = await _department.GetDepartment(id);
 
             if (TheDepartment == null)
             {
@@ -169,7 +169,7 @@ namespace Hospital_System.Controllers
         /// <param name="departmentId">The ID of the department.</param>
         /// <returns>A list of doctors in the department.</returns>
         // GET: api/Department/{departmentId}/Doctors
-        [HttpGet("{departmentId}/Rooms/Paitents")]
+        [HttpGet("{departmentId}/Rooms/Patients")]
         public async Task<ActionResult<List<InNurseDTO>>> GetRoomsAndPatientsInDepartment(int departmentId)
         {
             var rooms = await _department.GetRoomsAndPatientsInDepartment(departmentId);

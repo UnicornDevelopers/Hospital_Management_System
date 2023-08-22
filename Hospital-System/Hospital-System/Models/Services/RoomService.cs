@@ -95,7 +95,8 @@ namespace Hospital_System.Models.Services
                 RoomNumber = x.RoomNumber,
                 RoomAvailability = x.RoomAvailability,
                 NumberOfBeds = x.NumberOfBeds,
-                Patients = x.Patients.Select(x => new OutPatientDTO()
+                DepartmentId= x.DepartmentId,
+                Patients = x.Patients.Select(x => new NewPatientDTO()
                 {
                     Id = x.Id,
                     FirstName = x.FirstName,

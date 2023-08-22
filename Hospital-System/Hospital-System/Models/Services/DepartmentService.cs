@@ -78,30 +78,32 @@ namespace Hospital_System.Models.Services
         /// </summary>
         /// <param name="id">The ID of the department to retrieve.</param>
         /// <returns>The department information.</returns>
-        public async Task<DepartmentDTO> GetDepartment(int id)
+        public async Task<GetDeptmartmentDTO> GetDepartment(int id)
         {
             var department = await _context.Departments
                 .Where(x => x.Id == id)
-                .Select(x => new DepartmentDTO()
+                .Select(x => new GetDeptmartmentDTO()
                 {
                     Id = x.Id,
                     DepartmentName = x.DepartmentName,
-
+                    HospitalID = x.HospitalID,
                     Rooms = x.Rooms.Select(room => new OutRoomDTO
                     {
                         Id = room.Id,
                         RoomNumber = room.RoomNumber,
                         RoomAvailability = room.RoomAvailability,
-                        NumberOfBeds = room.NumberOfBeds
+                        NumberOfBeds = room.NumberOfBeds,
+                        DepartmentId =room.DepartmentId,
                     }).ToList(),
 
-                    Doctors = x.Doctors.Select(x => new OutDocDTO()
+                    Doctors = x.Doctors.Select(x => new OutDoctorDTO()
                     {
                         Id = x.Id,
                         FullName = $"{x.FirstName} {x.LastName}",
                         Gender = x.Gender,
                         ContactNumber = x.ContactNumber,
                         Speciality = x.Speciality,
+                        
                     }).ToList(),
 
                     Nurses = x.Nurses.Select(x => new InNurseDTO()
@@ -111,6 +113,7 @@ namespace Hospital_System.Models.Services
                         LastName = x.LastName,
                         Gender = x.Gender,
                         ContactNumber = x.ContactNumber,
+                        DepartmentId = x.DepartmentId
                     }).ToList()
                 })
                 .FirstOrDefaultAsync();
@@ -175,6 +178,8 @@ namespace Hospital_System.Models.Services
                 .Select(d => new InDoctorDTO()
                 {
                     Id = d.Id,
+                    LastName = d.LastName,
+                    FirstName =d.FirstName,
                     FullName = $"{d.FirstName} {d.LastName}",
                     Gender = d.Gender,
                     ContactNumber = d.ContactNumber,

@@ -101,5 +101,20 @@ namespace TestProject1.DoctorTests
             var deletedDoctor = await _db.Doctors.FindAsync(doctor.Id);
             Assert.Null(deletedDoctor);
         }
+
+        [Fact]
+        public async Task GetAppointmentsForDoctor_ReturnAppointmentsForDoctor()
+        {
+            var hospital = await CreateAndSaveTestHospital();
+            var department = await CreateAndSaveTestDepartment(hospital.Id);
+            var room = await CreateAndSaveTestRoom(department.Id);
+            var doctor = await CreateAndSaveTestDoctor(department.Id);
+            var patient = await CreateAndSaveTestPatient(room.Id);
+            var appointment1 = await CreateAndSaveTestAppointment(doctor.Id, patient.Id);
+            var appointment2 = await CreateAndSaveTestAppointment(doctor.Id, patient.Id);
+            var doctorService = new DoctorService(_db);
+            var retrievedDoctor = await doctorService.GetAppointmentsForDoctor(doctor.Id);
+            Assert.Equal(2, retrievedDoctor.Count);
+        }
     }
 }

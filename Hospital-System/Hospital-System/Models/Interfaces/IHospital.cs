@@ -20,14 +20,14 @@ namespace Hospital_System.Models.Interfaces
         /// Retrieves a list of all hospitals.
         /// </summary>
         /// <returns>A list of hospital details.</returns>
-        Task<List<HospitalDTO>> GetHospitals();
+        Task<List<OutHospitalDTO>> GetHospitals();
 
         /// <summary>
         /// Retrieves the hospital details for a specific hospital by its ID.
         /// </summary>
         /// <param name="HospitalID">The ID of the hospital to retrieve.</param>
         /// <returns>The hospital details.</returns>
-        Task<HospitalDTO> GetHospital(int HospitalID);
+        Task<InHospitalDTO> GetHospital(int HospitalID);
 
         /// <summary>
         /// Updates an existing hospital based on the provided hospital data.

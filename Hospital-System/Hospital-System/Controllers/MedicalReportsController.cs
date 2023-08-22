@@ -52,9 +52,9 @@ namespace Hospital_System.Controllers
         // GET: api/MedicalReport/5
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin,Doctor, Patient")]
-        public async Task<ActionResult<MedicalReportDTO>> GetMedicalReport(int id)
+        public async Task<ActionResult<NewMedicalReportDTO>> GetMedicalReport(int id)
         {
-            MedicalReportDTO TheMedicalReport = await _medicalReport.GetMedicalReport(id);
+            NewMedicalReportDTO TheMedicalReport = await _medicalReport.GetMedicalReport(id);
 
             if (TheMedicalReport == null)
             {

@@ -38,7 +38,7 @@ namespace Hospital_System.Controllers
         /// </summary>
         /// <returns>A list of hospitals.</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<HospitalDTO>>> GetHospitals()
+        public async Task<ActionResult<IEnumerable<OutHospitalDTO>>> GetHospitals()
         {
             return await _context.GetHospitals();
         }
@@ -52,7 +52,7 @@ namespace Hospital_System.Controllers
         /// <returns>The retrieved hospital.</returns>
         // GET: api/Doctors/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<HospitalDTO>> GetHospital(int id)
+        public async Task<ActionResult<InHospitalDTO>> GetHospital(int id)
         {
             try
             {

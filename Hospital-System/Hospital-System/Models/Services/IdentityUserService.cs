@@ -32,7 +32,7 @@ namespace Hospital_System.Models.Services
             _context = context;
             userManager = manager;
             this.tokenService = tokenService;
-            signInManager = _signInManager;
+            _signInManager = signInManager;
 
         }
 
@@ -81,7 +81,9 @@ namespace Hospital_System.Models.Services
             return null;
         }
 
+        
 
+       
         /// <summary>
         /// Registers a new doctor.
         /// </summary>

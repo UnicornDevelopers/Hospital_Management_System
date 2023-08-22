@@ -59,7 +59,6 @@ namespace Hospital_System.Models.Interfaces
 
 
 
-     
     }
 
 }
