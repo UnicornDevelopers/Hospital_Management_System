@@ -133,33 +133,34 @@ namespace Hospital_System.Models.Services
         {
             var Patient = await _context.Patients
                 .Include(r => r.Rooms)
+                .ThenInclude(d => d.department)
                 .Include(p => p.Appointments)
                 .Include(p => p.MedicalReports)
                 .ThenInclude(mr => mr.doctor)
-                .ThenInclude(d => d.department)
                 .FirstOrDefaultAsync(f => f.Id == PatientID);
-
             if (Patient == null)
             {
                 return null;
             }
-
-            var Department = new OutDepartmentDTO
+            OutDepartmentDTO Department = null;
+            RoomPatient Room = null;
+            if (Patient.Rooms != null)
             {
-                Id = Patient.Rooms!.department!.Id,
-                DepartmentName = Patient.Rooms.department.DepartmentName
-            };
-
-            var Room = new RoomPatient
-            {
-                Id = Patient.Rooms.Id,
-                RoomNumber = Patient.Rooms.RoomNumber,
-                RoomAvailability = Patient.Rooms.RoomAvailability,
-                NumberOfBeds = Patient.Rooms.NumberOfBeds,
-                DepartmentId = Patient.Rooms.DepartmentId,
-                department = Department
-            };
-
+                Department = new OutDepartmentDTO
+                {
+                    Id = Patient.Rooms!.department!.Id,
+                    DepartmentName = Patient.Rooms.department.DepartmentName
+                };
+                Room = new RoomPatient
+                {
+                    Id = Patient.Rooms.Id,
+                    RoomNumber = Patient.Rooms.RoomNumber,
+                    RoomAvailability = Patient.Rooms.RoomAvailability,
+                    NumberOfBeds = Patient.Rooms.NumberOfBeds,
+                    DepartmentId = Patient.Rooms.DepartmentId,
+                    department = Department
+                };
+            }
             var patient = new PatientDTO
             {
                 Id = Patient.Id,

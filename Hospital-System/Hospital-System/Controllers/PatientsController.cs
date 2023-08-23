@@ -1,7 +1,9 @@
 ﻿using Hospital_System.Models.DTOs.Patient;
 using Hospital_System.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using System.Reflection.Metadata.Ecma335;
 namespace Hospital_System.Controllers
 {
@@ -41,6 +43,7 @@ namespace Hospital_System.Controllers
         /// <returns>The retrieved patient.</returns>
         // GET: api/Appointments/5
         [HttpGet("{id}")]
+        //[Authorize(Roles = "Admin")]
         public async Task<ActionResult<PatientDTO>> GetPatient(int id)
         {
             var patient = await _patient.GetPatient(id);
