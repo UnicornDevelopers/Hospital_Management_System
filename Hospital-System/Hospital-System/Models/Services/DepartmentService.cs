@@ -215,7 +215,7 @@ namespace Hospital_System.Models.Services
 
 
         /// <summary>
-        /// Retrieves the list of Rooms in a specific department.
+        /// Retrieves the list of Rooms and Patients in a specific department.
         /// </summary>
         /// <param name="departmentId">The ID of the department.</param>
         /// <returns>The list of doctors in the department.</returns>
@@ -250,7 +250,7 @@ namespace Hospital_System.Models.Services
 
 
         /// <summary>
-        /// Retrieves the list of Nurses in a specific department.
+        /// Retrieves the list of Rooms in a specific department.
         /// </summary>
         /// <param name="departmentId">The ID of the department.</param>
         /// <returns>The list of doctors in the department.</returns>
