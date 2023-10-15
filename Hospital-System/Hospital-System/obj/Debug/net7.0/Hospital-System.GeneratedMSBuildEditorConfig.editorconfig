@@ -9,77 +9,77 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Hospital_System
 build_property.RootNamespace = Hospital_System
-build_property.ProjectDir = C:\Users\hadee\Source\Repos\UnicornDevelopers\Hospital_Management_System\Hospital-System\Hospital-System\
+build_property.ProjectDir = C:\Users\user\source\repos\Hospital_Management_System\Hospital-System\Hospital-System\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\hadee\Source\Repos\UnicornDevelopers\Hospital_Management_System\Hospital-System\Hospital-System
+build_property.MSBuildProjectDirectory = C:\Users\user\source\repos\Hospital_Management_System\Hospital-System\Hospital-System
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/hadee/Source/Repos/UnicornDevelopers/Hospital_Management_System/Hospital-System/Hospital-System/Pages/Error.cshtml]
+[C:/Users/user/Source/Repos/Hospital_Management_System/Hospital-System/Hospital-System/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hadee/Source/Repos/UnicornDevelopers/Hospital_Management_System/Hospital-System/Hospital-System/Pages/Index.cshtml]
+[C:/Users/user/Source/Repos/Hospital_Management_System/Hospital-System/Hospital-System/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hadee/Source/Repos/UnicornDevelopers/Hospital_Management_System/Hospital-System/Hospital-System/Pages/Privacy.cshtml]
+[C:/Users/user/Source/Repos/Hospital_Management_System/Hospital-System/Hospital-System/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hadee/Source/Repos/UnicornDevelopers/Hospital_Management_System/Hospital-System/Hospital-System/Pages/Shared/LoginInfo.cshtml]
+[C:/Users/user/Source/Repos/Hospital_Management_System/Hospital-System/Hospital-System/Pages/Shared/LoginInfo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXExvZ2luSW5mby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hadee/Source/Repos/UnicornDevelopers/Hospital_Management_System/Hospital-System/Hospital-System/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/user/Source/Repos/Hospital_Management_System/Hospital-System/Hospital-System/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hadee/Source/Repos/UnicornDevelopers/Hospital_Management_System/Hospital-System/Hospital-System/Pages/_Layout.cshtml]
+[C:/Users/user/Source/Repos/Hospital_Management_System/Hospital-System/Hospital-System/Pages/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0xheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hadee/Source/Repos/UnicornDevelopers/Hospital_Management_System/Hospital-System/Hospital-System/Pages/_ViewImports.cshtml]
+[C:/Users/user/Source/Repos/Hospital_Management_System/Hospital-System/Hospital-System/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hadee/Source/Repos/UnicornDevelopers/Hospital_Management_System/Hospital-System/Hospital-System/Pages/_ViewStart.cshtml]
+[C:/Users/user/Source/Repos/Hospital_Management_System/Hospital-System/Hospital-System/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hadee/Source/Repos/UnicornDevelopers/Hospital_Management_System/Hospital-System/Hospital-System/Views/Main/DoctorRegister.cshtml]
+[C:/Users/user/Source/Repos/Hospital_Management_System/Hospital-System/Hospital-System/Views/Main/DoctorRegister.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFpblxEb2N0b3JSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hadee/Source/Repos/UnicornDevelopers/Hospital_Management_System/Hospital-System/Hospital-System/Views/Main/Index.cshtml]
+[C:/Users/user/Source/Repos/Hospital_Management_System/Hospital-System/Hospital-System/Views/Main/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFpblxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hadee/Source/Repos/UnicornDevelopers/Hospital_Management_System/Hospital-System/Hospital-System/Views/Main/Login.cshtml]
+[C:/Users/user/Source/Repos/Hospital_Management_System/Hospital-System/Hospital-System/Views/Main/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFpblxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hadee/Source/Repos/UnicornDevelopers/Hospital_Management_System/Hospital-System/Hospital-System/Views/Main/Register.cshtml]
+[C:/Users/user/Source/Repos/Hospital_Management_System/Hospital-System/Hospital-System/Views/Main/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFpblxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hadee/Source/Repos/UnicornDevelopers/Hospital_Management_System/Hospital-System/Hospital-System/Views/Users/Login.cshtml]
+[C:/Users/user/Source/Repos/Hospital_Management_System/Hospital-System/Hospital-System/Views/Users/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hadee/Source/Repos/UnicornDevelopers/Hospital_Management_System/Hospital-System/Hospital-System/Views/Users/View.cshtml]
+[C:/Users/user/Source/Repos/Hospital_Management_System/Hospital-System/Hospital-System/Views/Users/View.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcVmlldy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hadee/Source/Repos/UnicornDevelopers/Hospital_Management_System/Hospital-System/Hospital-System/Views/_ViewImports.cshtml]
+[C:/Users/user/Source/Repos/Hospital_Management_System/Hospital-System/Hospital-System/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hadee/Source/Repos/UnicornDevelopers/Hospital_Management_System/Hospital-System/Hospital-System/Views/_ViewStart.cshtml]
+[C:/Users/user/Source/Repos/Hospital_Management_System/Hospital-System/Hospital-System/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hadee/Source/Repos/UnicornDevelopers/Hospital_Management_System/Hospital-System/Hospital-System/Pages/Shared/_Layout.cshtml]
+[C:/Users/user/Source/Repos/Hospital_Management_System/Hospital-System/Hospital-System/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-m2m95uqwws

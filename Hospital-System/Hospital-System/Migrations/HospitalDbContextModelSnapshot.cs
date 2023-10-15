@@ -22,6 +22,71 @@ namespace Hospital_System.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Hospital_System.Models.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
             modelBuilder.Entity("Hospital_System.Models.Appointment", b =>
                 {
                     b.Property<int>("Id")
@@ -33,12 +98,10 @@ namespace Hospital_System.Migrations
                     b.Property<DateTime>("DateOfAppointment")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DoctorId")
-                        .IsRequired()
+                    b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PatientId")
-                        .IsRequired()
+                    b.Property<int>("PatientId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -62,7 +125,7 @@ namespace Hospital_System.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("HospitalID")
+                    b.Property<int>("HospitalID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -84,8 +147,7 @@ namespace Hospital_System.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("DepartmentId")
-                        .IsRequired()
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("FirstName")
@@ -102,6 +164,9 @@ namespace Hospital_System.Migrations
 
                     b.Property<string>("Speciality")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -148,12 +213,10 @@ namespace Hospital_System.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("DoctorId")
-                        .IsRequired()
+                    b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PatientId")
-                        .IsRequired()
+                    b.Property<int>("PatientId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ReportDate")
@@ -177,7 +240,6 @@ namespace Hospital_System.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("MedicalReportId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("MedicineName")
@@ -207,8 +269,7 @@ namespace Hospital_System.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("DepartmentId")
-                        .IsRequired()
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("FirstName")
@@ -221,6 +282,9 @@ namespace Hospital_System.Migrations
 
                     b.Property<string>("LastName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("shift")
@@ -246,7 +310,6 @@ namespace Hospital_System.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContactNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DoB")
@@ -265,8 +328,10 @@ namespace Hospital_System.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("RoomId")
-                        .IsRequired()
                         .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -283,8 +348,7 @@ namespace Hospital_System.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("DepartmentId")
-                        .IsRequired()
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<int>("NumberOfBeds")
@@ -302,6 +366,262 @@ namespace Hospital_System.Migrations
                     b.HasIndex("DepartmentId");
 
                     b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "admin",
+                            ConcurrencyStamp = "00000000-0000-0000-0000-000000000000",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "receptionist",
+                            ConcurrencyStamp = "00000000-0000-0000-0000-000000000000",
+                            Name = "Receptionist",
+                            NormalizedName = "RECEPTIONIST"
+                        },
+                        new
+                        {
+                            Id = "doctor",
+                            ConcurrencyStamp = "00000000-0000-0000-0000-000000000000",
+                            Name = "Doctor",
+                            NormalizedName = "DOCTOR"
+                        },
+                        new
+                        {
+                            Id = "patient",
+                            ConcurrencyStamp = "00000000-0000-0000-0000-000000000000",
+                            Name = "Patient",
+                            NormalizedName = "PATIENT"
+                        },
+                        new
+                        {
+                            Id = "nurse",
+                            ConcurrencyStamp = "00000000-0000-0000-0000-000000000000",
+                            Name = "Nurse",
+                            NormalizedName = "NURSE"
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 13,
+                            ClaimType = "permissions",
+                            ClaimValue = "create",
+                            RoleId = "admin"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            ClaimType = "permissions",
+                            ClaimValue = "update",
+                            RoleId = "admin"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            ClaimType = "permissions",
+                            ClaimValue = "delete",
+                            RoleId = "admin"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            ClaimType = "permissions",
+                            ClaimValue = "create",
+                            RoleId = "receptionist"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            ClaimType = "permissions",
+                            ClaimValue = "update",
+                            RoleId = "receptionist"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            ClaimType = "permissions",
+                            ClaimValue = "delete",
+                            RoleId = "receptionist"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            ClaimType = "permissions",
+                            ClaimValue = "create",
+                            RoleId = "doctor"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            ClaimType = "permissions",
+                            ClaimValue = "update",
+                            RoleId = "doctor"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            ClaimType = "permissions",
+                            ClaimValue = "delete",
+                            RoleId = "doctor"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            ClaimType = "permissions",
+                            ClaimValue = "create",
+                            RoleId = "patient"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            ClaimType = "permissions",
+                            ClaimValue = "update",
+                            RoleId = "patient"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            ClaimType = "permissions",
+                            ClaimValue = "delete",
+                            RoleId = "patient"
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("Hospital_System.Models.Appointment", b =>
@@ -325,7 +645,8 @@ namespace Hospital_System.Migrations
                 {
                     b.HasOne("Hospital_System.Models.Hospital", "Hospital")
                         .WithMany("Departments")
-                        .HasForeignKey("HospitalID");
+                        .HasForeignKey("HospitalID")
+                        .IsRequired();
 
                     b.Navigation("Hospital");
                 });
@@ -363,9 +684,7 @@ namespace Hospital_System.Migrations
                 {
                     b.HasOne("Hospital_System.Models.MedicalReport", "medicalReport")
                         .WithMany("Medicines")
-                        .HasForeignKey("MedicalReportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MedicalReportId");
 
                     b.Navigation("medicalReport");
                 });
@@ -385,9 +704,7 @@ namespace Hospital_System.Migrations
                 {
                     b.HasOne("Hospital_System.Models.Room", "Rooms")
                         .WithMany("Patients")
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoomId");
 
                     b.Navigation("Rooms");
                 });
@@ -401,6 +718,57 @@ namespace Hospital_System.Migrations
                         .IsRequired();
 
                     b.Navigation("department");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Hospital_System.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Hospital_System.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Hospital_System.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Hospital_System.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Hospital_System.Models.Department", b =>

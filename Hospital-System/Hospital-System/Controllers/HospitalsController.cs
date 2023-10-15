@@ -1,32 +1,55 @@
 ﻿using Hospital_System.Models;
 using Hospital_System.Models.DTOs;
+using Hospital_System.Models.DTOs.Department;
 using Hospital_System.Models.DTOs.Hospital;
+using Hospital_System.Models.DTOs.Nurse;
 using Hospital_System.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hospital_System.Controllers
 {
+    /// <summary>
+    /// Controller responsible for managing hospital-related operations.
+    /// </summary>
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class HospitalsController : ControllerBase
     {
         private readonly IHospital _context;
 
+        /// <summary>
+        /// Initializes a new instance of the HospitalsController class.
+        /// </summary>
+        /// <param name="context">The hospital service.</param>
         public HospitalsController(IHospital context)
         {
             _context = context;
         }
 
 
+        //----------------------------------------------------------------------------------------------
 
+        /// <summary>
+        /// Retrieves a list of all hospitals.
+        /// </summary>
+        /// <returns>A list of hospitals.</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<HospitalDTO>>> GetHospitals()
         {
             return await _context.GetHospitals();
         }
 
+        //----------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Retrieves a hospital by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the hospital to retrieve.</param>
+        /// <returns>The retrieved hospital.</returns>
         // GET: api/Doctors/5
         [HttpGet("{id}")]
         public async Task<ActionResult<HospitalDTO>> GetHospital(int id)
@@ -41,10 +64,19 @@ namespace Hospital_System.Controllers
             }
         }
 
+
+        //----------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Updates a hospital by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the hospital to update.</param>
+        /// <param name="hospital">The updated hospital data.</param>
+        /// <returns>The updated hospital.</returns>
         // PUT: api/Doctors/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult<Hospital>> PutHospital(int id, Hospital hospital)
+        public async Task<ActionResult<OutHospitalDTO>> PutHospital(int id, OutHospitalDTO hospital)
         {
             if (id != hospital.Id)
             {
@@ -60,6 +92,13 @@ namespace Hospital_System.Controllers
             }
         }
 
+        //----------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Creates a new hospital.
+        /// </summary>
+        /// <param name="hospital">The hospital data to create.</param>
+        /// <returns>The created hospital.</returns>
         // POST: api/Doctors
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -76,6 +115,13 @@ namespace Hospital_System.Controllers
 
         }
 
+        //----------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Deletes a hospital by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the hospital to delete.</param>
+        /// <returns>A success message.</returns>
         // DELETE: api/Doctors/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHospital(int id)
@@ -92,5 +138,19 @@ namespace Hospital_System.Controllers
 
         }
 
+        //----------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Retrieves a list of Departments  in a specific Hospital.
+        /// </summary>
+        /// <param name="departmentId">The ID of the department.</param>
+        /// <returns>A list of doctors in the department.</returns>
+        // GET: api/Department/{departmentId}/Doctors
+        [HttpGet("{HospitalID}/Departments")]
+        public async Task<ActionResult<List<OutDepartmentDTO>>> GetDepartmentsInHospital(int HospitalID)
+        {
+            var rooms = await _context.GetDepartmentsInHospital(HospitalID);
+            return Ok(rooms);
+        }
     }
 }

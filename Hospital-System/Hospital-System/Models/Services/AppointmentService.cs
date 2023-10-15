@@ -6,29 +6,31 @@ using Hospital_System.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Numerics;
-
 namespace Hospital_System.Models.Services
 {
     /// <summary>
-    /// Service class for managing appointments.
+    /// Provides functionality to manage appointments within the hospital system.
     /// </summary>
     public class AppointmentService : IAppointment
     {
         private readonly HospitalDbContext _context;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AppointmentService"/> class.
+        /// </summary>
+        /// <param name="context">The hospital database context.</param>
         public AppointmentService(HospitalDbContext context)
         {
             _context = context;
         }
-
+        // CREATE Appointment........................................................................
         /// <summary>
         /// Creates a new appointment.
         /// </summary>
-        /// <param name="newAppointmentDTO">The appointment data to be created.</param>
-        /// <returns>The created appointment's information.</returns>
+        /// <param name="newAppointmentDTO">The appointment details to create.</param>
+        /// <returns>The created appointment.</returns>
         public async Task<OutAppointmentDTO> CreateAppointment(InAppoinmentDTO newAppointmentDTO)
         {
-            // Fetch additional information and check its existence
+            // Fetch additional information and check it's existing
             var patientEntity = await _context.Patients.FindAsync(newAppointmentDTO.PatientId);
             var doctorEntity = await _context.Doctors
                 .Include(d => d.department)
@@ -51,20 +53,23 @@ namespace Hospital_System.Models.Services
                     PatientName = $"{patientEntity.FirstName} {patientEntity.LastName}",
                     DoctorId = appointment.DoctorId,
                     DoctorName = $"{doctorEntity.FirstName} {doctorEntity.LastName}",
-                    DepartmentName = doctorEntity.department.DepartmentName
+                    DepartmentName = doctorEntity.department.DepartmentName // Access DepartmentName property
                 };
                 return outAppointmentDTO;
             }
             else
             {
-                throw new InvalidOperationException("Patient ID or Doctor ID is wrong");
+                throw new InvalidOperationException("Patient id or Doctor Id is wrong");
             }
         }
 
+
+
+        // Get Appointments........................................................................
         /// <summary>
         /// Retrieves a list of all appointments.
         /// </summary>
-        /// <returns>A list of all appointments.</returns>
+        /// <returns>A list of appointments.</returns>
         public async Task<List<OutAppointmentDTO>> GetAppointments()
         {
             var appointments = await _context.Appointments
@@ -83,11 +88,12 @@ namespace Hospital_System.Models.Services
             return appointments;
         }
 
+        // Get Appointment by ID........................................................................
         /// <summary>
-        /// Retrieves detailed information about a specific appointment.
+        /// Retrieves the details of an appointment by its ID.
         /// </summary>
-        /// <param name="id">The ID of the appointment to retrieve.</param>
-        /// <returns>Detailed information about the requested appointment.</returns>
+        /// <param name="id">The appointment ID.</param>
+        /// <returns>The details of the appointment.</returns>
         public async Task<OutAppointmentDTO> GetAppointment(int id)
         {
             var appointment = await _context.Appointments
@@ -107,12 +113,14 @@ namespace Hospital_System.Models.Services
             return appointment;
         }
 
+
+        // Update Appointment by ID........................................................................
         /// <summary>
         /// Updates the details of an existing appointment.
         /// </summary>
-        /// <param name="id">The ID of the appointment to update.</param>
-        /// <param name="updateAppointmentDTO">The updated appointment data.</param>
-        /// <returns>The updated appointment's information.</returns>
+        /// <param name="id">The appointment ID.</param>
+        /// <param name="updateAppointmentDTO">The updated appointment details.</param>
+        /// <returns>The updated appointment details.</returns>
         public async Task<InAppoinmentDTO> UpdateAppointment(int id, InAppoinmentDTO updateAppointmentDTO)
         {
             var existingAppointment = await _context.Appointments.FindAsync(id);
@@ -134,6 +142,7 @@ namespace Hospital_System.Models.Services
                 throw new ArgumentException($"Doctor with ID {updateAppointmentDTO.DoctorId} not found.");
             }
 
+            // Update the appointment properties
             existingAppointment.DateOfAppointment = updateAppointmentDTO.DateOfAppointment;
             existingAppointment.PatientId = updateAppointmentDTO.PatientId;
             existingAppointment.DoctorId = updateAppointmentDTO.DoctorId;
@@ -142,11 +151,11 @@ namespace Hospital_System.Models.Services
 
             return updateAppointmentDTO;
         }
-
+        // Delete Appointment by ID........................................................................
         /// <summary>
         /// Deletes an appointment by its ID.
         /// </summary>
-        /// <param name="id">The ID of the appointment to delete.</param>
+        /// <param name="id">The appointment ID.</param>
         public async Task DeleteAppointment(int id)
         {
             Appointment appointment = await _context.Appointments.FindAsync(id);
@@ -157,8 +166,9 @@ namespace Hospital_System.Models.Services
             }
             else
             {
-                throw new InvalidOperationException($"The Appointment ID {id} does not exist.");
+                throw new InvalidOperationException($"The Appointment Id {id} does not exist.");
             }
         }
+
     }
 }

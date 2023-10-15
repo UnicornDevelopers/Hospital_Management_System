@@ -11,15 +11,26 @@ using System.Numerics;
 
 namespace Hospital_System.Models.Services
 {
+    /// <summary>
+    /// Service class for managing doctors within the system.
+    /// </summary>
     public class DoctorService : IDoctor
 
     {
         private readonly HospitalDbContext _context;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DoctorService"/> class.
+        /// </summary>
+        /// <param name="context">The database context.</param>
         public DoctorService(HospitalDbContext context)
         {
             _context = context;
         }
-
+        /// <summary>
+        /// Creates a new doctor in the system.
+        /// </summary>
+        /// <param name="doctor">The doctor information to create.</param>
+        /// <returns>The created doctor information.</returns>
         public async Task<OutDocDTO> Create(InDoctorDTO doctor)
         {
             var existingDep = await _context.Departments.FindAsync(doctor.DepartmentId);
@@ -57,7 +68,10 @@ namespace Hospital_System.Models.Services
             }
         }
 
-
+        /// <summary>
+        /// Deletes a Doctor from the system.
+        /// </summary>
+        /// <param name="id">The ID of the doctor to delete.</param>
         public async Task Delete(int id)
         {
             Doctor existingDoc = await _context.Doctors.FindAsync(id);
@@ -73,6 +87,11 @@ namespace Hospital_System.Models.Services
             }
         }
 
+        /// <summary>
+        /// Retrieves information about a specific Doctor.
+        /// </summary>
+        /// <param name="id">The ID of the Doctor to retrieve.</param>
+        /// <returns>The doctor information.</returns>
         public async Task<DoctorDTO> GetDoctor(int DoctorID)
         {
             var doctor = await _context.Doctors
@@ -121,7 +140,9 @@ namespace Hospital_System.Models.Services
         }
 
 
-
+        /// <summary>
+        /// Retrieves information for all Doctors 
+        /// </summary>
         public async Task<List<OutDocDTO>> GetDoctors()
         {
 
@@ -143,6 +164,12 @@ namespace Hospital_System.Models.Services
 
         }
 
+        /// <summary>
+        /// Updates the information of a specific doctor.
+        /// </summary>
+        /// <param name="id">The ID of the doctor to update.</param>
+        /// <param name="doctorDTO">The updated doctor information.</param>
+        /// <returns>The updated doctor information.</returns>
         public async Task<InDoctorDTO> UpdateDoctor(int id, InDoctorDTO doctorDTO)
         {
             var existingDoctor = await _context.Doctors.FindAsync(id);

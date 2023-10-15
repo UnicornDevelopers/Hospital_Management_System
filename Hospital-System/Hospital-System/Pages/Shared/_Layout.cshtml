@@ -1,34 +1,102 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<ApplicationUser> _signinManager
+@using Hospital_System.Models;
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Hospital_System</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Hospital_System.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/LayoutStyle1.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Hospital_System</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+
+        <nav class="navbar navbar-expand-lg navbar-dark  fixed-top">
+            <a class="navbar-brand" asp-controller="Main" asp-action="Index">
+                <img src="~/Images/OP Logo.gif" width="30" height="30">
+            </a>
+            <ul class="navbar-nav mr-auto">
+
+
+
+                <li class="nav-item">
+                    <a class="nav-link " href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#Services">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#Contact">Contact</a>
+                </li>
+                <li class="nav-item  ">
+                    <a class="nav-link " asp-controller="BookModels" asp-action="Create">Add New Appointment <span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item  ">
+                <a class="btn btn-outline-warning dropdown-item" asp-controller="Main" asp-action="Logout">Logout</a>
+                </li>
+
+                @*@if (User.Identity.IsAuthenticated && User.HasClaim(ClaimTypes.Role, "Admin"))
+                {
+                    <li class="nav-item dropdown">
+                       
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-controller="Account" asp-action="Profile">Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="btn btn-outline-warning dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" asp-controller="Account" asp-action="ChangePassword">Change Password</a>
+
+                        </div>
+
+
+                    </li>
+                }*@
+
+
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Doctor"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Branches" asp-action="Index">Branches</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="BranchMedicines" asp-action="Index">Branch Medicines</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Locations" asp-action="Index">Locations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Cities" asp-action="Index">Cities</a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="SignUp">Add Pharmacist</a>
+                    </li>
+
+
+
+                }
+
+              
+
+             
+
+            </ul>
+
+           
+
+                    <ul class="ml-auto"> <partial name="LoginInfo" /> </ul>
+                     </nav>
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -36,16 +104,11 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - Hospital_System - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
+    
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -14,7 +14,9 @@ namespace Hospital_System.Models
         public string Speciality { get; set; }
 
         public int DepartmentId { get; set; }
-        
+        public string? UserId { get; set; }
+      
+
 
 
         //Nav
